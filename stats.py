@@ -24,5 +24,5 @@ for d in os.listdir(IMG_DIR):
 
 	
 for k,v in sorted(year_hist.items()):
-	print(k,'-',k+5,':',v)
+	print(k,'-',k+4,':',v)
 
