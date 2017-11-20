@@ -15,7 +15,10 @@ for d in os.listdir(IMG_DIR):
 
 	#print(d, end=': ')
 
-	year_size = len(os.listdir(os.path.join(IMG_DIR, d)))
+	files = os.listdir(os.path.join(IMG_DIR, d))
+	extensions = [os.path.splitext(f) for f in files]
+	#print(extensions)
+	year_size = len(files)
 
 	#print(year_size)
 	
