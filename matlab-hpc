@@ -1,0 +1,12 @@
+#SBATCH -n 20 # 20 tasks, distributed
+#SBATCH --mem-per-cpu=5g
+
+#SBATCH -c 20 # 20 cores, multi-threaded
+
+mpirun equivalent for matlab
+
+example:
+>> matlabpool open 8   % start 8 parallel matlab instances
+
+# to see what jobs I have in the scheduler, and what compute node its on
+squeue -l -u swk2
