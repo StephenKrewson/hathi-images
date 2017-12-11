@@ -35,8 +35,9 @@ dates = defaultdict(lambda: 0)
 
 # figure out how much we should chop off the front
 dirpath = os.getcwd()
-extracts = "/mnt/d/stephen-krewson/Documents/train5/"
+extracts = "/mnt/d/stephen-krewson/Documents/slim5/"
 vectors = "/mnt/d/stephen-krewson/Documents/vector5/"
+target = "/mnt/d/stephen-krewson/Documents/slim5/"
 
 
 # Does shell-style expansion with an iterator
@@ -49,12 +50,15 @@ for d in os.listdir(extracts):
 		count += 1
 
 		image = os.path.splitext(os.path.join(extracts,d,f))[0]
-		vector = image.replace("train5", "vector5")
+		vector = image.replace("slim5", "vector5")
 		vector = vector + ".npy"
 
 		if not os.path.isfile(vector):
 			missing += 1
 			print("missing vectors for", image)
+		#else:
+			#copy2(os.path.join(extracts,d,f), os.path.join(target,d,f))
+
 
 print(count,missing)
 '''
