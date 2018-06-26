@@ -200,6 +200,33 @@ Extensions: ZotFile, PaperShip, BetterBibLaTex
 
 
 
+## UPDATES in RLVM Fork
+
+To make the API interface compatible with Python 3, I ran
+
+> 2to3 -nw <file>.py
+
+On all `.py` files in the repo. I added `__future__` imports to try to keep things compatible with Python 2.7. All three APIs (bib, solr, data) worked on both Python 3.6 and 2.7 when I tested them.
+
+Changes included:
+
+- Using direct substring replacement method in `solr_api.py`
+- Using Python 3 importing convention
+
+To install, create a virtual environment (I used `conda`) and then run:
+
+```bash
+# get a local copy of the fork
+git clone github.com:StephenKrewson/hathitrust_api.git
+cd hathitrust_api
+
+# Use the *local* version of pip (find with `which/where pip`)
+# https://github.com/requests/requests-oauthlib
+pip install requests requests_oauthlib
+python setup.py install
+```
+
+To uninstall `hathitrust_api`, also use the local environment's version of `pip`.
 
 
 
