@@ -1,61 +1,44 @@
-# hathi-images
-htrc image processing pipeline
-Downloading book images from HathiTrust
-=======================================
+# HathiTrust Projects
 
-Requirements
-------------
-TODO: the steps for reproducing the right development environment should go HERE, not just in the Python files themselves. Whenever possible, use HTRC's own tools for working with volumes. For bibliographic metadata, I am using:
-
-https://github.com/htrc/HTRC-WorksetToolkit
-
-Documentation of the API is here:
-
-https://htrc.github.io/HTRC-WorksetToolkit/
-
-HTRC recommends using Anaconda, which is also what we are using for Tensorflow. This means running things natively on Windows from the Anaconda prompt. To install `htrc` it's easier to use the following `conda` package.
-
-* Download Anaconda (Python 3.6+): https://www.continuum.io/downloads
-* Create environment for installing Tensorflow (like virtualenv, but simpler!): https://www.tensorflow.org/install/install_windows
-* Install Tensorflow (see above)
-* Install `htrc`: https://anaconda.org/pypi/htrc
+Scripts from 2016 Data Mining project as well as 2019 HTRC collaborative grant; instructions for accessing HT APIs.
 
 
-Adding Comment Tags (for training)
-----------------------------------
-* https://www.imagemagick.org/discourse-server/viewtopic.php?f=1&t=31112&p=141269&hilit=comment#p141269
+## Setup
+
+Bibliographic metadata can be fetched from HTRC workset [toolkit](https://github.com/htrc/HTRC-WorksetToolkit). Recommended install is with [Anaconda](https://anaconda.org/pypi/htrc).
+
+Hathi's UI for advanced catalog search is [here](https://catalog.hathitrust.org/Search/Advanced). You still cannot add to a collection from catalog search! This is very limiting.
+
+Third-party wrappers: 
+
+- Data, Search, and Metadata APIs: https://github.com/rlmv/hathitrust-api
+	- Now Python3 compatible; actively merging PRs
+	- Install (with local `pip` from within `conda` environment): `pip install hathitrust-api`
 
 
-Old Setup (deprecated)
-----------------------
-* Python 2.7 (3.x will not work due to the version of `oauth` that HathiTrust uses)
-* HathiTrust public APIs
-	- Data: [Iain Watt's Python wrapper](https://github.com/iainwatts/hathidata) since it supports selection of image type (PNG, JPG, etc.)
+## Project Steps (2019)
 
-For CLI searching through volumes, this is the ONLY way (as of August 2017):
+For 6/25/19 meeting, I need to present a list of HT volume IDs. "Education" is a decent subject heading--so is "History," which captures the Parley books--but many volumes (especially periodicals) lack any subject keywords.
 
-`sudo apt-get install python-dev python-pip`
-`pip install requests requests_oauthlib --user`
-`python setup.py install --user`
+There are many more comparative research questions (across formats and languages) that can be asked with a full sample. For 1800-1850, there are ~288,766 volumes.
+
+Since we are interested in serials and encyclopedias and similar printed formats, we would only want to exclude a few formats:
+
+- Manuscript
+- CDROM
+
+However, a more generalized way to do this is just to ignore volumes that do not contain a page sequence object.
+
+The 1800-1850 list can be generated with:
+
+`
+
+N.B. in my notebooks for the Yale DH Lab workshop the recommended way was using online HT search to generate JSON Collection file.
 
 
-		* N.B. when doing `pip` installs, always add the `--user` flag! This will avoid lots of pesky permissions issues
-	- Bibliographic and Solr: https://github.com/rlmv/hathitrust-api (describe how to install this; say what each can and can't do)
-		* `pip install git+https://github.com/iainwatts/hathidata/#egg=hathidata --user`
+## Project Structure (2016)
 
-
-Workflow
---------
-The volume metadata exposes a sequence object, which in turn has feature
-descriptions for each sequence item (essentially a page, though HT gives you a
-mapping between the book's pages and the ordinal sequence number in the PDF).
-
-One of the features is `IMAGE_ON_PAGE`, generated from the OCR process that HT
-runs upon ingesting a book. At any rate, the idea is once again that used by
-Kalev Leetaru: save time computing *where* the images are. Just grab those
-pages and get to work.
-
-Here's what each file does:
+N.B. this is not actively maintained.
 
 file 	| purpose | note
 --- 	| --- 		| ---
@@ -67,175 +50,15 @@ file 	| purpose | note
 `ht_classify_score.py` | from `extracted` subfolder, generates a corresponding Numpy array for each image in `vectors` sibling folder | adaptation of Inception modeal (2015)
 
 
+## Plaintext Tools
 
+Inspired by Nicholas Cifuentes-Goodbody's [excellent video](https://www.youtube.com/watch?v=5UV6Ce3evUY).
 
+- Zotero
+	- Username: `stephen-krewson`
+	- Extensions: ZotFile, PaperShip, BetterBibLaTex
+	- WebDAV sync to Yale Box account (Dropbox lacks WebDAV support)
+- MarkdownPad 2
+	- Best Windows side-by-side Markdown editor
+	- Can drag in Zotero refs (set default export to MLA or Chicago; great for syllabi)
 
-
-
-Zotero
-------
-
-Username: `stephen-krewson`
-
-Goal: WebDAV sync with iPad
-
-Disadvantage of Dropbox: no WebDav support, syncing issues if you put your local Zotero library location inside cloud service. Better idea is to put it on your hardrive and use Zotero's own syncing feature. See Nicholas Cifuentes-Goodbody's excellent video:
-
-https://www.youtube.com/watch?v=5UV6Ce3evUY
-
-I will be using Box, since I have a free student account. This can sync nicely to my tablet (when I get one!).
-
-Extensions: ZotFile, PaperShip, BetterBibLaTex
-
-
-
-
-
-
-
-
-
-
-
-
-
-TODO
-----
-* Set up a meeting with HT to talk about just getting a bulk download of all this
-* Figure out how to handle the headache of IDs with colons and backslashes in them
-* Keep a log of searches that have been done
-* Send identified pages to the extractor
-* Insight: the viz tool needs to compare pages (this at once solves the problem of aspect ratio and gives the researcher so much context)
-Downloading book images from HathiTrust
-=======================================
-
-Requirements
-------------
-TODO: the steps for reproducing the right development environment should go HERE, not just in the Python files themselves. Whenever possible, use HTRC's own tools for working with volumes. For bibliographic metadata, I am using:
-
-https://github.com/htrc/HTRC-WorksetToolkit
-
-Documentation of the API is here:
-
-https://htrc.github.io/HTRC-WorksetToolkit/
-
-HTRC recommends using Anaconda, which is also what we are using for Tensorflow. This means running things natively on Windows from the Anaconda prompt. To install `htrc` it's easier to use the following `conda` package.
-
-* Download Anaconda (Python 3.6+): https://www.continuum.io/downloads
-* Create environment for installing Tensorflow (like virtualenv, but simpler!): https://www.tensorflow.org/install/install_windows
-* Install Tensorflow (see above)
-* Install `htrc`: https://anaconda.org/pypi/htrc
-
-
-Adding Comment Tags (for training)
-----------------------------------
-* https://www.imagemagick.org/discourse-server/viewtopic.php?f=1&t=31112&p=141269&hilit=comment#p141269
-
-
-Old Setup (deprecated)
-----------------------
-* Python 2.7 (3.x will not work due to the version of `oauth` that HathiTrust uses)
-* HathiTrust public APIs
-	- Data: [Iain Watt's Python wrapper](https://github.com/iainwatts/hathidata) since it supports selection of image type (PNG, JPG, etc.)
-
-For CLI searching through volumes, this is the ONLY way (as of August 2017):
-
-`sudo apt-get install python-dev python-pip`
-`pip install requests requests_oauthlib --user`
-`python setup.py install --user`
-
-
-		* N.B. when doing `pip` installs, always add the `--user` flag! This will avoid lots of pesky permissions issues
-	- Bibliographic and Solr: https://github.com/rlmv/hathitrust-api (describe how to install this; say what each can and can't do)
-		* `pip install git+https://github.com/iainwatts/hathidata/#egg=hathidata --user`
-
-
-Workflow
---------
-The volume metadata exposes a sequence object, which in turn has feature
-descriptions for each sequence item (essentially a page, though HT gives you a
-mapping between the book's pages and the ordinal sequence number in the PDF).
-
-One of the features is `IMAGE_ON_PAGE`, generated from the OCR process that HT
-runs upon ingesting a book. At any rate, the idea is once again that used by
-Kalev Leetaru: save time computing *where* the images are. Just grab those
-pages and get to work.
-
-Here's what each file does:
-
-file 	| purpose | note
---- 	| --- 		| ---
-`books.txt` | list of books to download | one unique HT ID per line; generated by `ht_search_volumes.py`
-`config.py` | stores HT API keys | not versioned, you'll need to get your own keys
-`ht_download_images.py` | downloads all image pages for each book in `books.txt` | if a folder already exists with the name of an ID it is skipped; IDs that contain colons are skipped
-`ht_search_volumes.py` | concatenates IDs returned from a bibliographic search onto `books.txt` | syntax for providing search fields (author, date, etc.) is given in a usage comment in the code
-`ht_run_extraction.sh` | creates the `extracted` subfolder within all volume directories | skips volume if `extracted` already exists
-`ht_classify_score.py` | from `extracted` subfolder, generates a corresponding Numpy array for each image in `vectors` sibling folder | adaptation of Inception modeal (2015)
-
-
-
-
-
-
-
-Zotero
-------
-
-Username: `stephen-krewson`
-
-Goal: WebDAV sync with iPad
-
-Disadvantage of Dropbox: no WebDav support, syncing issues if you put your local Zotero library location inside cloud service. Better idea is to put it on your hardrive and use Zotero's own syncing feature. See Nicholas Cifuentes-Goodbody's excellent video:
-
-https://www.youtube.com/watch?v=5UV6Ce3evUY
-
-I will be using Box, since I have a free student account. This can sync nicely to my tablet (when I get one!).
-
-Extensions: ZotFile, PaperShip, BetterBibLaTex
-
-
-
-
-
-
-
-
-## UPDATES in RLVM Fork
-
-To make the API interface compatible with Python 3, I ran
-
-> 2to3 -nw <file>.py
-
-On all `.py` files in the repo. I added `__future__` imports to try to keep things compatible with Python 2.7. All three APIs (bib, solr, data) worked on both Python 3.6 and 2.7 when I tested them.
-
-Changes included:
-
-- Using direct substring replacement method in `solr_api.py`
-- Using Python 3 importing convention
-
-To install, create a virtual environment (I used `conda`) and then run:
-
-```bash
-# get a local copy of the fork
-git clone github.com:StephenKrewson/hathitrust_api.git
-cd hathitrust_api
-
-# Use the *local* version of pip (find with `which/where pip`)
-# https://github.com/requests/requests-oauthlib
-pip install requests requests_oauthlib
-python setup.py install
-```
-
-To uninstall `hathitrust_api`, also use the local environment's version of `pip`.
-
-
-
-
-
-TODO
-----
-* Set up a meeting with HT to talk about just getting a bulk download of all this
-* Figure out how to handle the headache of IDs with colons and backslashes in them
-* Keep a log of searches that have been done
-* Send identified pages to the extractor
-* Insight: the viz tool needs to compare pages (this at once solves the problem of aspect ratio and gives the researcher so much context)
