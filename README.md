@@ -1,6 +1,7 @@
 # HathiTrust Projects
 
-Scripts from 2016 Data Mining project as well as 2019 HTRC collaborative grant; instructions for accessing HT APIs.
+- Scripts from 2016 Data Mining project as well as 2019 HTRC collaborative grant
+- Instructions for accessing HT APIs
 
 
 ## Setup
@@ -11,27 +12,28 @@ Hathi's UI for advanced catalog search is [here](https://catalog.hathitrust.org/
 
 Third-party wrappers: 
 
-- Data, Search, and Metadata APIs: https://github.com/rlmv/hathitrust-api
+- Data, Bib, and Solr (search) APIs: https://github.com/rlmv/hathitrust-api
 	- Now Python3 compatible; actively merging PRs
 	- Install (with local `pip` from within `conda` environment): `pip install hathitrust-api`
+
+Use `conda` environment `htrc`.
 
 
 ## Project Steps (2019)
 
+### Generate Volume ID List
+
 For 6/25/19 meeting, I need to present a list of HT volume IDs. "Education" is a decent subject heading--so is "History," which captures the Parley books--but many volumes (especially periodicals) lack any subject keywords.
 
-There are many more comparative research questions (across formats and languages) that can be asked with a full sample. For 1800-1850, there are ~288,766 volumes.
+There are many more comparative research questions (across formats and languages) that can be asked with a full sample. For 1800-1850, there are ~288,766 volumes. Since we are interested in serials and encyclopedias and similar printed formats, we would only want to exclude a few formats such as "Manuscript" and "CDROM." However, a more generalized way to do this is just to ignore volumes that do not contain a page sequence object.
 
-Since we are interested in serials and encyclopedias and similar printed formats, we would only want to exclude a few formats:
+**Warning!**
 
-- Manuscript
-- CDROM
+The 1800-1850 list can be generated ONLY by parsing the HathiFile (~1GB). This is because the Solr search API is completely deprecated--Hathi has made this clear! I wrote code to work with the HathiFile in `classify-image-junk` in the `src/sample.py` file.
 
-However, a more generalized way to do this is just to ignore volumes that do not contain a page sequence object.
+Within this directory, run:
 
-The 1800-1850 list can be generated with:
-
-`
+`python ids_by_date.py <START_DATE> <END_DATE> [<START-END.csv>]`
 
 N.B. in my notebooks for the Yale DH Lab workshop the recommended way was using online HT search to generate JSON Collection file.
 
