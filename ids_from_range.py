@@ -24,6 +24,7 @@ def ids_from_hathifile(htfile, htcols, start, end):
     # https://stackoverflow.com/questions/13651117/how-can-i-filter-lines-on-load-in-pandas-read-csv-function
 
     # get tab-separated column names; there are 26
+    # UPDATE! these names are wrong!
     with open(htcols, "r") as fp:
         col_names = fp.readline().strip('\n').split('\t')
         num_cols = len(col_names) 
@@ -32,30 +33,26 @@ def ids_from_hathifile(htfile, htcols, start, end):
     iter_csv = pd.read_csv(
         htfile, 
         sep='\t', 
-        names=col_names, 
+        header=None, 
         engine='c', 
-        dtype={'htid': 'str'},
+        dtype={'htid': 'str', 16: 'object'},
         iterator=True,
-        chunksize=10000)
+        chunksize=10000,
+        error_bad_lines=False)
 
     df = pd.DataFrame()
 
     # N.B. not all pub dates are valid numbers
     for chunk in iter_csv:
 
-        # imprint needs to be parsed (find existing code!)
-        # for instance, Ben Schmidt's bookworm also uses field 16
-        # so it would break with new format
-        # https://github.com/bmschmidt/HTBookwormCatalogGenerator/blob/master/generator.py
-
-        print(chunk[['htid','imprint']])
-
-        break
+        # force each chunk to have a numeric pub date
+        chunk[16] = chunk[16].apply(pd.to_numeric, errors='coerce')
         
-        # filter all dates in the range, then return
-        # (could just return a list!)
+        # concatenate valid rows, idx doesn't matter
+        df = pd.concat(
+            [df, chunk[(chunk[16] >= start) & (chunk[16] <= end)]],
+            ignore_index=True)
 
-    # finish up
     print("Size:", df.shape)
     return df
 
@@ -67,10 +64,12 @@ if __name__ == '__main__':
         sys.exit("USAGE: python -m src.ids_from_range <START_DATE> <END_DATE> <OUT.csv>")
 
     # positional args
-    start = sys.argv[1]
-    end = sys.argv[2]
+    start = int(sys.argv[1])
+    end = int(sys.argv[2])
     out = sys.argv[3]
 
     #print("Creating {} for HathiTrust volumes from {} TO {}.".format(out, start, end))
 
+    # get valid rows and save
     volumes = ids_from_hathifile(HATHIFILE, HATHICOLS, start, end)
+    volumes.to_csv(out, index=False, compression='gz')
