@@ -51,7 +51,7 @@ N.B. in my notebooks for the Yale DH Lab workshop the recommended way was using 
 
 ### Acquire Sample Pages
 
-For 7/23/19 meeting, 
+For 7/23/19 meeting, I wanted to use sa
 
 
 ## Project Structure (2016)

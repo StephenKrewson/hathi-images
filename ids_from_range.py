@@ -68,7 +68,7 @@ if __name__ == '__main__':
     end = int(sys.argv[2])
     out = sys.argv[3]
 
-    #print("Creating {} for HathiTrust volumes from {} TO {}.".format(out, start, end))
+    print("Creating {} for HathiTrust volumes from {} TO {}.".format(out, start, end))
 
     # get valid rows and save
     volumes = ids_from_hathifile(HATHIFILE, HATHICOLS, start, end)
