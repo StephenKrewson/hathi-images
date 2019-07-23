@@ -40,13 +40,10 @@ def calculate_sample_size(n):
 def ht_file_sample(htfile):
     """
     Statistically defensible sample of volumes from HathiFile
-    
-    Assumes: `htfile` is already filtered in desired way
-    
-    Assumes: Column 1 is the Hathi unique identifier
-    (because filtering step adds an index)
-
-    Assumes: separator is a comma (default for to_csv)
+    - Assumes: htfile is already filtered in desired way
+    - Assumes: Column 1 is the Hathi unique identifier
+        (because filtering step adds an index)
+    - Assumes: separator is a comma (default for to_csv)
     """
 
     # Ensure consistency across runs
@@ -59,7 +56,6 @@ def ht_file_sample(htfile):
         sep=',', 
         header=None, 
         engine='c', 
-        #dtype={0: 'str', 16: 'object'},
         iterator=True,
         chunksize=10000,
         error_bad_lines=False)
@@ -75,7 +71,6 @@ def ht_file_sample(htfile):
     sample_ids = sample(volumes, n)
     
     #print("Sampled {} from {} items".format(n, N))
-
     return sample_ids
 
 
