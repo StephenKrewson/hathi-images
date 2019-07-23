@@ -13,6 +13,7 @@ https://www.hathitrust.org/htrc_sp17acs_awards
 - [x] June 11: Project kickoff
 - [x] June 25: Get/upload all 1800-1850 metadata from HathiFiles
 - [ ] July 9: ???
+- [ ] July 23: Sample list?
 
 
 ## Setup
@@ -48,6 +49,10 @@ Within this directory, run:
 
 N.B. in my notebooks for the Yale DH Lab workshop the recommended way was using online HT search to generate JSON Collection file.
 
+### Acquire Sample Pages
+
+For 7/23/19 meeting, 
+
 
 ## Project Structure (2016)
 
@@ -61,17 +66,4 @@ file 	| purpose | note
 `ht_search_volumes.py` | concatenates IDs returned from a bibliographic search onto `books.txt` | syntax for providing search fields (author, date, etc.) is given in a usage comment in the code
 `ht_run_extraction.sh` | creates the `extracted` subfolder within all volume directories | skips volume if `extracted` already exists
 `ht_classify_score.py` | from `extracted` subfolder, generates a corresponding Numpy array for each image in `vectors` sibling folder | adaptation of Inception modeal (2015)
-
-
-## Plaintext Tools
-
-Inspired by Nicholas Cifuentes-Goodbody's [excellent video](https://www.youtube.com/watch?v=5UV6Ce3evUY).
-
-- Zotero
-	- Username: `stephen-krewson`
-	- Extensions: ZotFile, PaperShip, BetterBibLaTex
-	- WebDAV sync to Yale Box account (Dropbox lacks WebDAV support)
-- MarkdownPad 2
-	- Best Windows side-by-side Markdown editor
-	- Can drag in Zotero refs (set default export to MLA or Chicago; great for syllabi)
 
