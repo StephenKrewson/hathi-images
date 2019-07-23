@@ -3,6 +3,17 @@
 - Scripts from 2016 Data Mining project as well as 2019 HTRC collaborative grant
 - Instructions for accessing HT APIs
 
+Ask D. Bamman about his code/findings:
+
+https://www.hathitrust.org/htrc_sp17acs_awards
+
+
+## Schedule
+
+- [x] June 11: Project kickoff
+- [x] June 25: Get/upload all 1800-1850 metadata from HathiFiles
+- [ ] July 9: ???
+
 
 ## Setup
 
