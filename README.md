@@ -51,8 +51,21 @@ N.B. in my notebooks for the Yale DH Lab workshop the recommended way was using 
 
 ### Acquire Sample Pages
 
-For 7/23/19 meeting, I wanted to use sa
+For 7/23/19 meeting, I sampled and then generated mapping of sample volumes to IMAGE_ON_PAGE candidates.
 
+In
+
+### HTRC Capsule
+
+Login: `stephenkrewson` (password saved with Chrome)
+Email: `stephen.krewson@yale.edu`
+
+http://www.loc.gov/standards/mets/
+
+
+
+
+# Deprecated
 
 ## Project Structure (2016)
 
