@@ -74,10 +74,10 @@ def ht_file_sample(htfile):
     return sample_ids
 
 
+# USAGE: python sample_from_ids.py
 if __name__ == '__main__':
 
     sample_ids = ht_file_sample(SUBSET)
-    print(sample_ids[:10])
 
     with open(SAMPLE, 'wb') as fp:
         pickle.dump(sample_ids, fp)

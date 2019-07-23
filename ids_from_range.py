@@ -73,5 +73,10 @@ if __name__ == '__main__':
     # get valid rows and save
     volumes = ids_from_hathifile(HATHIFILE, HATHICOLS, start, end)
     
+
+    # TODO: keep separator as TAB, drop index
+    # then make changes in sample_from_ids
+    # tell Ryan about differences
+
     # will this work from Windows shell?? better to compress by hand
     volumes.to_csv(out, index=False, compression='gz')
