@@ -14,6 +14,14 @@ https://www.hathitrust.org/htrc_sp17acs_awards
 - [x] June 25: Get/upload all 1800-1850 metadata from HathiFiles
 - [ ] July 9: ???
 - [ ] July 23: Sample list?
+- [ ] August 19: eliminate most-wrong. See: https://github.com/fastai/course-v3/blob/master/nbs/dl1/lesson2-download.ipynb (includes REST route)
+	- https://towardsdatascience.com/fastai-image-classification-32d626da20
+- [ ] August 19: Map predictions over list of image URLs (DataBunch)
+- [ ] August 20: Meeting! (nothing on Slack)
+
+## Fast.ai Resources
+
+
 
 
 ## Setup
