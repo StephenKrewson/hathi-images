@@ -1,14 +1,9 @@
 # HathiTrust Projects
 
-- Scripts from 2016 Data Mining project as well as 2019 HTRC collaborative grant
-- Instructions for accessing HT APIs
-
-Ask D. Bamman about his code/findings:
-
-https://www.hathitrust.org/htrc_sp17acs_awards
+Code and assets from 2016 Data Mining project as well as 2019 HTRC collaborative grant. Contains instructions for accessing HT APIs and using fastai for model training.
 
 
-## Schedule
+## Todo
 
 - [x] June 11: Project kickoff
 - [x] June 25: Get/upload all 1800-1850 metadata from HathiFiles
@@ -19,12 +14,49 @@ https://www.hathitrust.org/htrc_sp17acs_awards
 - [ ] August 19: Map predictions over list of image URLs (DataBunch)
 - [ ] August 20: Meeting! (nothing on Slack)
 
-## Fast.ai Resources
+## Fast.ai Workflow
+
+Warning! Any tips and guides stored in the notebooks will be UNAVAILABLE if the instance goes down. So make sure to version this stuff in my own repo. Huge headache.
+
+Remember to update library on the VMs:
+
+https://course.fast.ai/start_gcp.html#step-4-access-fastai-materials-and-update-packages
+
+### Invoke
+
+After starting up the VM from the Google Cloud console online, run in WSL (doesn't work in conda shell!):
+
+> gcloud compute ssh --zone=us-west2-b jupyter@my-fastai-instance -- -L 8080:localhost:8080
+
+Or, since the LA region is often unavailable:
+
+> gcloud compute ssh --zone=us-east4-a jupyter@my-fastai-instance-east -- -L 8080:localhost:8080
+
+The notebooks are [here](http://localhost:8080/tree).
+
+### Data Transfer
+
+Use the browser tool to upload a zipped directory of training images to a Google Cloud Bucket. This is the easy part. Then [transfer from the bucket to the instance](https://cloud.google.com/storage/docs/downloading-objects), using `gsutil cp`. I needed to do this twice, since the West region VM is not usable anymore. Very frustrating.
+
+> gsutil cp gs://[BUCKET_NAME]/[OBJECT_NAME] [SAVE_TO_LOCATION]
+> gsutil cp gs://19c-book-illustrations/19c-book-illustrations.zip .
+
+Finally, if you zipped the training images on Windows, you will need the [P7 tool](https://anaconda.org/bioconda/p7zip) to unzip them on the Linux Google VM. You need to create a conda environment to get the right permissions!
+
+> conda install -c bioconda p7zip
+
+Then, noting the weird syntax for the "extract" command:
+
+> 7za x [.zip]
+
+Difficult!
+
+### Training
+
+We'll use Lesson 2 - Download a Data Set as our guide and throw it in this repo.
 
 
-
-
-## Setup
+## Hathi Search and APIs
 
 Bibliographic metadata can be fetched from HTRC workset [toolkit](https://github.com/htrc/HTRC-WorksetToolkit). Recommended install is with [Anaconda](https://anaconda.org/pypi/htrc).
 
@@ -56,6 +88,13 @@ Within this directory, run:
 `python ids_by_date.py <START_DATE> <END_DATE> [<START-END.csv>]`
 
 N.B. in my notebooks for the Yale DH Lab workshop the recommended way was using online HT search to generate JSON Collection file.
+
+Boris requests (8/23):
+
+Python script (+ requirements.txt) that efficiently does inference on ~100 CSV rows. He will take care of the parallelism on the HPC.
+
+Script should have --input flag (argparse) for CSV input and --output flag for a directory where we can write the list of filtered rows.
+
 
 ### Acquire Sample Pages
 
