@@ -30,6 +30,8 @@ def dir_path(path):
         raise argparse.ArgumentTypeError(f"dir:{path} is not a valid path.")
 
 
+# N.B. export.pkl is in data/project with all the other model files and the data (on the us-west region VM)
+
 ### Main script ###
 args = parse_args()
 
