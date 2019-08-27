@@ -48,12 +48,18 @@ path = os.getcwd()
 # takes a path to the directory where "export.pkl" is located
 # `test` argument allows inference on multiple images
 # `cols` is which column of the CSV to use for the image paths
-imgs = ImageList.from_csv(path, args.input, cols=0)
-learner = load_learner(path, test=imgs)
+imgs = ImageList.from_csv(".", args.input, cols=0)
+learner = load_learner(".", test=imgs)
 
-# model file will have saved all the class info and weights
-preds,y = learner.get_preds(ds_type=DatasetType.Test)
+# normal invoke is preds,y -- but there are no ground truth labels!
+preds,_ = learner.get_preds(ds_type=DatasetType.Test)
 
+print(learner.data.classes)
 print(preds)
-print("hippo")
-print(y)
+ys = torch.argmax(preds, dim=1)
+
+
+for i,y in enumerate(ys):
+    print(imgs.items[i], y, learner.data.classes[y])
+
+
