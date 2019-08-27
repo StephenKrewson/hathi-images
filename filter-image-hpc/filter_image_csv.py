@@ -8,8 +8,10 @@
 #
 # Example usage, with export.pkl model file in the working directory:
 #
-# python filter_image_csv.py --input images.csv --model . --output .
-
+# python filter_image_csv.py --input test.csv --output .
+#
+# Does NOT work as-is on Windows (PyTorch multiprocessing)
+# see: https://pytorch.org/docs/stable/notes/windows.html
 
 import argparse
 import csv
@@ -31,32 +33,32 @@ def dir_path(path):
         raise argparse.ArgumentTypeError(f"dir:{path} is not a valid path.")
 
 
-# N.B. export.pkl is in data/project with all the other model files and the data (on the us-west region VM)
-
-# necessary on Windows
-#https://pytorch.org/docs/stable/notes/windows.html#multiprocessing-error-without-if-clause-protection
-#torch.multiprocessing.freeze_support()
-
 ### Main script ###
 # Based on: https://docs.fast.ai/tutorial.inference.html
-# image CSV and export.pkl need to be in same dir as the script itself
-
+# image CSV, export.pkl need to be in same dir as script
 args = parse_args()
-path = os.getcwd()
 
 # fastai helper to work with list of image paths in first column of CSV
 # takes a path to the directory where "export.pkl" is located
 # `test` argument allows inference on multiple images
 # `cols` is which column of the CSV to use for the image paths
 imgs = ImageList.from_csv(".", args.input, cols=0)
+
+# this is the export.pkl file, should be in CWD
 learner = load_learner(".", test=imgs)
 
-# normal invoke is preds,y -- but there are no ground truth labels!
-preds,_ = learner.get_preds(ds_type=DatasetType.Test)
-ys = torch.argmax(preds, dim=1)
+# set the label that we want to keep
+good_label = "inline_image"
+good_idx = learner.data.classes.index(good_label) 
 
-# test on examples
-for i,y in enumerate(ys):
-    print("File {} has predicted label: {}".format(imgs.items[i], learner.data.classes[y]))
+# we get back the raw probabilities for each class
+# and ground truth labels (which don't exist for test data)
+probs, _ = learner.get_preds(ds_type=DatasetType.Test)
 
+# turn into a vector of max probabilities for all images
+preds = torch.argmax(probs, dim=1)
 
+# list of all image paths that we want to keep
+out = [imgs.item[i] for i,p in enumerate(preds) if p == good_idx]
+
+print(out)
