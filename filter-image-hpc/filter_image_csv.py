@@ -53,13 +53,10 @@ learner = load_learner(".", test=imgs)
 
 # normal invoke is preds,y -- but there are no ground truth labels!
 preds,_ = learner.get_preds(ds_type=DatasetType.Test)
-
-print(learner.data.classes)
-print(preds)
 ys = torch.argmax(preds, dim=1)
 
-
+# test on examples
 for i,y in enumerate(ys):
-    print(imgs.items[i], y, learner.data.classes[y])
+    print("File {} has predicted label: {}".format(imgs.items[i], learner.data.classes[y]))
 
 
