@@ -6,19 +6,20 @@
 # Output: the same CSV file but with all the rows removed that do not
 # have `inline_image`as the top prediction for the image
 #
-# Run python filter_image_csv.py [--help] for usage 
+# Example usage, with export.pkl model file in the working directory:
+#
+# python filter_image_csv.py --input images.csv --model . --output .
 
 
 import argparse
 import csv
-#from fastai.vision import *
+from fastai.vision import *
 import os
 
 
 def parse_args():
     parser = argparse.ArgumentParser(description='Using a 12-class CNN model, runs inference on a CSV list of image assets and writes out a list of only those images for which the class inline_image was the highest prediction.')
-    parser.add_argument('--input', required=True, type=argparse.FileType('r'), help='Path to input CSV file.')
-    parser.add_argument('--model', required=True, type=argparse.FileType('r'), help='Path to pickled CNN model.')
+    parser.add_argument('--input', required=True, type=str, help='Path to input CSV file.')
     parser.add_argument('--output', required=True, type=dir_path, help='Path to output directory for filtered CSV file. Must have write permissions.')
     return parser.parse_args()
 
@@ -32,13 +33,27 @@ def dir_path(path):
 
 # N.B. export.pkl is in data/project with all the other model files and the data (on the us-west region VM)
 
+# necessary on Windows
+#https://pytorch.org/docs/stable/notes/windows.html#multiprocessing-error-without-if-clause-protection
+#torch.multiprocessing.freeze_support()
+
 ### Main script ###
+# Based on: https://docs.fast.ai/tutorial.inference.html
+# image CSV and export.pkl need to be in same dir as the script itself
+
 args = parse_args()
+path = os.getcwd()
 
-# open the model (should be .pkl file)
+# fastai helper to work with list of image paths in first column of CSV
+# takes a path to the directory where "export.pkl" is located
+# `test` argument allows inference on multiple images
+# `cols` is which column of the CSV to use for the image paths
+imgs = ImageList.from_csv(path, args.input, cols=0)
+learner = load_learner(path, test=imgs)
 
-# argparse has already opened the CSV chunk
-for row in csv.reader(args.input):
+# model file will have saved all the class info and weights
+preds,y = learner.get_preds(ds_type=DatasetType.Test)
 
-    # now do inference
-    print(row[0])
+print(preds)
+print("hippo")
+print(y)

@@ -34,6 +34,10 @@ Or, since the LA region is often unavailable:
 
 The notebooks are [here](http://localhost:8080/tree).
 
+http://www.robots.ox.ac.uk/~vgg/projects/seebibyte/index.html
+
+https://docs.fast.ai/tutorial.inference.html
+
 ### Data Transfer
 
 Use the browser tool to upload a zipped directory of training images to a Google Cloud Bucket. This is the easy part. Then [transfer from the bucket to the instance](https://cloud.google.com/storage/docs/downloading-objects), using `gsutil cp`. I needed to do this twice, since the West region VM is not usable anymore. Very frustrating.
