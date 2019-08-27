@@ -47,6 +47,10 @@ imgs = ImageList.from_csv(".", args.input, cols=0)
 # this is the export.pkl file, should be in CWD
 learner = load_learner(".", test=imgs)
 
+## learner.predict(IMG) --> run in for-loop and compare
+# get an IDE! read docs on multiprocessing in torch
+# findout good batch size ~333
+
 # set the label that we want to keep
 good_label = "inline_image"
 good_idx = learner.data.classes.index(good_label) 
