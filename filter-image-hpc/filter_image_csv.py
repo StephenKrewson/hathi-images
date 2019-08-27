@@ -16,6 +16,7 @@
 import argparse
 import csv
 from fastai.vision import *
+import imageio
 import os
 
 
@@ -39,7 +40,6 @@ def dir_path(path):
 args = parse_args()
 
 # fastai helper to work with list of image paths in first column of CSV
-# takes a path to the directory where "export.pkl" is located
 # `test` argument allows inference on multiple images
 # `cols` is which column of the CSV to use for the image paths
 imgs = ImageList.from_csv(".", args.input, cols=0)
@@ -59,6 +59,6 @@ probs, _ = learner.get_preds(ds_type=DatasetType.Test)
 preds = torch.argmax(probs, dim=1)
 
 # list of all image paths that we want to keep
-out = [imgs.item[i] for i,p in enumerate(preds) if p == good_idx]
+out = [imgs.items[i] for i,p in enumerate(preds) if p == good_idx]
 
 print(out)

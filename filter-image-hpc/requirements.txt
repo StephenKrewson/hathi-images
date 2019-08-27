@@ -1,3 +1,4 @@
-# Requires Python 3.6+
+# Requires Python 3.6+, fastai will prompt install of numpy, pandas, torch, etc.
 # See: https://github.com/fastai/fastai/blob/master/README.md#installation
 fastai
+imageio
