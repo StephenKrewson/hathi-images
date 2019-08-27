@@ -5,7 +5,7 @@
 keys.py
 
 # or jpegs...
-*.jpg
+#*.jpg
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
