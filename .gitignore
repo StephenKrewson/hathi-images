@@ -4,8 +4,8 @@
 # Don't version keys!
 keys.py
 
-# or jpegs...
-#*.jpg
+# or zipped files shared on Slack
+*.zip
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
