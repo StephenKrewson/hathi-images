@@ -1,6 +1,6 @@
-# Stephen Krewson, August 24, 2019
+# filter_iterative.py
 #
-# filter_image_csv.py
+# Based on: https://docs.fast.ai/tutorial.inference.html
 #
 # Input: a CSV file where an image resource is the *first* column
 # Output: the same CSV file but with all the rows removed that do not
@@ -8,14 +8,11 @@
 #
 # Example usage, with export.pkl model file in the working directory:
 #
-# python filter_image_csv.py --input test.csv --output .
-#
-# Does NOT work as-is on Windows (PyTorch multiprocessing)
-# see: https://pytorch.org/docs/stable/notes/windows.html
+# USAGE: python filter_iterative.py --input test.csv --output .
 
 import argparse
 import csv
-from fastai.vision import *
+from fastai.vision import open_image
 import imageio
 import os
 
@@ -34,33 +31,35 @@ def dir_path(path):
         raise argparse.ArgumentTypeError(f"dir:{path} is not a valid path.")
 
 
-### Main script ###
-# Based on: https://docs.fast.ai/tutorial.inference.html
-# image CSV, export.pkl need to be in same dir as script
 args = parse_args()
 
-# fastai helper to work with list of image paths in first column of CSV
-# `test` argument allows inference on multiple images
-# `cols` is which column of the CSV to use for the image paths
+# Model called export.pkl by default; should be in same dir as script
+learner = load_learner(".")
 
-# N.B. filepaths MUST be absolute (relative to "/")
-input_csv = os.path.abspath(args.input)
-imgs = ImageList.from_csv("/", input_csv, cols=0)
-
-# this is the export.pkl file, should be in CWD
-learner = load_learner(".", test=imgs)
-
-## learner.predict(IMG) --> run in for-loop and compare
-# get an IDE! read docs on multiprocessing in torch
-# findout good batch size ~333
-
-# set the labels that we want to keep; get their indices
-# full list is in learner.data.classes
+# Full class list in learner.data.classes
 good_labels = ["inline_image", "plate_image"]
 
-# we only care about assigned class, not the probs
-for i, img in enumerate(imgs):
-    label, _, _  = learner.predict(img)
-    if str(label) in good_labels:
-        print(os.path.normpath(imgs.items[i]))
+# iterative, assumes only one filepath per line
+with open(args.input) as csv_in:
+    for row in csv_in:
+        
+        # split into path and extension
+        img_path = row.rstrip()
+        img, ext = os.path.splitext(img_path)
+        print(img, ext)
+
+        # convert from JP2
+        #https://pillow.readthedocs.io/en/stable/handbook/image-file-formats.html#jpeg-2000
+
+        if ext is not "jpg":
+            print("not a jpeg")
+            continue
+        
+        #img = imageio.imread(image_path)
+        #imageio.imwrite(img_dest, img, format=ext_out)
+
+        image = open_image(img_path)
+        label, _, _ = learner.predict(image)
+        if str(label) in good_labels:
+            print(image_path)
 
