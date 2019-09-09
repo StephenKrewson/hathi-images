@@ -1,0 +1,18 @@
+name: plfeats2
+channels:
+  - htrc
+  - conda-forge
+  - defaults
+dependencies:
+  - boto3=1.5.32
+  - jupyter_contrib_core=0.3.3
+  - jupyter_contrib_nbextensions=0.4.0
+  - jupyter_nbextensions_configurator=0.4.0
+  - gensim=3.4.0
+  - ipykernel=4.8.2
+  - seaborn=0.8.1
+  - htrc-feature-reader=1.94
+  - pip:
+    - -e git+https://github.com/iainwatts/hathidata/#egg=hathidata
+    - oauth==1.0.1
+prefix: /home/stephen-krewson/anaconda3/envs/plfeats2
