@@ -1,0 +1,570 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3c.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"><head><title>Eighteenth Century Collections OnlineList of Illustrations</title><meta content="text/html; charset=utf-8" http-equiv="content-type"/><meta content="IE=7" http-equiv="X-UA-Compatible"/><link href="http://gimg.galegroup.com/ecco/ecco-2.0.56-176/images/favicon.ico" rel="SHORTCUT ICON"/><link href="http://gimg.galegroup.com/ecco/ecco-2.0.56-176/style/main.css" type="text/css" rel="stylesheet" media="screen" /><link href="http://gimg.galegroup.com/ecco/ecco-2.0.56-176/style/namedusercommonstyle.css" type="text/css" rel="stylesheet" media="screen" /><link href="http://gimg.galegroup.com/ecco/ecco-2.0.56-176/style/doc_res.css" type="text/css" rel="stylesheet" media="screen" /><link href="http://gimg.galegroup.com/ecco/ecco-2.0.56-176/style/rs-styles.css" type="text/css" rel="stylesheet" media="screen" /><link href="http://gimg.galegroup.com/ecco/ecco-2.0.56-176/style/breadCrumb.css" type="text/css" rel="stylesheet" media="screen" /><link href="http://gimg.galegroup.com/ecco/ecco-2.0.56-176/style/atp.css" type="text/css" rel="stylesheet" media="screen" /><link href="http://gimg.galegroup.com/ecco/ecco-2.0.56-176/style/locationBranding.css" type="text/css" rel="stylesheet" media="screen" /><link href="http://code.jquery.com/ui/1.10.0/themes/base/jquery-ui.css" type="text/css" rel="stylesheet" media="screen" /><link href="http://gimg.galegroup.com/ecco/ecco-2.0.56-176/style/citationtools-min.css" type="text/css" rel="stylesheet" media="screen" /><link href="http://gimg.galegroup.com/ecco/ecco-2.0.56-176/style/citationTools.css" type="text/css" rel="stylesheet" media="all" /><link href="http://gimg.galegroup.com/ecco/ecco-2.0.56-176/style/atp.css" type="text/css" rel="stylesheet" media="screen" /><link href="http://gimg.galegroup.com/ecco/ecco-2.0.56-176/style/facebox.css" type="text/css" rel="stylesheet" media="screen" /><link href="http://gimg.galegroup.com/ecco/ecco-2.0.56-176/style/addthis_widget.css" type="text/css" rel="stylesheet" media="screen" /><link href="http://gimg.galegroup.com/ecco/ecco-2.0.56-176/style/highlighter.css" type="text/css" rel="stylesheet" media="screen" />
+    	<script src="script/jquery-1.6.2.min.js" type="text/javascript"></script>
+    <script src="http://gimg.galegroup.com/ecco/ecco-2.0.56-176/script/commonScripts.js" type="text/javascript" defer="defer"></script><script src="http://gimg.galegroup.com/ecco/ecco-2.0.56-176/script/headerScripts.js" type="text/javascript" defer="defer"></script><script src="http://gimg.galegroup.com/ecco/ecco-2.0.56-176/script/nameduserCommonScripts.js" type="text/javascript" defer="defer"></script><script src="http://gimg.galegroup.com/ecco/ecco-2.0.56-176/script/commonScripts.js" type="text/javascript" defer="defer"></script><script src="http://gimg.galegroup.com/ecco/ecco-2.0.56-176/script/headerScripts.js" type="text/javascript" defer="defer"></script><script src="http://gimg.galegroup.com/ecco/ecco-2.0.56-176/script/locationBranding.js" type="text/javascript" defer="defer"></script><script src="http://code.jquery.com/ui/1.10.1/jquery-ui.js" type="text/javascript" defer="defer"></script><script src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.2/underscore-min.js" type="text/javascript" defer="defer"></script><script src="http://cdnjs.cloudflare.com/ajax/libs/json2/20121008/json2.min.js" type="text/javascript" defer="defer"></script><script src="http://gimg.galegroup.com/ecco/script/_namespace-min.js" type="text/javascript" defer="defer"></script><script src="http://gimg.galegroup.com/ecco/script/citationtools-min.js" type="text/javascript" defer="defer"></script><script src="http://gimg.galegroup.com/ecco/script/initCitationTools.js" type="text/javascript" defer="defer"></script><script src="http://gimg.galegroup.com/ecco/ecco-2.0.56-176/script/markListScripts.js" type="text/javascript" defer="defer"></script><script src="http://gimg.galegroup.com/ecco/ecco-2.0.56-176/script/eBookScripts.js" type="text/javascript" defer="defer"></script><script src="http://gimg.galegroup.com/ecco/ecco-2.0.56-176/script/jquery.js" type="text/javascript" defer="defer"></script><script src="http://gimg.galegroup.com/ecco/ecco-2.0.56-176/script/facebox.js" type="text/javascript" defer="defer"></script><script type="text/javascript">
+  var BASIC_BROWSE_INDEX_URL = "browseIndex.do?inPS=true&amp;userGroupName=29002&amp;prodId=ECCO";
+  var MAX_ROW = "10";
+
+  var MAX_ROW_REACHED_ERROR = "Reached maximum number of rows to add";
+
+  var SHOW_BUTTON_LABEL = "Show Limit/Expand";
+  var HIDE_BUTTON_LABEL = "Hide Limit/Expand";
+
+  var NUMBER_OF_ROWS = "3";
+  var HIDDEN_ROW_ID_STRING  = "999";
+
+  var ADVANCED_SEARCH_LINK = "dispAdvSearch.do?inPS=true&amp;userGroupName=29002&amp;prodId=ECCO";
+  var PRODUCT_ID = "ECCO";
+  var USER_GROUP_NAME = "29002";
+
+  var PASS_THROUGH_INDEX = "__PT__" ;
+  var SEARCH_HISTORY_ENTRIES=new Array();
+  var INVALID_SEARCH_INDEX="Please select the search index";
+  var INVALID_PREVIOUS_SEARCHID = "Enter a valid Previous SearchId";
+  	
+  var QUERY_NOT_OP = ' Not ';
+  var QUERY_AND_OP = ' And ';
+  var QUERY_OR_OP = ' Or ';
+  var BROWSE_AUTHOR_WILDCARD ="Search term cannot begin with a wildcard for browsing authors.";
+  var BROWSE_WORK_WILDCARD ="Search term cannot begin with a wildcard for browsing works.";	
+  var SEARCH_TERMS_EMPTY ="Please enter search term.";
+  var DOCUMENT_NUMBER_SEARCH_EMPTY ="Please enter any Document Number.";
+  var INVALID_DOCUMENT_NUMBER="Enter a valid document number using only alphanumeric characters.";
+  var INVALID_LEXILE_SCORE="Enter a valid lexile score. It should be in one of these forms Ex:300 or 300-400 or 200 to 300.";
+  var INVALID_DATE_RANGE ="Invalid Date Range";
+  var INVALID_DATE_MSG   ="Enter valid date";
+  var DOCUMENT_NUMBER_INDEX = "";
+
+  var BROWSE_INDEX_SELECTIONS = "Publication Title";
+  var BASIC_SEARCH_ENTER_TERM = "Please enter search term";
+  var BASIC_SEARCH_ENTER_FIELD_TERM = "Please select the search index";
+  var BASIC_SEARCH_RESULTS_ENTER_TERM = "Enter Search Term";
+  var BASIC_SEARCH_TERM_CONTAINS_WILDCARDS = "Wildcard characters (*, ?, !) are not allowed in the Basic Search. Please use the Advanced Search instead.";
+  var BASIC_SEARCH_SORT_IS_RELEVANCE = false;
+
+  var BROWSEINDEX_LIMIT_ERR_MSG ="Limit your (My item) selection to (10) items.";
+  var MARKLIST_ERR_MSG ="Limit your My Marked List selection to (50) items total.";
+  var MARKLIST_ALL_ERR_MSG1="Checking 'Mark All' will exceed the limit of 50 saved items in your Marked Items List.";
+  var MARKLIST_ALL_ERR_MSG2="Remove some items from your Marked Items List or just add items individually to the List.";
+  var STAND_ALONE_LIMITER_MSG="Atleast one STAND ALONE Limiter should be selected";
+  var updateMarkListLink = "marklist.do?actionCmd=UPDATE_MARK_LIST&amp;ts=1462495253038&amp;inPS=true&amp;prodId=ECCO&amp;userGroupName=29002";
+
+  var MARKLIST_EMPTY_COMPARE_MSG = "???compareDocuments.marklist.empty???";
+  var MARKLIST_SIZE_URL = "marklist.do?actionCmd=GET_MARK_LIST_SIZE&amp;ts=1462495253038&amp;inPS=true&amp;prodId=ECCO&amp;userGroupName=29002";
+
+  var LOG_OUT_URL = "redirectSearch.do?page=logout.do%3FprodId%3DECCO%26userGroupName%3D29002&amp;prodId=ECCO&amp;userGroupName=29002";
+  var LIBRARY_LINK_URL = "redirectSearch.do?page=logout.do%3FactionString%3Dgotolib%26prodId%3DECCO%26userGroupName%3D29002&amp;prodId=ECCO&amp;userGroupName=29002";
+  var LIBRARY_LINK_AVAIL = "http://www.library.yale.edu/";
+
+  var SEARCH_WILDCARDS="Search Term cannot contain Wildcards if Fuzzy level is enabled!";
+  var PRODUCT_CNT = "8";
+  var THROUGH_PATH="";
+  var SEARCH_HISTORY="{param.history}"
+   
+		SEARCH_HISTORY_ENTRIES[0]="R1";
+	
+
+  var RESULTS_PER_PAGE = "20";
+  
+  
+  var NEXT_POSITION ="0";
+  var PREVIOUS_POSITION ="0";
+  
+  var INVALID_EMAIL="Invalid Email ID";
+  
+  var SUBJECT_GUIDE_TERM_REQUIRED = "Please enter search term";
+
+  var QUICK_SEARCH_EMPTY = "???searchThisWork.required???";
+  
+  var QUICK_SEARCH_LOADING_MESSAGE = "Loading..";
+  
+  var MULTI_INDEX_URL = "limitExpandSearchResults.do?qrySerId=Locale%28en%2C%2C%29%3AFQE%3D%28A0%2CNone%2C14%29telescope%2C+tom%3AAnd%3AFQE%3D%28TI%2CNone%2C16%29newtonian+system%3AAnd%3ALQE%3D%28BA%2CNone%2C124%292NEF+Or+0LRH+Or+2NEK+Or+0LRL+Or+2NEI+Or+0LRI+Or+2NEJ+Or+0LRK+Or+2NEG+Or+0LRF+Or+2NEH+Or+0LRJ+Or+2NEM+Or+0LRN+Or+2NEL+Or+0LRM%24&amp;buildLimiterValues=true";
+  
+  var SUBJECTS_FAILOVER_MSG ="For broad searches, only relevant subjects are displayed.";
+  var ADDNL_DB_SESSION_ACTIVE_URL = "sessionSync.do?inPS=true&amp;prodId=ECCO&amp;userGroupName=29002";
+  var SESSIONSYNC_GALE_DOMAIN = "galegroup.com";
+  
+  
+  
+  var VALID_DATE_RANGE   ="Please enter a year or a range of years, using four digits to indicate each year. Eg.: 1700 or 1700-1799.";
+  
+  
+
+		
+		var currentPosition = 1;
+		
+			currentPosition = "8";
+		
+
+		var reformatPage="N";
+		</script><script type="text/javascript">
+	var PG_CNT =  "0";
+	var PRODUCT_ID ="ECCO";
+	var TAB_ID = "T001";
+	var TRANS_LANG = "";
+	var MARK_CNT = "0";
+	var UPDATE_MARKLIST_LINK = "marklist.do%3FactionCmd%3DUPDATE_MARK_LIST%26ts%3D1462495253039%26inPS%3Dtrue%26prodId%3DECCO%26userGroupName%3D29002";
+	var NO_RECORDS_MARKED_MSG = "There are no marked records in the Mark List";
+	var NO_RECORDS_DOWNLOAD_MSG = "There are no Download records in the Mark List";
+	var MARKLIST_ERR_MSG = "Limit your My Marked List selection to (50) items total.";
+	var MARKLIST_ALL_ERR_MSG1 = "Checking 'Mark All' will exceed the limit of 50 saved items in your Marked Items List.";
+	var MARKLIST_ALL_ERR_MSG2 = "Remove some items from your Marked Items List or just add items individually to the List.";
+	</script>
+       <!--[if lt IE 7]>
+       <style type="text/css">
+           @import url(http://gimg.galegroup.com/ecco/ecco-2.0.56-176/style/main_ie.css);
+       </style>
+       <![endif]-->
+	   <!--[if IE 7]>
+       <style type="text/css">
+           @import url(http://gimg.galegroup.com/ecco/ecco-2.0.56-176/style/ie-rules_7.css);
+       </style>
+       <![endif]-->       
+    <style type="text/css">
+	#banner
+	{
+	 background-image: url(http://gimg.galegroup.com/ecco/ecco-2.0.56-176/images/main_banner.gif);
+     background-repeat: no-repeat;
+	}
+	</style></head><body id="loiDisplayPage"><div class="accessLink"><a href="#contentcontainer"><img title="Skip to content" alt="Skip to content" src="http://gimg.galegroup.com/ecco/ecco-2.0.56-176/images/access_link.gif"/></a></div><div id="header"><script type="text/javascript">
+		    // Instructions: please embed this snippet directly into every page in your website template.
+		    // For optimal performance, this must be embedded directly into the template, not referenced
+		    // as an external file.
+		
+		    // Answers Cloud Services Embed Script v1.02
+		    // DO NOT MODIFY BELOW THIS LINE *****************************************
+		    ;(function (g) {
+			    	var d = document, i, am = d.createElement('script'), h = d.head || d.getElementsByTagName("head")[0],
+			            aex = {
+			                "src": "//gateway.answerscloud.com/galegroup/production/gateway.min.js",
+			                "type": "text/javascript",
+			                "async": "true",
+			                "data-vendor": "acs",
+			                "data-role": "gateway"
+			            };
+			    for (var attr in aex) { am.setAttribute(attr,aex[attr]); }
+			    h.appendChild(am);
+			    g['acsReady'] = function () {var aT = '__acsReady__', args = Array.prototype.slice.call(arguments, 0),k = setInterval(function () {if (typeof g[aT] === 'function') {clearInterval(k);for (i = 0; i < args.length; i++) {g[aT].call(g, function(fn) { return function() { setTimeout(fn, 1) };}(args[i]));}}}, 50);};
+			})(window);
+		    
+		    // DO NOT MODIFY ABOVE THIS LINE *****************************************
+		</script><script type="text/javascript">
+			acsReady(function(){
+				FSR.CPPS.set('Foresee','Foresee');
+				FSR.CPPS.set('UserGroup','29002');
+				FSR.CPPS.set('ProductId','ECCO');
+			});
+		</script><div id="locationBrandingHolder"><div class="locationBranding"><div rel="banner branding" id="locationBranding">
+			Yale University Library
+		</div><div id="textBranding">Brought to you by Yale University Library</div><div id="brandingHandle"><a href="#">less</a></div></div></div><div id="banner_holder"><div class="tbl_banner"><div class="tbl_bn_cl">
+				&nbsp;			
+			</div><div class="tbl_bn_inside"><div id="banner"><a class="gale_logo_link" title="Visit Gale.com!" href="http://www.gale.com">Visit Gale.com!</a><div id="titleBar"><div id="titleBar_holder"><ul><li id="chgDB"><a href="http://find.galegroup.com/menu/start?userGroupName=29002">CHANGE DATABASES</a></li><li></li><li id="chgDB"><a onClick="javascript:toolBoxPopupWindow('help.do?page=/HelpList.jsp?KEY=BROWSE_LOI_DONE&prodId=ECCO')" title="Click here for Help" href="#">HELP</a></li><li id="chgDB"><li id="toolbox"><a>LOGIN</a>&nbsp;<ul><li><a href="nuProductLogin.do?isCustomnews=true&prodId=ECCO&userGroupName=29002&isGlobalLogin=true" class="brandingMenuLink">Login</a></li><li><a href="namedUserRegistration.do?inPS=true&prodId=ECCO&userGroupName=29002&method=displayForm" class="brandingMenuLink">Register</a></li><li><a onClick="javascript:toolBoxPopupWindow('help.do?page=/HelpList.jsp?KEY=NAMED_USER_WHY_REGISTER&prodId=ECCO')" href="#" title="Click here for Why Register Help" class="brandingMenuLink">Why Register?</a></li></ul></li></li><li id="toolbox1"><a>Yale University Library</a><ul><li><a href="RedirectAction.do?URL=http%3A%2F%2Fask.library.yale.edu%2F&amp;prodId=ECCO" class="brandingMenuLink">Ask Yale Library</a></li><li><a href="RedirectAction.do?URL=http%3A%2F%2Flibrary.yale.edu&amp;prodId=ECCO" class="brandingMenuLink">Yale University Library</a></li></ul></li><li id="chgDB"><a href="redirectSearch.do?page=logout.do%3FactionString%3Dgotolib%26prodId%3DECCO%26userGroupName%3D29002&amp;prodId=ECCO&amp;userGroupName=29002">Return to Library</a></li><li id="chgDB"><a href="redirectSearch.do?page=logout.do%3FprodId%3DECCO%26userGroupName%3D29002&amp;prodId=ECCO&amp;userGroupName=29002" id="titleBar-logout">LOG OUT</a></li></ul></div></div><div class="move_table"><form name="dynamicSearchForm" method="post" action="/ecco/quickSearch.do?now=1462495253039&amp;inPS=true&amp;prodId=ECCO&amp;userGroupName=29002&bannerSearch=true" id="dynamicSearchFormBanner"><table width="361"><tbody><tr><td align="right"><input maxlength="100" size="30" name="quickSearchTerm" id="quickSearchTermBanner" type="text"/></td><td><input name="image" value="Search" src="images/banner_searchButton.png" alt="Search" type="image" class="submit"/></td><td rowspan="2" align="center"/></tr><tr><td valign="top" align="right"><a href="redirectSearch.do?page=dispAdvSearch.do%3FprodId%3DECCO%26userGroupName%3D29002&amp;prodId=ECCO&amp;userGroupName=29002">
+            more search options 
+            </a></td><td/></tr></tbody></table></form></div></div></div></div></div></div><div id="searchBar"><h2 class="hide">Search Types</h2><ul class="searchNav"><li class="home first" id="searchBar-basic"><a accesskey="1" href="redirectSearch.do?page=dispBasicSearch.do%3FprodId%3DECCO%26userGroupName%3D29002&amp;prodId=ECCO&amp;userGroupName=29002">Home</a></li><li class="advSrch" id="searchBar-advanced"><a accesskey="4" href="redirectSearch.do?page=dispAdvSearch.do%3FprodId%3DECCO%26userGroupName%3D29002&amp;prodId=ECCO&amp;userGroupName=29002">Advanced Search</a></li><li class="advSrch" id="searchBar-author"><a href="redirectSearch.do?page=browseAuthor.do%3Flimiters%3D2NEL%2BOr%2B0LRM-2NEJ%2BOr%2B0LRK-2NEF%2BOr%2B0LRH-2NEK%2BOr%2B0LRL-2NEI%2BOr%2B0LRI-2NEM%2BOr%2B0LRN-2NEH%2BOr%2B0LRJ-2NEG%2BOr%2B0LRF%26serQuery%3D%26searchTerm%3D%26allLimiters%3Dtrue%26inPS%3Dtrue%26prodId%3DECCO%26userGroupName%3D29002%26dblist%3D%26currentPosition%3D-1&amp;prodId=ECCO&amp;userGroupName=29002">Browse Authors</a></li><li class="advSrch" id="searchBar-author"><a href="redirectSearch.do?page=browseWork.do%3Flimiters%3D2NEL%2BOr%2B0LRM-2NEJ%2BOr%2B0LRK-2NEF%2BOr%2B0LRH-2NEK%2BOr%2B0LRL-2NEI%2BOr%2B0LRI-2NEM%2BOr%2B0LRN-2NEH%2BOr%2B0LRJ-2NEG%2BOr%2B0LRF%26serQuery%3D%26searchTerm%3D%26allLimiters%3Dtrue%26inPS%3Dtrue%26prodId%3DECCO%26userGroupName%3D29002%26dblist%3D%26currentPosition%3D-1&amp;prodId=ECCO&amp;userGroupName=29002">Browse Works</a></li><li class="advSrch" id="searchBar-author"><a href="redirectSearch.do?page=researchTools.do%3FserQuery%3D%26searchTerm%3DeccoOverview%26inPS%3Dtrue%26prodId%3DECCO%26userGroupName%3D29002%26dblist%3D%26currentPosition%3D-1&amp;prodId=ECCO&amp;userGroupName=29002">Research Tools</a></li><li class="schHist" id="globalTools-previousSearches"><a href="searchHistory.do?showCCLForm=false&inPS=true&prodId=ECCO&userGroupName=29002&method=viewHistory">Search History</a></li><li class="hide" id="globalTools-markedItems"><div style="display: none;" id="markTab"><a title="Click here to view your marked items" href="marklist.do?actionCmd=GET_MARK_LIST&amp;ts=1462495253052&amp;inPS=true&amp;prodId=ECCO&amp;userGroupName=29002">Marked Items<span id="markedCount" class="noOfMarkedItems">&nbsp;</span></a></div></li></ul><div class="infoTrac"><span class="hide">Powered by InfoTrac&#169;</span></div></div><div id="contentcontainer"><div id="cc_header"><div id="breadCrumb"><ul class="breadcrumb_ul"><li class="breadcrumb_first" id="breadCrumbTrail-AdvancedSearch"><a href="redirectSearch.do?page=breadCrumb.do%3Ftype%3DreviseSearch%26src%3Dbcrumb%26form%3DAdvancedSearchForm%26inPS%3Dtrue%26userGroupName%3D29002%26prodId%3DECCO&amp;prodId=ECCO&amp;userGroupName=29002&amp;inPS=true" class="breadcrumb_a">Advanced Search</a></li><li class="breadcrumb_li" id="breadCrumbTrail-Results"><a href="paginate.do?tabID=T001&amp;currentPosition=1&amp;searchId=R1&amp;sort=Author&amp;src=bcrumb&amp;inPS=true&amp;userGroupName=29002&amp;prodId=ECCO" class="breadcrumb_a">Results</a></li><li class="breadcrumb_li" id="breadCrumbTrail-Document"><b>Document</b></li></ul><br class="clear"/></div></div><div class="cc_filler"><div id="content2"><h1 class="head_left">List Of Illustrations</h1><div id="sr_header"><div class="top_icons"><ul><li id="docTools-bookmark">
+
+<script type="text/javascript">
+	function openInfomark(){
+		window.open(this.href,"galeChildWindow","toolbar=no, directories=no, status=no, location=no, resizable=yes, menubar=no, scrollbars=yes,screenX=50,screenY=50,top=50,left=50,width=750,height=550");		
+	}
+</script>
+
+<!-- Page buffer in include -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+<!--
+-->
+
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+   
+
+
+
+
+
+
+
+
+
+
+
+	 <a href="generateInfomark.do?qrySerId=Locale%28en%2C%2C%29%3AFQE%3D%28A0%2CNone%2C14%29telescope%2C+tom%3AAnd%3AFQE%3D%28TI%2CNone%2C16%29newtonian+system%3AAnd%3ALQE%3D%28BA%2CNone%2C124%292NEF+Or+0LRH+Or+2NEK+Or+0LRL+Or+2NEI+Or+0LRI+Or+2NEJ+Or+0LRK+Or+2NEG+Or+0LRF+Or+2NEH+Or+0LRJ+Or+2NEM+Or+0LRN+Or+2NEL+Or+0LRM%24&inPS=true&prodId=ECCO&userGroupName=29002&tabID=T001&bookId=0704201300&type=loi&currentPosition=8&contentSet=ECCOArticles"
+			target="galeChildWindow" onclick="javascript:openInfomark()" title="Bookmark this page ">
+   </a>
+
+
+
+</li><li id="docTools-print"><a href="printdoc.do?inPS=true&userGroupName=29002&prodId=ECCO&qrySerId=Locale%28en%2C%2C%29%3AFQE%3D%28A0%2CNone%2C14%29telescope%2C+tom%3AAnd%3AFQE%3D%28TI%2CNone%2C16%29newtonian+system%3AAnd%3ALQE%3D%28BA%2CNone%2C124%292NEF+Or+0LRH+Or+2NEK+Or+0LRL+Or+2NEI+Or+0LRI+Or+2NEJ+Or+0LRK+Or+2NEG+Or+0LRF+Or+2NEH+Or+0LRJ+Or+2NEM+Or+0LRN+Or+2NEL+Or+0LRM%24&aCmnd=showLOI&tabID=T001&bookId=0704201300&searchId=R1&docId=CW3321258704&currentPosition=8&print=1&contentSet=ECCOArticles"><img src="http://gimg.galegroup.com/ecco/ecco-2.0.56-176/images/b_print.gif" alt="Print Preview" title="Print Preview"/></a></li><li id="docTools-email"><a href="prepareEmail.do?actionCmd=DO_PREPARE_EMAIL&isIllustration=true&inPS=true&prodId=ECCO&userGroupName=29002&tabID=T001&bookId=0704201300&currentPosition=8&docRights=1000100&contentSet=ECCOArticles&docType=ECCOArticles&docId=CW3321258704" title="Email"></a></li></ul></div><hr class="hrBar3"/><p/></div></div></div><div class="cc_filler"><div id="content"><div id="searchBar_container"><div class="leftSearchBar"><div id="search_wip"><h2>Search this work</h2>
+
+
+
+
+
+
+
+<!-- Page buffer in include -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+<!--
+-->
+
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+<script language="JavaScript" src="http://gimg.galegroup.com/ecco/ecco-2.0.56-176/javascript/searchvalidate.js" type="text/javascript" >
+
+</script>
+
+
+
+
+
+
+
+
+<form name="quickSearchForm" action="quickSearch.do?now=1462495253054&inPS=true&prodId=ECCO&userGroupName=29002" method="post" 
+      onsubmit="return submitForQuickSearch(this)" id="quickSearchForm">
+      	
+			
+		
+      	        <div class="searchTextbox">
+					<div class="txtBtn">
+					   <input name="quickSearchTerm" type="text" size="17" maxLength="100" value="" />
+			           <input type="image" class="submit" src="images/navBanner_go.png" alt="Go"  id="search21" title="Go">
+						
+					</div>
+				</div>
+           
+            
+            <div class="hide">
+            <input type="checkbox" name="stw.option"
+              value="publication"
+              id="stw.option-publication"              
+              checked="checked" />
+              within this work<br/>
+            </div>
+                
+            
+            
+            
+            <input type="hidden" name="stw.fuzzy.active" value="active" id="stw.fuzzy.active" />
+            <!--<hr class="hrBar5"/>-->
+			<div class="fsl">
+				<a title="Fuzzy Search" onClick="javascript:toolBoxPopupWindow('help.do?page=/HelpList.jsp?KEY=FUZZY_SEARCH_HELP&amp;prodId=ECCO')" style="cursor:pointer;">
+					Fuzzy Search
+				</a>
+				</div>
+			<div class="fsl_dd">
+			<label>Level:</label>
+			<!--
+                <img src="http://gimg.galegroup.com/ecco/ecco-2.0.56-176/images/dot.gif" alt="" width="170" height="6" /><br />
+                -->
+                
+                <select name="stwFuzzy" id="stwFuzzy">
+                	
+		                
+		                
+		                    <option value="None">None</option>
+		                
+	                   
+	                
+		                
+		                
+		                    <option value="High">High</option>
+		                
+	                 
+	                
+		                
+		                
+		                    <option value="Med">Med</option>
+		                
+	                 
+	                
+		                
+		                
+		                    <option value="Low">Low</option>
+		                
+	                
+                </select>
+            </div>
+            
+		
+	
+	
+	
+		
+	
+
+	
+	    <input type="hidden" name="document" value="CW521258703" />
+	
+	    <input type="hidden" name="workId" value="0704201300" />
+	
+	    <input type="hidden" name="publication" value="The newtonian system of philosophy. Adapted to the capacities of young ladies and gentlemen, And familiarized and made entertaining, By Objects with which they are intimately acquainted: being the substance of six lectures, read to a Select Company of Friends, by Tom Telescope, A.M. First collected and methodized by the late Mr. Newberry, for the Instruction and rational Entertainment of the Youth of these Kingdoms. Illustrated with Copperplates." />
+	
+
+	<input type="hidden" name="stw.contentSet" value="ECCOArticles" />
+
+
+	<input type="hidden" name="userGroupName" value="29002" />
+	<input type="hidden" name="searchType" value='BasicSearchForm' />
+
+
+      	<input type="hidden" name="prodId" value="ECCO" />
+		
+		
+		
+			
+	      	<input type="hidden" name="tabID" value="T001" />						
+			
+		
+       	<input type="hidden" name="searchId" value="R1" />		
+		
+     
+      	<input type="hidden" name="docId" value="CW3321258704" />
+
+		
+	 	<input type="hidden" name="queryId" value="" />
+			 		
+	 	<input type="hidden" name="qrySerId" value="Locale(en,,):FQE=(A0,None,14)telescope, tom:And:FQE=(TI,None,16)newtonian system:And:LQE=(BA,None,124)2NEF Or 0LRH Or 2NEK Or 0LRL Or 2NEI Or 0LRI Or 2NEJ Or 0LRK Or 2NEG Or 0LRF Or 2NEH Or 0LRJ Or 2NEM Or 0LRN Or 2NEL Or 0LRM$" />
+	 	
+     	<input type="hidden" name="sort" value="Author" />
+     	
+      	<input type="hidden" name="resultListType" value="RESULT_LIST" />
+     	<input type="hidden" name="retrieveFormat" value="" />
+     	
+
+     	<input type="hidden" name="relevancePageBatch" value="CW121258703" />
+		
+     	<input type="hidden" name="contentSet" value="ECCOArticles" />
+     	<input type="hidden" name="callistoContentSet" value="ECCOArticles" />
+       	<input type="hidden" name="searchId" value="R1" />
+      	<input type="hidden" name="relatedDocId" value="" />
+      	<input type="hidden" name="isIllustration" value="" />
+      	<input type="hidden" name="docLevel" value="FASCIMILE" />
+		<input type="hidden" name="scale" value="" />
+		<input type="hidden" name="orientation" value="" />
+		<input type="hidden" name="pageIndex" value=""/> 
+		        
+        <input type="hidden" name="currentPosition" value="8" />
+        
+        
+		<input type="hidden" name="collectionId" value="T134038" />
+		
+				
+		
+		<input type="hidden" name="showLOI" value="" />
+		
+		<input type="hidden" name="now" value="Thu May 05 20:40:53 EDT 2016"/>
+      
+	    
+	    
+	       <input type="hidden" name="noOfPages" value="" />
+	    
+      
+
+
+</form>
+
+<hr class="hrBar5"/></div></div></div><div id="mid_content2"><div id="iterator"><div id="loiMark"><div class="markItem"><input id="iteratorBar-markDocument_1" name="markList" value="T001_CW121258703_0" type="checkbox"/><label for="iteratorBar-markDocument_1">Mark</label></div></div><div class="flo2"><div class="arrows_left"><a title="Previous page" href="showLOI.do?inPS=true&prodId=ECCO&userGroupName=29002&tabID=T001&searchId=R1&contentSet=ECCOArticles&sort=Author&relevancePageBatch=CW121258703&bookId=1673800600&currentPosition=7&totalCount=9">Previous page</a></div><span>Viewing result(s) 8 of 9</span></div><div class="arrows_right"><a title="Next page" href="showLOI.do?inPS=true&prodId=ECCO&userGroupName=29002&tabID=T001&searchId=R1&contentSet=ECCOArticles&sort=Author&relevancePageBatch=CW121258703&bookId=0034500200&currentPosition=9&totalCount=9">Next page</a></div></div><hr class="hrBar4"/><div id="pub_info"><div id="resultsBox"><ul><li class="resrow"><table xmlns:fo="http://www.w3.org/1999/XSL/Format" border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td style="border-bottom: medium none;">
+											 <div xmlns:fo="http://www.w3.org/1999/XSL/Format" class="pub_details">
+<div class="pic_Title">
+<label>Title:</label><a href="retrieve.do?sort=Author&inPS=true&prodId=ECCO&userGroupName=29002&tabID=T001&resultListType=RESULT_LIST&searchId=R1&docId=CW3321258704&currentPosition=8&contentSet=ECCOArticles&showLOI=Yes&docId=CW521258703&retrieveFormat=MULTIPAGE_DOCUMENT&docLevel=FASCIMILE&workId=CW521258703&relevancePageBatch=CW121258703&showLOI=&contentSet=&callistoContentSet=ECLL&docPage=article&hilite=y" >The newtonian system of philosophy. Adapted to the capacities of young ladies and gentlemen, And familiarized and made entertaining, By Objects ...</a> </div>
+<div class="pic_Pub">
+<label>Author:</label>Telescope, Tom. </div>
+<div class="pic_Detail">
+<label>Detail:</label><span class="txt_Detail">A new edition, revised and enriched .. by William Magnet, F.L.S. London, [1794]. 154pp. <i>Religion and Philosophy</i></span>
+</div>
+</div>
+
+										</td></tr></tbody></table></li></ul></div></div><div class="cb">&nbsp;</div><div id="pub_content"><div id="pub_tabs"><div id="loi-links"><ul><li id="loi-etoc"><a href="retrieve.do?sort=Author&inPS=true&prodId=ECCO&userGroupName=29002&tabID=T001&bookId=0704201300&resultListType=RESULT_LIST&searchId=R1&docId=CW3321258704&contentSet=ECCOArticles&pageFrom=&docLevel=TEXT_GRAPHICS&bookId=0704201300&showETOC=&showLOI=Yes&relevancePageBatch=CW121258703&currentPosition=8&totalCount=9&doDirectDocNumSearch=false">Full&nbsp;
+					  citation</a></li><li id="loi-etoc"><a href="eToc.do?sort=Author&inPS=true&prodId=ECCO&userGroupName=29002&tabID=T001&searchId=R1&currentPosition=8&contentSet=ECCOArticles&relevancePageBatch=CW121258703&pageFrom=&docId=CW3321258704&action=DO_BROWSE_ETOC&workId=0704201300&showLOI=Yes&totalCount=9&doDirectDocNumSearch=false">eTable&nbsp;
+					  of&nbsp;
+					  Contents</a></li><li class="active" id="loi-illustrations"><a>List&nbsp;
+							 of&nbsp;
+							 Illustrations</a></li></ul></div></div><div id="pub_content_container"><div id="txt_holder1"><div class="title_box1"><div class="tbtabs2">Caption</div><div class="tbtabsm">Type</div></div><div class="desc_box1"><div id="pub_loc">
+				       						<table cellspacing="0" cellpadding="0" border="1" height="100%" width="590">
+<tr>
+<td width="472"><span class="style1"><a href="retrieve.do?qrySerId=Locale%28en%2C%2C%29%3AFQE%3D%28A0%2CNone%2C14%29telescope%2C+tom%3AAnd%3AFQE%3D%28TI%2CNone%2C16%29newtonian+system%3AAnd%3ALQE%3D%28BA%2CNone%2C124%292NEF+Or+0LRH+Or+2NEK+Or+0LRL+Or+2NEI+Or+0LRI+Or+2NEJ+Or+0LRK+Or+2NEG+Or+0LRF+Or+2NEH+Or+0LRJ+Or+2NEM+Or+0LRN+Or+2NEL+Or+0LRM%24&inPS=true&prodId=ECCO&userGroupName=29002&tabID=T001&resultListType=RESULT_LIST&searchId=R1&currentPosition=8&contentSet=ECCOArticles&relatedDocId=The Marquiss of %E2%80%A6|1|Illustration&bookId=0704201300&docLevel=FASCIMILE&retrieveFormat=MULTIPAGE_DOCUMENT&callistoContentSet=ECCOArticles&pageIndex=1&docId=CW3321258704&relevancePageBatch=CW121258703&workId=0704201300&sort=Author">The Marquiss of …</a></span></td><td width="112"><span class="style2">Illustration</span></td>
+</tr>
+<tr>
+<td width="472"><span class="style1"><a href="retrieve.do?qrySerId=Locale%28en%2C%2C%29%3AFQE%3D%28A0%2CNone%2C14%29telescope%2C+tom%3AAnd%3AFQE%3D%28TI%2CNone%2C16%29newtonian+system%3AAnd%3ALQE%3D%28BA%2CNone%2C124%292NEF+Or+0LRH+Or+2NEK+Or+0LRL+Or+2NEI+Or+0LRI+Or+2NEJ+Or+0LRK+Or+2NEG+Or+0LRF+Or+2NEH+Or+0LRJ+Or+2NEM+Or+0LRN+Or+2NEL+Or+0LRM%24&inPS=true&prodId=ECCO&userGroupName=29002&tabID=T001&resultListType=RESULT_LIST&searchId=R1&currentPosition=8&contentSet=ECCOArticles&relatedDocId=Lecture on matter &%E2%80%A6 Motion|11|Illustration&bookId=0704201300&docLevel=FASCIMILE&retrieveFormat=MULTIPAGE_DOCUMENT&callistoContentSet=ECCOArticles&pageIndex=11&docId=CW3321258704&relevancePageBatch=CW121258703&workId=0704201300&sort=Author">Lecture on matter &… Motion</a></span></td><td width="112"><span class="style2">Illustration</span></td>
+</tr>
+<tr>
+<td width="472"><span class="style1"><a href="retrieve.do?qrySerId=Locale%28en%2C%2C%29%3AFQE%3D%28A0%2CNone%2C14%29telescope%2C+tom%3AAnd%3AFQE%3D%28TI%2CNone%2C16%29newtonian+system%3AAnd%3ALQE%3D%28BA%2CNone%2C124%292NEF+Or+0LRH+Or+2NEK+Or+0LRL+Or+2NEI+Or+0LRI+Or+2NEJ+Or+0LRK+Or+2NEG+Or+0LRF+Or+2NEH+Or+0LRJ+Or+2NEM+Or+0LRN+Or+2NEL+Or+0LRM%24&inPS=true&prodId=ECCO&userGroupName=29002&tabID=T001&resultListType=RESULT_LIST&searchId=R1&currentPosition=8&contentSet=ECCOArticles&relatedDocId=Illustration (no caption available)|18|Illustration&bookId=0704201300&docLevel=FASCIMILE&retrieveFormat=MULTIPAGE_DOCUMENT&callistoContentSet=ECCOArticles&pageIndex=18&docId=CW3321258704&relevancePageBatch=CW121258703&workId=0704201300&sort=Author">Illustration (no caption available)</a></span></td><td width="112"><span class="style2">Illustration</span></td>
+</tr>
+<tr>
+<td width="472"><span class="style1"><a href="retrieve.do?qrySerId=Locale%28en%2C%2C%29%3AFQE%3D%28A0%2CNone%2C14%29telescope%2C+tom%3AAnd%3AFQE%3D%28TI%2CNone%2C16%29newtonian+system%3AAnd%3ALQE%3D%28BA%2CNone%2C124%292NEF+Or+0LRH+Or+2NEK+Or+0LRL+Or+2NEI+Or+0LRI+Or+2NEJ+Or+0LRK+Or+2NEG+Or+0LRF+Or+2NEH+Or+0LRJ+Or+2NEM+Or+0LRN+Or+2NEL+Or+0LRM%24&inPS=true&prodId=ECCO&userGroupName=29002&tabID=T001&resultListType=RESULT_LIST&searchId=R1&currentPosition=8&contentSet=ECCOArticles&relatedDocId=Illustration (no caption available)|26|Illustration&bookId=0704201300&docLevel=FASCIMILE&retrieveFormat=MULTIPAGE_DOCUMENT&callistoContentSet=ECCOArticles&pageIndex=26&docId=CW3321258704&relevancePageBatch=CW121258703&workId=0704201300&sort=Author">Illustration (no caption available)</a></span></td><td width="112"><span class="style2">Illustration</span></td>
+</tr>
+<tr>
+<td width="472"><span class="style1"><a href="retrieve.do?qrySerId=Locale%28en%2C%2C%29%3AFQE%3D%28A0%2CNone%2C14%29telescope%2C+tom%3AAnd%3AFQE%3D%28TI%2CNone%2C16%29newtonian+system%3AAnd%3ALQE%3D%28BA%2CNone%2C124%292NEF+Or+0LRH+Or+2NEK+Or+0LRL+Or+2NEI+Or+0LRI+Or+2NEJ+Or+0LRK+Or+2NEG+Or+0LRF+Or+2NEH+Or+0LRJ+Or+2NEM+Or+0LRN+Or+2NEL+Or+0LRM%24&inPS=true&prodId=ECCO&userGroupName=29002&tabID=T001&resultListType=RESULT_LIST&searchId=R1&currentPosition=8&contentSet=ECCOArticles&relatedDocId=Illustration (no caption available)|27|Illustration&bookId=0704201300&docLevel=FASCIMILE&retrieveFormat=MULTIPAGE_DOCUMENT&callistoContentSet=ECCOArticles&pageIndex=27&docId=CW3321258704&relevancePageBatch=CW121258703&workId=0704201300&sort=Author">Illustration (no caption available)</a></span></td><td width="112"><span class="style2">Illustration</span></td>
+</tr>
+<tr>
+<td width="472"><span class="style1"><a href="retrieve.do?qrySerId=Locale%28en%2C%2C%29%3AFQE%3D%28A0%2CNone%2C14%29telescope%2C+tom%3AAnd%3AFQE%3D%28TI%2CNone%2C16%29newtonian+system%3AAnd%3ALQE%3D%28BA%2CNone%2C124%292NEF+Or+0LRH+Or+2NEK+Or+0LRL+Or+2NEI+Or+0LRI+Or+2NEJ+Or+0LRK+Or+2NEG+Or+0LRF+Or+2NEH+Or+0LRJ+Or+2NEM+Or+0LRN+Or+2NEL+Or+0LRM%24&inPS=true&prodId=ECCO&userGroupName=29002&tabID=T001&resultListType=RESULT_LIST&searchId=R1&currentPosition=8&contentSet=ECCOArticles&relatedDocId=Illustration (no caption available)|31|Illustration&bookId=0704201300&docLevel=FASCIMILE&retrieveFormat=MULTIPAGE_DOCUMENT&callistoContentSet=ECCOArticles&pageIndex=31&docId=CW3321258704&relevancePageBatch=CW121258703&workId=0704201300&sort=Author">Illustration (no caption available)</a></span></td><td width="112"><span class="style2">Illustration</span></td>
+</tr>
+<tr>
+<td width="472"><span class="style1"><a href="retrieve.do?qrySerId=Locale%28en%2C%2C%29%3AFQE%3D%28A0%2CNone%2C14%29telescope%2C+tom%3AAnd%3AFQE%3D%28TI%2CNone%2C16%29newtonian+system%3AAnd%3ALQE%3D%28BA%2CNone%2C124%292NEF+Or+0LRH+Or+2NEK+Or+0LRL+Or+2NEI+Or+0LRI+Or+2NEJ+Or+0LRK+Or+2NEG+Or+0LRF+Or+2NEH+Or+0LRJ+Or+2NEM+Or+0LRN+Or+2NEL+Or+0LRM%24&inPS=true&prodId=ECCO&userGroupName=29002&tabID=T001&resultListType=RESULT_LIST&searchId=R1&currentPosition=8&contentSet=ECCOArticles&relatedDocId=The Solar System|32|Illustration&bookId=0704201300&docLevel=FASCIMILE&retrieveFormat=MULTIPAGE_DOCUMENT&callistoContentSet=ECCOArticles&pageIndex=32&docId=CW3321258704&relevancePageBatch=CW121258703&workId=0704201300&sort=Author">The Solar System</a></span></td><td width="112"><span class="style2">Illustration</span></td>
+</tr>
+<tr>
+<td width="472"><span class="style1"><a href="retrieve.do?qrySerId=Locale%28en%2C%2C%29%3AFQE%3D%28A0%2CNone%2C14%29telescope%2C+tom%3AAnd%3AFQE%3D%28TI%2CNone%2C16%29newtonian+system%3AAnd%3ALQE%3D%28BA%2CNone%2C124%292NEF+Or+0LRH+Or+2NEK+Or+0LRL+Or+2NEI+Or+0LRI+Or+2NEJ+Or+0LRK+Or+2NEG+Or+0LRF+Or+2NEH+Or+0LRJ+Or+2NEM+Or+0LRN+Or+2NEL+Or+0LRM%24&inPS=true&prodId=ECCO&userGroupName=29002&tabID=T001&resultListType=RESULT_LIST&searchId=R1&currentPosition=8&contentSet=ECCOArticles&relatedDocId=Chart (no caption available)|37|Chart&bookId=0704201300&docLevel=FASCIMILE&retrieveFormat=MULTIPAGE_DOCUMENT&callistoContentSet=ECCOArticles&pageIndex=37&docId=CW3321258704&relevancePageBatch=CW121258703&workId=0704201300&sort=Author">Chart (no caption available)</a></span></td><td width="112"><span class="style2">Chart</span></td>
+</tr>
+<tr>
+<td width="472"><span class="style1"><a href="retrieve.do?qrySerId=Locale%28en%2C%2C%29%3AFQE%3D%28A0%2CNone%2C14%29telescope%2C+tom%3AAnd%3AFQE%3D%28TI%2CNone%2C16%29newtonian+system%3AAnd%3ALQE%3D%28BA%2CNone%2C124%292NEF+Or+0LRH+Or+2NEK+Or+0LRL+Or+2NEI+Or+0LRI+Or+2NEJ+Or+0LRK+Or+2NEG+Or+0LRF+Or+2NEH+Or+0LRJ+Or+2NEM+Or+0LRN+Or+2NEL+Or+0LRM%24&inPS=true&prodId=ECCO&userGroupName=29002&tabID=T001&resultListType=RESULT_LIST&searchId=R1&currentPosition=8&contentSet=ECCOArticles&relatedDocId=Illustration (no caption available)|39|Illustration&bookId=0704201300&docLevel=FASCIMILE&retrieveFormat=MULTIPAGE_DOCUMENT&callistoContentSet=ECCOArticles&pageIndex=39&docId=CW3321258704&relevancePageBatch=CW121258703&workId=0704201300&sort=Author">Illustration (no caption available)</a></span></td><td width="112"><span class="style2">Illustration</span></td>
+</tr>
+<tr>
+<td width="472"><span class="style1"><a href="retrieve.do?qrySerId=Locale%28en%2C%2C%29%3AFQE%3D%28A0%2CNone%2C14%29telescope%2C+tom%3AAnd%3AFQE%3D%28TI%2CNone%2C16%29newtonian+system%3AAnd%3ALQE%3D%28BA%2CNone%2C124%292NEF+Or+0LRH+Or+2NEK+Or+0LRL+Or+2NEI+Or+0LRI+Or+2NEJ+Or+0LRK+Or+2NEG+Or+0LRF+Or+2NEH+Or+0LRJ+Or+2NEM+Or+0LRN+Or+2NEL+Or+0LRM%24&inPS=true&prodId=ECCO&userGroupName=29002&tabID=T001&resultListType=RESULT_LIST&searchId=R1&currentPosition=8&contentSet=ECCOArticles&relatedDocId=Illustration (no caption available)|40|Illustration&bookId=0704201300&docLevel=FASCIMILE&retrieveFormat=MULTIPAGE_DOCUMENT&callistoContentSet=ECCOArticles&pageIndex=40&docId=CW3321258704&relevancePageBatch=CW121258703&workId=0704201300&sort=Author">Illustration (no caption available)</a></span></td><td width="112"><span class="style2">Illustration</span></td>
+</tr>
+<tr>
+<td width="472"><span class="style1"><a href="retrieve.do?qrySerId=Locale%28en%2C%2C%29%3AFQE%3D%28A0%2CNone%2C14%29telescope%2C+tom%3AAnd%3AFQE%3D%28TI%2CNone%2C16%29newtonian+system%3AAnd%3ALQE%3D%28BA%2CNone%2C124%292NEF+Or+0LRH+Or+2NEK+Or+0LRL+Or+2NEI+Or+0LRI+Or+2NEJ+Or+0LRK+Or+2NEG+Or+0LRF+Or+2NEH+Or+0LRJ+Or+2NEM+Or+0LRN+Or+2NEL+Or+0LRM%24&inPS=true&prodId=ECCO&userGroupName=29002&tabID=T001&resultListType=RESULT_LIST&searchId=R1&currentPosition=8&contentSet=ECCOArticles&relatedDocId=Illustration (no caption available)|41|Illustration&bookId=0704201300&docLevel=FASCIMILE&retrieveFormat=MULTIPAGE_DOCUMENT&callistoContentSet=ECCOArticles&pageIndex=41&docId=CW3321258704&relevancePageBatch=CW121258703&workId=0704201300&sort=Author">Illustration (no caption available)</a></span></td><td width="112"><span class="style2">Illustration</span></td>
+</tr>
+<tr>
+<td width="472"><span class="style1"><a href="retrieve.do?qrySerId=Locale%28en%2C%2C%29%3AFQE%3D%28A0%2CNone%2C14%29telescope%2C+tom%3AAnd%3AFQE%3D%28TI%2CNone%2C16%29newtonian+system%3AAnd%3ALQE%3D%28BA%2CNone%2C124%292NEF+Or+0LRH+Or+2NEK+Or+0LRL+Or+2NEI+Or+0LRI+Or+2NEJ+Or+0LRK+Or+2NEG+Or+0LRF+Or+2NEH+Or+0LRJ+Or+2NEM+Or+0LRN+Or+2NEL+Or+0LRM%24&inPS=true&prodId=ECCO&userGroupName=29002&tabID=T001&resultListType=RESULT_LIST&searchId=R1&currentPosition=8&contentSet=ECCOArticles&relatedDocId=Illustration (no caption available)|42|Illustration&bookId=0704201300&docLevel=FASCIMILE&retrieveFormat=MULTIPAGE_DOCUMENT&callistoContentSet=ECCOArticles&pageIndex=42&docId=CW3321258704&relevancePageBatch=CW121258703&workId=0704201300&sort=Author">Illustration (no caption available)</a></span></td><td width="112"><span class="style2">Illustration</span></td>
+</tr>
+<tr>
+<td width="472"><span class="style1"><a href="retrieve.do?qrySerId=Locale%28en%2C%2C%29%3AFQE%3D%28A0%2CNone%2C14%29telescope%2C+tom%3AAnd%3AFQE%3D%28TI%2CNone%2C16%29newtonian+system%3AAnd%3ALQE%3D%28BA%2CNone%2C124%292NEF+Or+0LRH+Or+2NEK+Or+0LRL+Or+2NEI+Or+0LRI+Or+2NEJ+Or+0LRK+Or+2NEG+Or+0LRF+Or+2NEH+Or+0LRJ+Or+2NEM+Or+0LRN+Or+2NEL+Or+0LRM%24&inPS=true&prodId=ECCO&userGroupName=29002&tabID=T001&resultListType=RESULT_LIST&searchId=R1&currentPosition=8&contentSet=ECCOArticles&relatedDocId=Illustration (no caption available)|44|Illustration&bookId=0704201300&docLevel=FASCIMILE&retrieveFormat=MULTIPAGE_DOCUMENT&callistoContentSet=ECCOArticles&pageIndex=44&docId=CW3321258704&relevancePageBatch=CW121258703&workId=0704201300&sort=Author">Illustration (no caption available)</a></span></td><td width="112"><span class="style2">Illustration</span></td>
+</tr>
+<tr>
+<td width="472"><span class="style1"><a href="retrieve.do?qrySerId=Locale%28en%2C%2C%29%3AFQE%3D%28A0%2CNone%2C14%29telescope%2C+tom%3AAnd%3AFQE%3D%28TI%2CNone%2C16%29newtonian+system%3AAnd%3ALQE%3D%28BA%2CNone%2C124%292NEF+Or+0LRH+Or+2NEK+Or+0LRL+Or+2NEI+Or+0LRI+Or+2NEJ+Or+0LRK+Or+2NEG+Or+0LRF+Or+2NEH+Or+0LRJ+Or+2NEM+Or+0LRN+Or+2NEL+Or+0LRM%24&inPS=true&prodId=ECCO&userGroupName=29002&tabID=T001&resultListType=RESULT_LIST&searchId=R1&currentPosition=8&contentSet=ECCOArticles&relatedDocId=Illustration (no caption available)|54|Illustration&bookId=0704201300&docLevel=FASCIMILE&retrieveFormat=MULTIPAGE_DOCUMENT&callistoContentSet=ECCOArticles&pageIndex=54&docId=CW3321258704&relevancePageBatch=CW121258703&workId=0704201300&sort=Author">Illustration (no caption available)</a></span></td><td width="112"><span class="style2">Illustration</span></td>
+</tr>
+<tr>
+<td width="472"><span class="style1"><a href="retrieve.do?qrySerId=Locale%28en%2C%2C%29%3AFQE%3D%28A0%2CNone%2C14%29telescope%2C+tom%3AAnd%3AFQE%3D%28TI%2CNone%2C16%29newtonian+system%3AAnd%3ALQE%3D%28BA%2CNone%2C124%292NEF+Or+0LRH+Or+2NEK+Or+0LRL+Or+2NEI+Or+0LRI+Or+2NEJ+Or+0LRK+Or+2NEG+Or+0LRF+Or+2NEH+Or+0LRJ+Or+2NEM+Or+0LRN+Or+2NEL+Or+0LRM%24&inPS=true&prodId=ECCO&userGroupName=29002&tabID=T001&resultListType=RESULT_LIST&searchId=R1&currentPosition=8&contentSet=ECCOArticles&relatedDocId=Illustration (no caption available)|58|Illustration&bookId=0704201300&docLevel=FASCIMILE&retrieveFormat=MULTIPAGE_DOCUMENT&callistoContentSet=ECCOArticles&pageIndex=58&docId=CW3321258704&relevancePageBatch=CW121258703&workId=0704201300&sort=Author">Illustration (no caption available)</a></span></td><td width="112"><span class="style2">Illustration</span></td>
+</tr>
+<tr>
+<td width="472"><span class="style1"><a href="retrieve.do?qrySerId=Locale%28en%2C%2C%29%3AFQE%3D%28A0%2CNone%2C14%29telescope%2C+tom%3AAnd%3AFQE%3D%28TI%2CNone%2C16%29newtonian+system%3AAnd%3ALQE%3D%28BA%2CNone%2C124%292NEF+Or+0LRH+Or+2NEK+Or+0LRL+Or+2NEI+Or+0LRI+Or+2NEJ+Or+0LRK+Or+2NEG+Or+0LRF+Or+2NEH+Or+0LRJ+Or+2NEM+Or+0LRN+Or+2NEL+Or+0LRM%24&inPS=true&prodId=ECCO&userGroupName=29002&tabID=T001&resultListType=RESULT_LIST&searchId=R1&currentPosition=8&contentSet=ECCOArticles&relatedDocId=Illustration (no caption available)|62|Illustration&bookId=0704201300&docLevel=FASCIMILE&retrieveFormat=MULTIPAGE_DOCUMENT&callistoContentSet=ECCOArticles&pageIndex=62&docId=CW3321258704&relevancePageBatch=CW121258703&workId=0704201300&sort=Author">Illustration (no caption available)</a></span></td><td width="112"><span class="style2">Illustration</span></td>
+</tr>
+<tr>
+<td width="472"><span class="style1"><a href="retrieve.do?qrySerId=Locale%28en%2C%2C%29%3AFQE%3D%28A0%2CNone%2C14%29telescope%2C+tom%3AAnd%3AFQE%3D%28TI%2CNone%2C16%29newtonian+system%3AAnd%3ALQE%3D%28BA%2CNone%2C124%292NEF+Or+0LRH+Or+2NEK+Or+0LRL+Or+2NEI+Or+0LRI+Or+2NEJ+Or+0LRK+Or+2NEG+Or+0LRF+Or+2NEH+Or+0LRJ+Or+2NEM+Or+0LRN+Or+2NEL+Or+0LRM%24&inPS=true&prodId=ECCO&userGroupName=29002&tabID=T001&resultListType=RESULT_LIST&searchId=R1&currentPosition=8&contentSet=ECCOArticles&relatedDocId=Illustration (no caption available)|68|Illustration&bookId=0704201300&docLevel=FASCIMILE&retrieveFormat=MULTIPAGE_DOCUMENT&callistoContentSet=ECCOArticles&pageIndex=68&docId=CW3321258704&relevancePageBatch=CW121258703&workId=0704201300&sort=Author">Illustration (no caption available)</a></span></td><td width="112"><span class="style2">Illustration</span></td>
+</tr>
+<tr>
+<td width="472"><span class="style1"><a href="retrieve.do?qrySerId=Locale%28en%2C%2C%29%3AFQE%3D%28A0%2CNone%2C14%29telescope%2C+tom%3AAnd%3AFQE%3D%28TI%2CNone%2C16%29newtonian+system%3AAnd%3ALQE%3D%28BA%2CNone%2C124%292NEF+Or+0LRH+Or+2NEK+Or+0LRL+Or+2NEI+Or+0LRI+Or+2NEJ+Or+0LRK+Or+2NEG+Or+0LRF+Or+2NEH+Or+0LRJ+Or+2NEM+Or+0LRN+Or+2NEL+Or+0LRM%24&inPS=true&prodId=ECCO&userGroupName=29002&tabID=T001&resultListType=RESULT_LIST&searchId=R1&currentPosition=8&contentSet=ECCOArticles&relatedDocId=Illustration (no caption available)|76|Illustration&bookId=0704201300&docLevel=FASCIMILE&retrieveFormat=MULTIPAGE_DOCUMENT&callistoContentSet=ECCOArticles&pageIndex=76&docId=CW3321258704&relevancePageBatch=CW121258703&workId=0704201300&sort=Author">Illustration (no caption available)</a></span></td><td width="112"><span class="style2">Illustration</span></td>
+</tr>
+<tr>
+<td width="472"><span class="style1"><a href="retrieve.do?qrySerId=Locale%28en%2C%2C%29%3AFQE%3D%28A0%2CNone%2C14%29telescope%2C+tom%3AAnd%3AFQE%3D%28TI%2CNone%2C16%29newtonian+system%3AAnd%3ALQE%3D%28BA%2CNone%2C124%292NEF+Or+0LRH+Or+2NEK+Or+0LRL+Or+2NEI+Or+0LRI+Or+2NEJ+Or+0LRK+Or+2NEG+Or+0LRF+Or+2NEH+Or+0LRJ+Or+2NEM+Or+0LRN+Or+2NEL+Or+0LRM%24&inPS=true&prodId=ECCO&userGroupName=29002&tabID=T001&resultListType=RESULT_LIST&searchId=R1&currentPosition=8&contentSet=ECCOArticles&relatedDocId=Mount Vesuvius|93|Illustration&bookId=0704201300&docLevel=FASCIMILE&retrieveFormat=MULTIPAGE_DOCUMENT&callistoContentSet=ECCOArticles&pageIndex=93&docId=CW3321258704&relevancePageBatch=CW121258703&workId=0704201300&sort=Author">Mount Vesuvius</a></span></td><td width="112"><span class="style2">Illustration</span></td>
+</tr>
+<tr>
+<td width="472"><span class="style1"><a href="retrieve.do?qrySerId=Locale%28en%2C%2C%29%3AFQE%3D%28A0%2CNone%2C14%29telescope%2C+tom%3AAnd%3AFQE%3D%28TI%2CNone%2C16%29newtonian+system%3AAnd%3ALQE%3D%28BA%2CNone%2C124%292NEF+Or+0LRH+Or+2NEK+Or+0LRL+Or+2NEI+Or+0LRI+Or+2NEJ+Or+0LRK+Or+2NEG+Or+0LRF+Or+2NEH+Or+0LRJ+Or+2NEM+Or+0LRN+Or+2NEL+Or+0LRM%24&inPS=true&prodId=ECCO&userGroupName=29002&tabID=T001&resultListType=RESULT_LIST&searchId=R1&currentPosition=8&contentSet=ECCOArticles&relatedDocId=Illustration (no caption available)|117|Illustration&bookId=0704201300&docLevel=FASCIMILE&retrieveFormat=MULTIPAGE_DOCUMENT&callistoContentSet=ECCOArticles&pageIndex=117&docId=CW3321258704&relevancePageBatch=CW121258703&workId=0704201300&sort=Author">Illustration (no caption available)</a></span></td><td width="112"><span class="style2">Illustration</span></td>
+</tr>
+<tr>
+<td width="472"><span class="style1"><a href="retrieve.do?qrySerId=Locale%28en%2C%2C%29%3AFQE%3D%28A0%2CNone%2C14%29telescope%2C+tom%3AAnd%3AFQE%3D%28TI%2CNone%2C16%29newtonian+system%3AAnd%3ALQE%3D%28BA%2CNone%2C124%292NEF+Or+0LRH+Or+2NEK+Or+0LRL+Or+2NEI+Or+0LRI+Or+2NEJ+Or+0LRK+Or+2NEG+Or+0LRF+Or+2NEH+Or+0LRJ+Or+2NEM+Or+0LRN+Or+2NEL+Or+0LRM%24&inPS=true&prodId=ECCO&userGroupName=29002&tabID=T001&resultListType=RESULT_LIST&searchId=R1&currentPosition=8&contentSet=ECCOArticles&relatedDocId=Illustration (no caption available)|131|Illustration&bookId=0704201300&docLevel=FASCIMILE&retrieveFormat=MULTIPAGE_DOCUMENT&callistoContentSet=ECCOArticles&pageIndex=131&docId=CW3321258704&relevancePageBatch=CW121258703&workId=0704201300&sort=Author">Illustration (no caption available)</a></span></td><td width="112"><span class="style2">Illustration</span></td>
+</tr>
+<tr>
+<td width="472"><span class="style1"><a href="retrieve.do?qrySerId=Locale%28en%2C%2C%29%3AFQE%3D%28A0%2CNone%2C14%29telescope%2C+tom%3AAnd%3AFQE%3D%28TI%2CNone%2C16%29newtonian+system%3AAnd%3ALQE%3D%28BA%2CNone%2C124%292NEF+Or+0LRH+Or+2NEK+Or+0LRL+Or+2NEI+Or+0LRI+Or+2NEJ+Or+0LRK+Or+2NEG+Or+0LRF+Or+2NEH+Or+0LRJ+Or+2NEM+Or+0LRN+Or+2NEL+Or+0LRM%24&inPS=true&prodId=ECCO&userGroupName=29002&tabID=T001&resultListType=RESULT_LIST&searchId=R1&currentPosition=8&contentSet=ECCOArticles&relatedDocId=%E2%80%A6 by Motion|140|Illustration&bookId=0704201300&docLevel=FASCIMILE&retrieveFormat=MULTIPAGE_DOCUMENT&callistoContentSet=ECCOArticles&pageIndex=140&docId=CW3321258704&relevancePageBatch=CW121258703&workId=0704201300&sort=Author">… by Motion</a></span></td><td width="112"><span class="style2">Illustration</span></td>
+</tr>
+</table><hr class="hrBar3"><div class="groupCitation">
+<div class="floatHeader5">
+<h4>Source Citation:</h4>
+</div>
+<div class="textPlacement1">
+<span class="citation">Telescope, Tom. <u>The newtonian system of philosophy. Adapted to the capacities of young ladies and gentlemen, And familiarized and made entertaining, By Objects with which they are intimately acquainted: being the substance of six lectures, read to a Select Company of Friends, by Tom Telescope, A.M. First collected and methodized by the late Mr. Newberry, for the Instruction and rational Entertainment of the Youth of these Kingdoms. Illustrated with Copperplates.</u>&nbsp;A new edition, revised and enriched .. by William Magnet, F.L.S.&nbsp;London, &nbsp;[1794].&nbsp;<u>Eighteenth Century Collections Online</u>.&nbsp;Gale.&nbsp;Yale University Library.&nbsp;5 May 2016&nbsp;<br>&lt;http://find.galegroup.com/ecco/infomark.do?<wbr>&source=gale<wbr>&prodId=ECCO<wbr>&userGroupName=29002<wbr>&tabID=T001<wbr>&docId=CW3321258704<wbr>&type=multipage<wbr>&contentSet=ECCOArticles<wbr>&version=1.0&docLevel=FASCIMILE&gt;.</span>
+</div>
+</div><div class="groupCitation">
+<div class="floatHeader5">
+<h4>Gale Document Number:</h4>
+</div>
+<div class="textPlacement1">CW521258703</div>
+</div>
+
+				       					</div></div></div></div></div></div></div><p/><div class="cb">&nbsp;</div></div><div id="cc_bottom"><div id="footer"><div id="footerRight"><ul class="footerNav"><li class="ft_contactUs"><a target="_blank" accesskey="9" href="http://www.gale.com/contact.htm">Contact Us</a></li><li class="ft_copyright"><a target="_blank" href="http://www.gale.com/epcopyright/index.htm#copyright">Copyright</a></li><li class="ft_terms"><a target="_blank" accesskey="8" href="http://www.gale.com/epcopyright/index.htm#terms">Terms of use</a></li><li class="ft_privPcy"><a target="_blank" href="http://www.gale.com/epcopyright/index.htm#privacy">Privacy policy</a></li></ul></div><script type="text/javascript">
+			var GACODE = "UA-6354241-24";            
+			var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+        </script><script type="text/javascript">
+            try {
+                var pageTracker = _gat._getTracker(GACODE);
+                pageTracker._trackPageview();
+            } catch(err) {}
+        </script></div></div></div><div id="logoCengage2"><span><img title="GALE CENGAGE Learning Logo" alt="GALE CENGAGE Learning Logo" src="http://gimg.galegroup.com/ecco/ecco-2.0.56-176/images/logo_cengage.gif "/></span></div></body></html>
