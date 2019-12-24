@@ -1,4 +1,10 @@
-# Krewson HTRC Update Post
+# A Half-Century of Illustrated Pages
+
+This post ...
+
+
+
+## HTRC Update Post Examples
 
 *from Ryan:*
 
@@ -19,7 +25,11 @@ Things worth going into a bit more detail on:
 
 - Pairtree
 - fast.ai
-- JP2
+- JP2 conversion
+
+Here's an image:
+
+![533 illustrated pages extracted in phase one.](img/phase1_montage_533.png)
 
 ## Discussion
 
