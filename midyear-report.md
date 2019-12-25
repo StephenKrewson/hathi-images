@@ -1,6 +1,7 @@
-# A Half-Century of Illustrated Pages: ACS Lab Notes
-
-## By the Numbers
+---
+title: "A Half-Century of Illustrated Pages: ACS Lab Notes"
+author: "Stephen Krewson"
+---
 
 We've reached the mid-point of my [Advanced Collaborative Support project](https://www.hathitrust.org/hathitrust-research-center-awards-five-acs-projects), "Deriving Basic Illustration Metadata." Many thanks to Ryan Dubnicek and Eleanor Dickson Koehl for coordinating the project and to Boris Capitanu for his always-stellar technical support.
 
@@ -10,31 +11,33 @@ Furthermore, the working hypothesis of this kind of "historical illustration" st
 
 To evaluate such hypotheses, the best option is definitely to look at everything possible for a significant but tractable slice of time. Only with a comprehensive imageset can we cluster in a way that might tell us something about this "unevenness." A 50-year sample pushes up against the limits of what can be stored on disk for a project, but it is doable. Such a slice also may better reflect the inherent cycles of technological change (Kondratiev? although this begs the question of whether 1800 is such a point for image technology; I think it is).   
 
-Here's a by-the-numbers breakdown:
+## 1. Choose a Subset of Volumes
 
-- There were **500,013** qualifying volumes (as of August 2019) in HT for the first half of the nineteenth century. To come up with this list of unique volume ids, I filtered the latest [HathiFile](https://www.hathitrust.org/hathifiles) by date range (`1800-1850`), media type, (`text`) and scanning institution (`google`). 
+There were **500,013** qualifying volumes (as of August 2019) in HT for the first half of the nineteenth century. To come up with this list of unique volume ids, I filtered the latest [HathiFile](https://www.hathitrust.org/hathifiles) by date range (`1800-1850`), media type, (`text`) and scanning institution (`google`). 
 
-  - Warning! HathiFiles are roughly a Gigabyte in size--far too large to read into memory with a Pandas method like `.read_csv()`.  Parsing the file in chunks is the way to go (it still takes ~15 min on my i7 laptop).
-  - The vast majority of volumes for this period have been scanned by Google; we opted for this restriction because Google-scanned books come with some extra metadata that is useful for identifying illustrated pages.
-  - Deduplication... estimate from Underwood??
+Warning! HathiFiles are roughly a Gigabyte in size--far too large to read into memory with a Pandas method like `.read_csv()`.  Parsing the file in chunks is the way to go (it still takes ~15 min on my i7 laptop).  The vast majority of volumes for this period have been scanned by Google; we opted for this restriction because Google-scanned books come with some extra metadata that is useful for identifying illustrated pages. Deduplication... estimate from Underwood??
 
-- After the first processing stage, which uses a retrained neural network to estimate if candidate pages are illustrated or not, the set of volumes was winnowed down to **183,553**. This means that, according to the model, roughly (183,553 / 500,013 * 100)  = **37%** of early-nineteenth century books contain one or more illustrated pages.
+## 2. Filter with CNN
+
+After the first processing stage, which uses a retrained neural network to estimate if candidate pages are illustrated or not, the set of volumes was winnowed down to **183,553**. This means that, according to the model, roughly (183,553 / 500,013 * 100)  = **37%** of early-nineteenth century books contain one or more illustrated pages.
 
   - The results of stage one were summarized in a 228 Mb JSONL file by Boris. Each line of the file is a JSON object corresponding to a volume. One of the fields 
 
 - Of this set of probably-illustrated volumes, there were **1,922,725** individual pages estimated by the model to feature illustrations. That is to say, subject to survival bias and Western-centric library practices, the historical-bibliographical record for the early nineteenth century consists of about **two million** printed illustrations. Or at least this is a good estimate!
 
-  - The **average** number of illustrated pages for a book in this set was **10.5**.
+### Basic stats
 
-  - The **median** number of illustrated pages was **2**.
+The **average** number of illustrated pages for a book in this set was **10.5**.
 
-  - The most common number (**mode**) of illustrated pages per volume was **1** (e.g. only a title page or frontispiece is illustrated).
+The **median** number of illustrated pages was **2**.
 
-  - The maximum for the image counts is **975**, for the first three volumes (1847-49) of the French-language children's periodical *L'image*. The University of California's bundling of [Vols. 1-3](https://hdl.handle.net/2027/uc1.a0010191161) has 1208 total page images. In general, outliers are periodicals. If we were trying to clean up counts, we would split this into three volumes and try to (1) deduplicate and (2) standardize periodical groupings (by year, for instance). But this project is simply trying to get at the images, so the per-volume counts don't matter all that much.
+The most common number (**mode**) of illustrated pages per volume was **1** (e.g. only a title page or frontispiece is illustrated).
 
-     <img src="img/limage.jpg" style="zoom:30%;" />
+The maximum for the image counts is **975**, for the first three volumes (1847-49) of the French-language children's periodical *L'Image. Revue mensuelle illustrée d'éducation d'instruction et de récréation*. The University of California's bundling of [Vols. 1-3](https://hdl.handle.net/2027/uc1.a0010191161) has 1208 total page images. In general, outliers are periodicals. If we were trying to clean up counts, we would split this into three volumes and try to (1) deduplicate and (2) standardize periodical groupings (by year, for instance). But this project is simply trying to get at the images, so the per-volume counts don't matter all that much.
 
-- The histogram shows the distribution of illustrations: overwhelmingly, even books that are illustrated will have single-digit illustrations (most often just one or two). For the early nineteenth century, at least, illustration is *rare*.![](img/phase1_histogram.png)
+![Frontispiece for 1847 *L'image*.](img/limage.jpg)
+
+The histogram shows the distribution of illustrations: overwhelmingly, even books that are illustrated will have single-digit illustrations (most often just one or two). For the early nineteenth century, at least, illustration is *rare*.![Histogram of volume illustrated page counts.](img/phase1_histogram.png)
 
 This certainly seems plausible; although I would like to check it against relevant bibliographic studies of 19C publishing. Some other data I have is here:
 
