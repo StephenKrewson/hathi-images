@@ -1,21 +1,32 @@
 # A Half-Century of Illustrated Pages: ACS Lab Notes
 
+## By the Numbers
+
 We've reached the mid-point of my [Advanced Collaborative Support project](https://www.hathitrust.org/hathitrust-research-center-awards-five-acs-projects), "Deriving Basic Illustration Metadata." Many thanks to Ryan Dubnicek and Eleanor Dickson Koehl for coordinating the project and to Boris Capitanu for his always-stellar technical support.
 
-Right now, sitting on a supercomputer named Big Red at the University of Indiana, is a rather remarkable dataset: *every illustrated page from every Google-scanned volume in the HathiTrust Digital Library (HT) for the period 1800-1849*. Although the image processing pipeline we are using is by no means new, the ability to work so comprehensively is. Furthermore, the working hypothesis of this kind of "historical illustration" study is that graphic elements in printed objects exhibit technical and stylistic similarity over time, but this development is *uneven*. That is to say, illustrations "change with the times" (i.e. the emergence of techniques like lithography will both exert a pressure on both publishers and artists) but reuse and copying of "older" styles is common.  
+Right now, sitting on a supercomputer named Big Red at the University of Indiana, is a rather remarkable dataset: *every illustrated page from every Google-scanned volume in the HathiTrust Digital Library (HT) for the period 1800-1850*. Although the image processing pipeline we are using is by no means new, the ability to work so comprehensively is. 
 
-To evaluate such hypotheses, the best option is definitely to look at everything possible for a significant but tractable slice of time. Only with a comprehensive imageset can we cluster in a way that might tell us something about this "unevenness." A 50-year sample pushes up against the limits of what can be stored on disk for a project; but it is doable. It also may better reflect the inherent cycles of technological change (Kondratiev? although this begs the question of whether 1800 is such a point for image technology; I think it is).   
+Furthermore, the working hypothesis of this kind of "historical illustration" study is that graphic elements in printed objects exhibit technical and stylistic similarity over time, but this development is *uneven*. That is to say, illustrations "change with the times" (i.e. the emergence of techniques like lithography will both exert a copycat pressure on publishers and push artists to use the medium in new ways) but reuse and copying of "older" styles is common.  
+
+To evaluate such hypotheses, the best option is definitely to look at everything possible for a significant but tractable slice of time. Only with a comprehensive imageset can we cluster in a way that might tell us something about this "unevenness." A 50-year sample pushes up against the limits of what can be stored on disk for a project, but it is doable. Such a slice also may better reflect the inherent cycles of technological change (Kondratiev? although this begs the question of whether 1800 is such a point for image technology; I think it is).   
 
 Here's a by-the-numbers breakdown:
 
-- There were **500,013** qualifying volumes (as of September 2019) in HT for the first half of the nineteenth century. To come up with this list of unique volume ids, I filtered the latest [HathiFile](https://www.hathitrust.org/hathifiles) by date range (`1800-1849`), media type, (`text`) and scanning institution (`google`). 
-  - This was a tricky but fun exercise since the HathiFiles are roughly a Gigabyte in size--far too large to read into memory with a Pandas method like `.read_csv()`. Reading the file in chunks is the way to go (it still takes ~15 min on my i7 laptop).
+- There were **500,013** qualifying volumes (as of August 2019) in HT for the first half of the nineteenth century. To come up with this list of unique volume ids, I filtered the latest [HathiFile](https://www.hathitrust.org/hathifiles) by date range (`1800-1850`), media type, (`text`) and scanning institution (`google`). 
+  - Warning! HathiFiles are roughly a Gigabyte in size--far too large to read into memory with a Pandas method like `.read_csv()`.  Parsing the file in chunks is the way to go (it still takes ~15 min on my i7 laptop).
   - The vast majority of volumes for this period have been scanned by Google; we opted for this restriction because Google-scanned books come with some extra metadata that is useful for identifying illustrated pages.
-- After the first processing stage, which uses a retrained neural network to estimate if candidate pages are illustrated or not, the set of volumes was winnowed down to **183,553**. This means that, according to the model, roughly (183,553 / 500,013 * 100)  = **37%** of early-nineteenth century books contain one or more illustrated pages. This certainly seems plausible; although I would like to check it against relevant bibliographic studies of 19C publishing.
+- After the first processing stage, which uses a retrained neural network to estimate if candidate pages are illustrated or not, the set of volumes was winnowed down to **183,553**. This means that, according to the model, roughly (183,553 / 500,013 * 100)  = **37%** of early-nineteenth century books contain one or more illustrated pages.
   - The results of stage one were summarized in a 228 Mb JSONL file by Boris. Each line of the file is a JSON object corresponding to a volume. One of the fields 
-- Of this set of probably-illustrated volumes, there were 1,999,999 individual pages estimated by my model to feature illustrations.
+- Of this set of probably-illustrated volumes, there were **1,922,725** individual pages estimated by the model to feature illustrations. That is to say, subject to survival bias and Western-centric library practices, the historical-bibliographical record for the early nineteenth century consists of about **two million** printed illustrations. Or at least this is a good estimate!
+  - The **average** number of illustrated pages for a book in this set was **10.5**.
+  - The **median** number of illustrated pages was **2**.
+  - The most common number (**mode**) of illustrated pages per volume was **1** (e.g. only a title page or frontispiece is illustrated).
+  - The maximum is **975**. This is worth investigating: ID is: 
+  - The histogram shows 
 
-This post sketches our basic data pipeline, highlighting a few decisions that are especially important for large-scale image processing.
+This certainly seems plausible; although I would like to check it against relevant bibliographic studies of 19C publishing.
+
+## Takeaways
 
 The main takeaways from the first phase of "Deriving Basic Illustration Metadata" are:
 
