@@ -1,6 +1,9 @@
 #  My additions
 *.gz
 
+# jsonl summary file is 228 Mb
+*.jsonl
+
 # Don't version keys!
 keys.py
 

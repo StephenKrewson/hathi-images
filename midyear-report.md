@@ -1,15 +1,27 @@
-# A Half-Century of Illustrated Pages: An ACS Update
+# A Half-Century of Illustrated Pages: ACS Lab Notes
 
-We're now roughly at the mid-point of my [Advanced Collaborative Support project](https://www.hathitrust.org/hathitrust-research-center-awards-five-acs-projects), "Deriving Basic Illustration Metadata." Many thanks to Ryan Dubnicek and Eleanor Dickson-Koehl for coordinating the project and to Boris Capitanu for his always-stellar technical support.
+We've reached the mid-point of my [Advanced Collaborative Support project](https://www.hathitrust.org/hathitrust-research-center-awards-five-acs-projects), "Deriving Basic Illustration Metadata." Many thanks to Ryan Dubnicek and Eleanor Dickson Koehl for coordinating the project and to Boris Capitanu for his always-stellar technical support.
 
-Right now, sitting on a supercomputer named Big Red at the University of Indiana, is a rather remarkable dataset: *every illustrated page from every Google-scanned volume in the HathiTrust Digital Library from 1800-1849*. By the numbers this means **500,000** volumes and **1,900,000** pages. In my Data Capsule in Secure Mode, I can explore this data in JSONL form.
+Right now, sitting on a supercomputer named Big Red at the University of Indiana, is a rather remarkable dataset: *every illustrated page from every Google-scanned volume in the HathiTrust Digital Library (HT) for the period 1800-1849*. Although the image processing pipeline we are using is by no means new, the ability to work so comprehensively is. Furthermore, the working hypothesis of this kind of "historical illustration" study is that graphic elements in printed objects exhibit technical and stylistic similarity over time, but this development is *uneven*. That is to say, illustrations "change with the times" (i.e. the emergence of techniques like lithography will both exert a pressure on both publishers and artists) but reuse and copying of "older" styles is common.  
+
+To evaluate such hypotheses, the best option is definitely to look at everything possible for a significant but tractable slice of time. Only with a comprehensive imageset can we cluster in a way that might tell us something about this "unevenness." A 50-year sample pushes up against the limits of what can be stored on disk for a project; but it is doable. It also may better reflect the inherent cycles of technological change (Kondratiev? although this begs the question of whether 1800 is such a point for image technology; I think it is).   
+
+Here's a by-the-numbers breakdown:
+
+- There were **500,013** qualifying volumes (as of September 2019) in HT for the first half of the nineteenth century. To come up with this list of unique volume ids, I filtered the latest [HathiFile](https://www.hathitrust.org/hathifiles) by date range (`1800-1849`), media type, (`text`) and scanning institution (`google`). 
+  - This was a tricky but fun exercise since the HathiFiles are roughly a Gigabyte in size--far too large to read into memory with a Pandas method like `.read_csv()`. Reading the file in chunks is the way to go (it still takes ~15 min on my i7 laptop).
+  - The vast majority of volumes for this period have been scanned by Google; we opted for this restriction because Google-scanned books come with some extra metadata that is useful for identifying illustrated pages.
+- After the first processing stage, which uses a retrained neural network to estimate if candidate pages are illustrated or not, the set of volumes was winnowed down to **183,553**. This means that, according to the model, roughly (183,553 / 500,013 * 100)  = **37%** of early-nineteenth century books contain one or more illustrated pages. This certainly seems plausible; although I would like to check it against relevant bibliographic studies of 19C publishing.
+  - The results of stage one were summarized in a 228 Mb JSONL file by Boris. Each line of the file is a JSON object corresponding to a volume. One of the fields 
+- Of this set of probably-illustrated volumes, there were 1,999,999 individual pages estimated by my model to feature illustrations.
 
 This post sketches our basic data pipeline, highlighting a few decisions that are especially important for large-scale image processing.
 
 The main takeaways from the first phase of "Deriving Basic Illustration Metadata" are:
 
-1. Image processing needs to be done in batch, in parallel
-2. Postpone conversion/reorganization as long as possible
+1. Use GCP and commodity stuff!
+2. Image processing needs to be done in batch, in parallel
+3. Postpone conversion/reorganization as long as possible
 
 Code can be found at:
 
