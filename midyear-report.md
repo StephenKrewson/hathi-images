@@ -29,9 +29,22 @@ The first stage of the project relies on a retrained convolutional neural networ
 
 I have an article in revision that describes the creation and validation of such schema/models in detail. I have [previously discussed](https://programminghistorian.org/en/lessons/extracting-illustrated-pages) user-friendly approaches for downloading images from HathiTrust and Internet Archive that are likely to be illustrated in the first place. In this post, I simply want to disclose the model I retrained with.
 
-From a previous image extraction project with the [Medical Heritage Library](http://www.medicalheritage.org/), I had a 12 Gb (compressed) worth of 19C training data. I uploaded these zipped images to a Google Cloud Bucket and from there transferred them to a Google Cloud Platform (GCP) instance with a NVIDIA Tesla P4 GPU. At that point, I used an off-the-shelf PyTorch CNN trained on ImageNet (TODO) to reach 95+% accuracy on a held-out test set.
+From a previous image extraction project with the [Medical Heritage Library](http://www.medicalheritage.org/), I had a 12 Gb (compressed) worth of 19C training data. I uploaded these zipped images to a Google Cloud Bucket and from there transferred them to a Google Cloud Platform (GCP) instance with a NVIDIA Tesla P4 GPU. At that point, I used an off-the-shelf PyTorch CNN trained on ImageNet (`resnet50`) to reach ~94% accuracy on a held-out test set.
 
-**Takeaway**: When it comes to deep learning, try to use the collective knowledge an active community of experimenters. That's why I chose to use [fast.ai's](https://www.fast.ai/) PyTorch library for model training. Fast.ai provided detailed installation guides for working with GCP; the forums are invaluable for troubleshooting. Be warned though: using the cloud (especially as a free user) comes with its own set of headaches. One week, the default `us-westb` datacenter was largely unavailable. This meant no access to the Jupyter notebooks from which I was running training. 
+| epoch | train_loss | valid_loss | error_rate |  time |
+| ----: | ---------: | ---------: | ---------: | ----: |
+|     0 |   1.004580 |   0.294468 |   0.081882 | 02:43 |
+|     1 |   0.515574 |   0.201986 |   0.057491 | 02:41 |
+|     2 |   0.367785 |   0.186820 |   0.059233 | 02:40 |
+|     3 |   0.306216 |   0.187071 |   0.055749 | 02:39 |
+
+![Fastai method for viewing a data batch](img/batch.png)
+
+![Confusion matrix for stage-one classifier](img/confusion.png)
+
+
+
+**Takeaway**: When it comes to deep learning, try to use the collective knowledge an active community of experimenters. That's why I chose to use [fast.ai's](https://www.fast.ai/) PyTorch library for model training. Fast.ai provided detailed installation guides for working with GCP; the forums are invaluable for troubleshooting. Be warned though: using the cloud (especially as a free user) comes with its own set of headaches. One week, the default `us-west2-b` datacenter was largely unavailable. This meant no access to the Jupyter notebooks from which I was running training. 
 
 ## Filter with Model
 
@@ -49,30 +62,30 @@ When the job finished, the set of volumes was winnowed down to **183,553**. This
 
 **Takeaways**: Parallelism is absolutely vital for running large jobs such as this in days instead of weeks or months. Careful thought is required regarding when to convert image formats. The JP2 format was designed for archives and is used by most HT partners. Unfortunately, it is proprietary and not supported by most machine learning libraries, including PyTorch. Thus we needed to convert to JPEG on the fly.
 
-Converting back and forth between JP2 and JPEG or PNG has been a source of endless frustration. The following are two solutions that may be helpful.
+Converting back and forth between JP2 and JPEG or PNG has been a source of endless frustration. The following are two of the simplest solutions I have found.
 
-On Windows, with the package `imageio` installed, you can download the necessary codecs for JP2 within an interactive session in the Python REPL:
+On Windows, with the package `imageio` installed, you can download the necessary codecs for JP2 within an interactive session in the Python REPL. N.B. the [freeimage download](https://imageio.readthedocs.io/en/latest/format_jp2-fi.html#jp2-fi) does not seem to work in the Data Capsules.
 
 ```python
 python
 > import imageio
-> 
-
+> imageio.plugins.freeimage.download()
 ```
 
-On Ubuntu (for HTRC DataCapsules):
+[Here's](https://packages.ubuntu.com/xenial/openjpeg-tools) what I've been using on Ubuntu (within a maintenance mode HTRC Data Capsule):
 
+```bash
+# may need to install dependencies...
+sudo apt-get openjpeg-tools
+
+# See: https://github.com/uclouvain/openjpeg/wiki/DocJ2KCodec
+# not possible to directly convert to JPEG; need to send to a lossless format like PNG
+opj_decompress -i <image>.jp2 -o <image>.png
 ```
-sudo apt-get libopenjpeg-tools
-
-ObjDecompress -i <image>.jp2 -o <image>.png
-```
-
-
 
 ### Initial Results
 
-Of this set of probably-illustrated volumes, there were **1,922,725** individual pages estimated by the model to feature illustrations. That is to say, subject to survival bias and Western-centric library practices, the historical-bibliographical record for the early nineteenth century consists of about **two million** printed illustrations. Or at least this is a good estimate!
+Of this set of probably-illustrated volumes, there were **1,922,725** individual pages estimated by the model to feature illustrations. That is to say, subject to survival bias and Western-centric library practices, the historical-bibliographical record for the early nineteenth century consists of about **two million** printed illustrations.
 
 At this point, we can compute some basic statistics. The **average** number of illustrated pages for a book in this set was **10.5**. The **median** number of illustrated pages was **2**. The most common number (**mode**) of illustrated pages per volume was **1** (e.g. only a title page or frontispiece is illustrated).
 
@@ -80,61 +93,18 @@ The maximum count was **975**. Extreme outliers are worth exploring, since they 
 
 ![Frontispiece for 1847 *L'image*.](img/limage.jpg)
 
-The histogram shows the distribution of illustrations: overwhelmingly, even books that are illustrated will have single-digit illustrations (most often just one or two). For the early nineteenth century, at least, illustration is *rare*.![Histogram of volume illustrated page counts.](img/phase1_histogram.png)
+The histogram shows the distribution of illustrations: overwhelmingly, even books that are illustrated will have single-digit illustrations (most often just one or two).![Histogram of volume illustrated page counts.](img/phase1_histogram.png)
 
-This certainly seems plausible; although I would like to check it against relevant bibliographic studies of 19C publishing. Some other data I have is here:
-
-MHL project.
-
-- [ ] Convert with Pandoc, send to Ryan
-
-## Takeaways
-
-The main takeaways from the first phase of "Deriving Basic Illustration Metadata" are:
-
-1. Use GCP and commodity stuff!
-2. Image processing needs to be done in batch, in parallel
-3. Postpone conversion/reorganization as long as possible
-
-Code can be found at:
-
-https://github.com/htrc/ACS-krewson
-
-## Pipeline
-
-Link to BioDiversity Library (and their implementation)
-
-Things worth going into a bit more detail on:
-
-- Pairtree
-- Parallelism
-- fast.ai
-- JP2 conversion
-
-Here's an image, courtesy of Damon Crockett's ivyp:
+Here's a montage of about 500 of the images from stage one, courtesy of Damon Crockett's `ivpy` Python [package](http://damoncrockett.com/projects/ivpy.htm):
 
 ![533 illustrated pages extracted in phase one.](img/phase1_montage_533.png)
 
-## Discussion
 
-## Next Steps
 
-- Bounding boxes (test?)
-- "Fingerprinting"
-- Clustering
-- Interpretation
+## Next Steps for Stage Two
 
-## HTRC Update Post Examples
-
-*from Ryan:*
-
-As requested and only (!) a couple of weeks late, here are links to some example blog posts from a group from our last ACS round:
-
-- https://newreadia.wordpress.com/2018/10/10/extracting-and-organizing-htrc-corpora-tool-and-walkthrough/
-  - Presents "Program Era Project" extractor tool that tries to get ISBN and other metadata and puts it into JSON form (from zipped pairtree)
-- https://dsps.lib.uiowa.edu/programera/2018/02/09/breaking-down-the-htrc-data-capsule/
-  - Basic graphs on (multi)authorship for Iowa Workshop study; basic "data profile" and plan for further text analysis
-- https://dsps.lib.uiowa.edu/programera/2017/11/20/collaborating-with-hathitrust/
-  - In-depth drive of StyleCard and LitMap (data shown in plot.ly)
-
-You’ll see that the focus of the posts varies, as does the length and the depth to which results are discussed. Whatever makes sense for the progress of your project will almost certainly work for us, but let me know if you have any questions or if you wanted to share a draft in advance, even. Sharing a draft is definitely not required, though.
+- Get bounding boxes for the images (another CNN)
+- "Fingerprint" the images with difference/perceptual hash or simply by using the last fully-connected layer from their representation in the stage-two neural network.
+  - Define some simple experiments to assess which method is best for non-photorealistic images from historical books
+- Build a lookup tree of nearest neighbors
+- Select a few clusters of stylistically similar images and historicize/Interpret!

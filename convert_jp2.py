@@ -4,6 +4,8 @@ import os
 import sys
 
 
+# Use `imageio` + `freeimage` plugin for `.jp2` support. See: http://imageio.readthedocs.io/en/latest/format_jp2-fi.html#jp2-fi. From interactive REPL session, import `imageio` and then run `imageio.plugins.freeimage.download()`. This will check if the requirement is satisfied and download it if not.
+
 if __name__ == "__main__":
     
     if len(sys.argv) != 2:
