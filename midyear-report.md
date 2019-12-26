@@ -25,9 +25,13 @@ The vast majority of volumes for this period have been scanned by Google; we opt
 
 ## Train Model
 
-I used 
+The first stage of the project relies on a retrained convolutional neural network (Imagenet12). The purpose of the model is to classify input page images as either belonging to one of the good classes () or the bad classes ().
 
-**Takeaway**: 
+From a previous project with the Medical Heritage Library, I had a 12 Gb (compressed) worth of 19C training data, split into 10 classes. I won't go into too much 
+
+**Takeaway**: I used the fastai library to train the model. Instead of worrying about access to a GPU, I used Google Cloud Platform. The 
+
+The model is saved to a `.pkl` file. The PyTorch model provides a `predict` model that we can use.
 
 ## Filter with Model
 
@@ -37,15 +41,13 @@ After the first processing stage, which uses a retrained neural network to estim
 
 - Of this set of probably-illustrated volumes, there were **1,922,725** individual pages estimated by the model to feature illustrations. That is to say, subject to survival bias and Western-centric library practices, the historical-bibliographical record for the early nineteenth century consists of about **two million** printed illustrations. Or at least this is a good estimate!
 
-### Basic stats
+**Takeaway**: Parallelism. Boris-style. Both 
 
-The **average** number of illustrated pages for a book in this set was **10.5**.
+### Initial Results
 
-The **median** number of illustrated pages was **2**.
+At this point, we can compute some basic statistics. The **average** number of illustrated pages for a book in this set was **10.5**. The **median** number of illustrated pages was **2**. The most common number (**mode**) of illustrated pages per volume was **1** (e.g. only a title page or frontispiece is illustrated).
 
-The most common number (**mode**) of illustrated pages per volume was **1** (e.g. only a title page or frontispiece is illustrated).
-
-The maximum for the image counts is **975**, for the first three volumes (1847-49) of the French-language children's periodical *L'Image. Revue mensuelle illustrée d'éducation d'instruction et de récréation*. The University of California's bundling of [Vols. 1-3](https://hdl.handle.net/2027/uc1.a0010191161) has 1208 total page images. In general, outliers are periodicals. If we were trying to clean up counts, we would split this into three volumes and try to (1) deduplicate and (2) standardize periodical groupings (by year, for instance). But this project is simply trying to get at the images, so the per-volume counts don't matter all that much.
+The maximum count was **975**. Extreme outliers are worth exploring, since they can reveal faulty assumptions about the data. In this case, the count is associated with the first three volumes (1847-49) of the French-language children's periodical *L'Image. Revue mensuelle illustrée d'éducation d'instruction et de récréation*. The University of California's bundling of [Vols. 1-3](https://hdl.handle.net/2027/uc1.a0010191161) has 1208 total page images. In general, outliers are periodicals. If we were trying to clean up counts, we would split this into three volumes and try to (1) deduplicate and (2) standardize periodical groupings (by year, for instance). But this project is simply trying to get at the images, so the per-volume counts don't matter all that much.
 
 ![Frontispiece for 1847 *L'image*.](img/limage.jpg)
 
