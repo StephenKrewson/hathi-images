@@ -3,6 +3,17 @@
 Code and assets from 2016 Data Mining project as well as 2019 HTRC collaborative grant. Contains instructions for accessing HT APIs and using fastai for model training.
 
 
+Conda broke on WSL, need to fully clean up . files in ~
+
+For ivpy, which is in (underscore) image-labeling, I ran conda (ml-mhl?) from cmd prompt
+worked fine, though globbing and path names are an abomination. need to use that Path libary from fastai
+crops are stored in ivpy/src/htrc for now.
+
+need to commit the montage from the projects-htrc file.
+
+do this on Wed.
+
+
 ## Todo
 
 - [x] June 11: Project kickoff
