@@ -25,3 +25,4 @@ arr = np.expand_dims(arr, axis=0)
 
 # or extract values from the ith layer (e.g. the last layer == index position -1)
 out = K.function([model.input], [model.layers[-1].output])([arr])[0]
+
