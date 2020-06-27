@@ -1,0 +1,187 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <meta name="author" content="Stephen Krewson" />
+  <title>A Half-Century of Illustrated Pages: ACS Lab Notes</title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+  </style>
+  <link rel="stylesheet" href="github.css" type="text/css" />
+</head>
+<body>
+<div id="header">
+<h1 class="title">A Half-Century of Illustrated Pages: ACS Lab Notes</h1>
+<h2 class="author">Stephen Krewson</h2>
+</div>
+<div id="TOC">
+<ul>
+<li><a href="#choose-a-subset-of-volumes">Choose a Subset of Volumes</a></li>
+<li><a href="#train-the-classifier">Train the Classifier</a></li>
+<li><a href="#filter-with-model">Filter with Model</a><ul>
+<li><a href="#initial-results">Initial Results</a></li>
+</ul></li>
+<li><a href="#next-steps-for-stage-two">Next Steps for Stage Two</a></li>
+</ul>
+</div>
+<p>We’ve reached the mid-point of my <a href="https://www.hathitrust.org/hathitrust-research-center-awards-five-acs-projects">Advanced Collaborative Support project</a>, “Deriving Basic Illustration Metadata.” Many thanks to Ryan Dubnicek and Eleanor Dickson Koehl for coordinating the project and to Boris Capitanu for his always-stellar technical support.</p>
+<p>Right now, sitting on a supercomputer named Big Red at the University of Indiana, is a rather remarkable dataset: <em>every illustrated page from every Google-scanned volume in the HathiTrust Digital Library (HT) for the period 1800-1850</em>. Although the image processing pipeline we are using is not new, working at this scale is.</p>
+<p>A working hypothesis of historical studies of illustration is that graphic elements in printed objects exhibit technical and stylistic similarity over time, but this development is <em>uneven</em>. That is to say, illustrations “change with the times” at different rates. On the one hand, the emergence of new techniques like lithography will exert a competitive pressure within the book market and prompt artisans to explore the affordances of the new medium. On the other hand, reuse of woodblocks and other at-hand materials remains appealing for financial reasons. In some cases, a “vintage” style may even be desirable.</p>
+<p>Before attempting to characterize this “unevenness” computationally, many smaller steps are necessary. The first step involves putting together a dataset of images that can plausibly represent the breadth of printed illustrations for a period in time. My project’s 50-year sample pushes up against the limits of what can be stored on disk for a project, but HTRC’s resources make possible what would be otherwise unimaginable for a graduate student. Although choosing a start year at the beginning of a century has no direct relationship to innovations in image production, fifty years is roughly the length of a Kondratiev cycle. At the very least, five decades should generate plenty of real historical signal.</p>
+<p>What do I mean by “signal”? At the end of the project, each illustration in the dataset will be encoded as a vector of numbers. This allows for calculating similarities between images. All other things being equal, we would expect similar images to loosely correlate with each other in time. By building “nearest neighbor” maps for certain types of images, we can test whether this is the case and also discover moments of aesthetic anachronism, when older styles reappear.</p>
+<p>The following sections discuss our progress, making some detours to discuss problems that future researchers may face when using HathiTrust for <em>image</em> rather than text analysis.</p>
+<div id="choose-a-subset-of-volumes" class="section level2">
+<h2>Choose a Subset of Volumes</h2>
+<p>There were <strong>500,013</strong> qualifying volumes (as of August 2019) in HT for the first half of the nineteenth century. To come up with this list of unique volume ids, I filtered the latest <a href="https://www.hathitrust.org/hathifiles">HathiFile</a> by date range (<code>1800-1850</code>), media type, (<code>text</code>) and scanning institution (<code>google</code>). I chose this date range because it is both relevant to my own research and because it precedes the explosion of illustrations in the second half of the nineteenth century (due in large part to half-tone printing and photography).</p>
+<p>The vast majority of volumes for this period have been scanned as part of the Google Books project; we opted for this restriction because Google-scanned books come with some extra metadata that is useful for identifying illustrated pages. I did not perform any deduplication of volume titles.</p>
+<p><strong>Takeaway</strong>: Warning! HathiFiles are roughly a Gigabyte in size–far too large to read into memory with a Pandas method like <code>.read_csv()</code>. Parsing the file in chunks is the way to go (it still takes ~15 min on my i7 laptop). Writing your own script to do this is a useful exercise if you plan on working with large quantities of HathiTrust data.</p>
+</div>
+<div id="train-the-classifier" class="section level2">
+<h2>Train the Classifier</h2>
+<p>The first stage of the project relies on a retrained convolutional neural network. The purpose of the model is to classify whether an input page image belongs to one of the desired classes: <code>inline_image</code>or <code>plate_image</code>. Inline images are integrated into the text of a page; plates are typically larger and occupy the entire page (in some cases they are tipped-in). Multi-page spreads and foldouts are too infrequent to merit their own class.</p>
+<p>I have an article in revision that describes the creation and validation of such schema/models in detail. I have <a href="https://programminghistorian.org/en/lessons/extracting-illustrated-pages">previously discussed</a> user-friendly approaches for downloading images from HathiTrust and Internet Archive that are likely to be illustrated in the first place. In this post, I simply want to disclose the model I retrained with.</p>
+<p>From a previous image extraction project with the <a href="http://www.medicalheritage.org/">Medical Heritage Library</a>, I had a 12 Gb (compressed) worth of 19C training data. I uploaded these zipped images to a Google Cloud Bucket and from there transferred them to a Google Cloud Platform (GCP) instance with a NVIDIA Tesla P4 GPU. At that point, I used an off-the-shelf PyTorch CNN trained on ImageNet (<code>resnet50</code>) to reach ~94% accuracy on a held-out test set.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="right">epoch</th>
+<th align="right">train_loss</th>
+<th align="right">valid_loss</th>
+<th align="right">error_rate</th>
+<th align="right">time</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">0</td>
+<td align="right">1.004580</td>
+<td align="right">0.294468</td>
+<td align="right">0.081882</td>
+<td align="right">02:43</td>
+</tr>
+<tr class="even">
+<td align="right">1</td>
+<td align="right">0.515574</td>
+<td align="right">0.201986</td>
+<td align="right">0.057491</td>
+<td align="right">02:41</td>
+</tr>
+<tr class="odd">
+<td align="right">2</td>
+<td align="right">0.367785</td>
+<td align="right">0.186820</td>
+<td align="right">0.059233</td>
+<td align="right">02:40</td>
+</tr>
+<tr class="even">
+<td align="right">3</td>
+<td align="right">0.306216</td>
+<td align="right">0.187071</td>
+<td align="right">0.055749</td>
+<td align="right">02:39</td>
+</tr>
+</tbody>
+</table>
+<div class="figure">
+<img src="img/batch.png" alt="Fastai method for viewing a data batch" />
+<p class="caption">Fastai method for viewing a data batch</p>
+</div>
+<div class="figure">
+<img src="img/confusion.png" alt="Confusion matrix for stage-one classifier" />
+<p class="caption">Confusion matrix for stage-one classifier</p>
+</div>
+<p><strong>Takeaway</strong>: When it comes to deep learning, try to use the collective knowledge an active community of experimenters. That’s why I chose to use <a href="https://www.fast.ai/">fast.ai’s</a> PyTorch library for model training. Fast.ai provided detailed installation guides for working with GCP; the forums are invaluable for troubleshooting. Be warned though: using the cloud (especially as a free user) comes with its own set of headaches. One week, the default <code>us-west2-b</code> datacenter was largely unavailable. This meant no access to the Jupyter notebooks from which I was running training.</p>
+</div>
+<div id="filter-with-model" class="section level2">
+<h2>Filter with Model</h2>
+<p>The trained model is saved as a serialized PyTorch object. When loaded, it provides a <code>predict()</code> method that returns the estimated class of the input image. Boris deserves all the credit for installing the necessary libraries (quite a headache as it turned out) and parallelizing the <a href="https://github.com/htrc/ACS-krewson">code</a>.</p>
+<p>To run inference on the 500,013 volumes, we first needed to:</p>
+<ul>
+<li>Acquire volume subset from HathiTrust (in pairtree structure)</li>
+<li>Parse through metadata for each volume to find all pages tagged with <code>IMAGE_ON_PAGE</code> (a tag generated by Google from OCR data)</li>
+<li>Unzip the fold of JP2 image assets</li>
+</ul>
+<p>Then Boris ran inference with a pool of threads on Big Red, keeping the pairtree directory structure and deleting all volumes/assets that were not of the desired classes (we decided to keep the OCR transcriptions for illustrated pages, in case future projects explore image captions).</p>
+<p>When the job finished, the set of volumes was winnowed down to <strong>183,553</strong>. This means that, according to the model, roughly (183,553 / 500,013 * 100) = <strong>37%</strong> of early-nineteenth century books contain one or more illustrated pages. The results of stage one were summarized in a 228 Mb JSONL file by Boris.</p>
+<p><strong>Takeaways</strong>: Parallelism is absolutely vital for running large jobs such as this in days instead of weeks or months. Careful thought is required regarding when to convert image formats. The JP2 format was designed for archives and is used by most HT partners. Unfortunately, it is proprietary and not supported by most machine learning libraries, including PyTorch. Thus we needed to convert to JPEG on the fly.</p>
+<p>Converting back and forth between JP2 and JPEG or PNG has been a source of endless frustration. The following are two of the simplest solutions I have found.</p>
+<p>On Windows, with the package <code>imageio</code> installed, you can download the necessary codecs for JP2 within an interactive session in the Python REPL. N.B. the <a href="https://imageio.readthedocs.io/en/latest/format_jp2-fi.html#jp2-fi">freeimage download</a> does not seem to work in the Data Capsules.</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">python
+<span class="op">&gt;</span> <span class="im">import</span> imageio
+<span class="op">&gt;</span> imageio.plugins.freeimage.download()</code></pre></div>
+<p><a href="https://packages.ubuntu.com/xenial/openjpeg-tools">Here’s</a> what I’ve been using on Ubuntu (within a maintenance mode HTRC Data Capsule):</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="co"># may need to install dependencies...</span>
+<span class="kw">sudo</span> apt-get openjpeg-tools
+
+<span class="co"># See: https://github.com/uclouvain/openjpeg/wiki/DocJ2KCodec</span>
+<span class="co"># not possible to directly convert to JPEG; need to send to a lossless format like PNG</span>
+<span class="kw">opj_decompress</span> -i <span class="kw">&lt;</span>image<span class="kw">&gt;</span>.jp2 -o <span class="kw">&lt;</span>image<span class="kw">&gt;</span>.png</code></pre></div>
+<div id="initial-results" class="section level3">
+<h3>Initial Results</h3>
+<p>Of this set of probably-illustrated volumes, there were <strong>1,922,725</strong> individual pages estimated by the model to feature illustrations. That is to say, subject to survival bias and Western-centric library practices, the historical-bibliographical record for the early nineteenth century consists of about <strong>two million</strong> printed illustrations.</p>
+<p>At this point, we can compute some basic statistics. The <strong>average</strong> number of illustrated pages for a book in this set was <strong>10.5</strong>. The <strong>median</strong> number of illustrated pages was <strong>2</strong>. The most common number (<strong>mode</strong>) of illustrated pages per volume was <strong>1</strong> (e.g. only a title page or frontispiece is illustrated).</p>
+<p>The maximum count was <strong>975</strong>. Extreme outliers are worth exploring, since they can reveal faulty assumptions about the data. In this case, the count is associated with the first three volumes (1847-49) of the French-language children’s periodical <em>L’Image. Revue mensuelle illustrée d’éducation d’instruction et de récréation</em>. The University of California’s bundling of <a href="https://hdl.handle.net/2027/uc1.a0010191161">Vols. 1-3</a> has 1208 total page images. In general, outliers are periodicals. If we were trying to clean up counts, we would split this into three volumes and try to (1) deduplicate and (2) standardize periodical groupings (by year, for instance). But this project is simply trying to get at the images, so the per-volume counts don’t matter all that much.</p>
+<div class="figure">
+<img src="img/limage.jpg" alt="Frontispiece for 1847 L’image." />
+<p class="caption">Frontispiece for 1847 <em>L’image</em>.</p>
+</div>
+<p>The histogram shows the distribution of illustrations: overwhelmingly, even books that are illustrated will have single-digit illustrations (most often just one or two).<img src="img/phase1_histogram.png" alt="Histogram of volume illustrated page counts." /></p>
+<p>Here’s a montage of about 500 of the images from stage one, courtesy of Damon Crockett’s <code>ivpy</code> Python <a href="http://damoncrockett.com/projects/ivpy.htm">package</a>:</p>
+<div class="figure">
+<img src="img/phase1_montage_533.png" alt="533 illustrated pages extracted in phase one." />
+<p class="caption">533 illustrated pages extracted in phase one.</p>
+</div>
+</div>
+</div>
+<div id="next-steps-for-stage-two" class="section level2">
+<h2>Next Steps for Stage Two</h2>
+<ul>
+<li>Get bounding boxes for the images (another CNN)</li>
+<li>“Fingerprint” the images with difference/perceptual hash or simply by using the last fully-connected layer from their representation in the stage-two neural network.</li>
+<li>Define some simple experiments to assess which method is best for non-photorealistic images from historical books</li>
+<li>Build a lookup tree of nearest neighbors</li>
+<li>Select a few clusters of stylistically similar images and historicize/Interpret!</li>
+</ul>
+<div id="refs" class="references">
+
+</div>
+</div>
+</body>
+</html>
