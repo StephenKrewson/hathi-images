@@ -27,6 +27,8 @@ Page image labels (from step1):
 
 Use of stubbytree vs. pairtree (old).
 
+Deliverable: CSV with vectors attached???
+
 ## Old stuff
 
 This is the final report for my [Advanced Collaborative Support project](https://www.hathitrust.org/hathitrust-research-center-awards-five-acs-projects), "Deriving Basic Illustration Metadata." Many thanks to Ryan Dubnicek and Eleanor Dickson Koehl for coordinating the project and to Boris Capitanu for his always-stellar technical support.
