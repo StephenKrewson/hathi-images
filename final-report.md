@@ -1,10 +1,12 @@
 ---
 title: "A Half-Century of Illustrated Pages: ACS Grant Final Report"
 author: "Stephen Krewson"
-date: "June 30, 2020"
+date: "July 15, 2020"
 ---
 
 ## Introduction
+
+Link to mid-year report: 
 
 The final stats:
 
@@ -23,11 +25,37 @@ Page image labels (from step1):
      845,181 plate_image
 ```
 
-2,584,888 numpy vectors. Each 4128 bytes.
+2,584,888 numpy vectors. Each 4128 bytes. 15GB
 
 Use of stubbytree vs. pairtree (old).
 
 Deliverable: CSV with vectors attached???
+
+## Steps
+
+The process involved three steps.
+
+### 1. Identify illustrated pages
+
+See mid-year report. This model is unreleased, since I hope that the field/HathiTrust can come up with more scientific ways of doing it. But it was more than decent for our purposes.
+
+### 2. Extract illustrated regions
+
+Remember to cite Mask-RCNN model. Use MHL content!!!!
+
+### 3. Reduce dimensionality
+
+For search. Parameter tuning, etc.
+
+## Case Study
+
+Use 2017 workshop; use the Parley fireside engravings!!!! Fingers crossed they yield good results. ivpy for montage of nearest neighbors. Ooh should I write this as a Jupyter notebook??
+
+## Discussion
+
+Acknowledgements at the end.
+
+## References
 
 ## Old stuff
 
