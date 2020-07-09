@@ -1,5 +1,6 @@
 #  My additions
 *.gz
+*.csv
 
 # jsonl summary file is 228 Mb
 *.jsonl
