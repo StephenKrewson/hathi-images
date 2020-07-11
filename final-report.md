@@ -27,35 +27,47 @@ Page image labels (from step1):
      845,181 plate_image
 ```
 
+## Dataset 
+
+Here is what is on Zenodo:
+
+| File | Description |
+| ---- | ----------- |
+|      |             |
+|      |             |
+|      |             |
+
+Link: 
+
 2,584,888 numpy vectors. Each 4128 bytes. 15GB
 
 Use of stubbytree vs. pairtree (old).
 
 Deliverable: CSV with vectors attached???
 
-My mid-point report can be found [here](https://wiki.htrc.illinois.edu/display/COM/A+Half-Century+of+Illustrated+Pages%3A+ACS+Lab+Notes).
+### Code
 
-## Dataset 
+The code used in the project is zipped up on Zenodo. It is also available (for how long?) on Github:
 
-Here is what is on Zenodo:
-
-Link: 
+https://github.com/htrc/ACS-krewson
 
 ## Steps
 
-The process involved three steps.
+The process involved three steps. Use Boris's attachments to demonstrate vector + classes.
 
-### Identify illustrated pages
+[Illustration from MHL paper]
 
-See mid-year report. This model is unreleased, since I hope that the field/HathiTrust can come up with more scientific ways of doing it. But it was more than decent for our purposes.
+### 1. Identify illustrated pages
 
-### Extract illustrated regions
+Step 1 is detailed in my [mid-point report](https://wiki.htrc.illinois.edu/display/COM/A+Half-Century+of+Illustrated+Pages%3A+ACS+Lab+Notes). The model is versioned in Zenodo as TITLE. DOI for my publication?
 
-Remember to cite Mask-RCNN model. Use MHL content!!!!
+### 2. Extract illustrated regions
 
-### Reduce dimensionality
+Remember to cite Mask-RCNN model. Use MHL content!
 
-For search. Parameter tuning, etc.
+### 3. Reduce dimensionality
+
+For search. Parameter tuning, etc. Python function to use. Citation for InceptionV3 paper.
 
 ## Case Study
 
@@ -63,15 +75,25 @@ Use 2017 workshop; use the Parley fireside engravings!!!! Fingers crossed they y
 
 **uc1.31822031034416-seq_12** -- will this example find other crutches? other hand colored images?
 
-![](img/uc1.31822031034416-seq_12.jpg)
+<img src="img/uc1.31822031034416-seq_12.jpg" style="zoom:50%;" />
 
 https://babel.hathitrust.org/cgi/pt?id=uc1.31822031034416&view=1up&seq=12
+
+Compare with walking image: 
+
+https://babel.hathitrust.org/cgi/pt?id=osu.32435078698222&view=1up&seq=8
+
+If these don't turn out well, use balloon stuff. Or maybe animals.
 
 ## Discussion
 
 Discussion.
 
 There are several applications for this dataset...
+
+- Reverse image search
+
+Cite Melvers and Smit and some other papers from MHL.
 
 ## Acknowledgements
 
