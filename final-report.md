@@ -51,25 +51,25 @@ The code used in the project is zipped up on Zenodo. It is also available (for h
 
 https://github.com/htrc/ACS-krewson
 
-## Steps
+## Processing steps
 
 The process involved three steps. Use Boris's attachments to demonstrate vector + classes.
 
 [Illustration from MHL paper]
 
-### 1. Identify illustrated pages
+### Step 1. Identify illustrated pages
 
-Step 1 is detailed in my [mid-point report](https://wiki.htrc.illinois.edu/display/COM/A+Half-Century+of+Illustrated+Pages%3A+ACS+Lab+Notes). The model is versioned in Zenodo as TITLE. DOI for my publication?
+Step 1 is detailed in my [mid-point report](https://wiki.htrc.illinois.edu/display/COM/A+Half-Century+of+Illustrated+Pages%3A+ACS+Lab+Notes). The model is versioned in Zenodo as TITLE. DOI for my publication? The table of Zenodo assets should fully cover this step. Include code to use the Step 1 model.
 
-### 2. Extract illustrated regions
+### Step 2. Extract illustrated regions
 
 Remember to cite Mask-RCNN model. Use MHL content!
 
-### 3. Reduce dimensionality
+### Step 3. Reduce dimensionality
 
 For search. Parameter tuning, etc. Python function to use. Citation for InceptionV3 paper.
 
-## Case Study
+## Case study: Peter Parley (or use something new??)
 
 Use 2017 workshop; use the Parley fireside engravings!!!! Fingers crossed they yield good results. ivpy for montage of nearest neighbors. Ooh should I write this as a Jupyter notebook??
 
