@@ -57,9 +57,9 @@ def search_hathifile(ht_file, col_file):
         # Use a basic regex with matching group
         # find: "Munroe, Francis", "Munroe and Francis", "Munroe & Francis"
         conditions = (chunk['imprint'].str.contains(
-                r"\bMunroe(?:,| and| &) Francis\b",
-                na=False,
-                flags=re.IGNORECASE)
+            r"\bMunroe(?:,| and| &) Francis\b",
+            na=False,
+            flags=re.IGNORECASE)
         )
 
         # concatenate valid rows, idx doesn't matter
