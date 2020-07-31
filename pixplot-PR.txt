@@ -1,0 +1,56 @@
+https://github.com/tensorflow/tensorflow/issues/38589
+
+keras/backend/tensorflow_backend.py
+
+I made fengwang's changes, which fixed some things.
+
+Need to file PR and ping Doug
+
+"Filename" --> "filename" or will fail (same for other column names?)
+
+is metadata passed in like this:
+
+--metadata=/path/to/metadata [this does work]
+
+or this:
+
+--metadata "path/to/metadata"
+
+
+
+ * preparing to vectorize 1477 images
+ * creating image array
+Traceback (most recent call last):
+  File "/mnt/c/Users/stephen-krewson/Documents/_app-files/munroe-francis/env/bin/pixplot", line 11, in <module>
+    load_entry_point('pixplot==0.0.90', 'console_scripts', 'pixplot')()
+  File "/mnt/c/Users/stephen-krewson/Documents/_app-files/munroe-francis/env/lib/python3.7/site-packages/pixplot/pixplot.py", line 1032, in parse
+    process_images(**config)
+  File "/mnt/c/Users/stephen-krewson/Documents/_app-files/munroe-francis/env/lib/python3.7/site-packages/pixplot/pixplot.py", line 98, in process_images
+    get_manifest(**kwargs)
+  File "/mnt/c/Users/stephen-krewson/Documents/_app-files/munroe-francis/env/lib/python3.7/site-packages/pixplot/pixplot.py", line 326, in get_manifest
+    layouts = get_layouts(**kwargs)
+  File "/mnt/c/Users/stephen-krewson/Documents/_app-files/munroe-francis/env/lib/python3.7/site-packages/pixplot/pixplot.py", line 452, in get_layouts
+    vecs = vectorize_images(**kwargs)
+  File "/mnt/c/Users/stephen-krewson/Documents/_app-files/munroe-francis/env/lib/python3.7/site-packages/pixplot/pixplot.py", line 491, in vectorize_images
+    vec = model.predict(np.expand_dims(im, 0)).squeeze()
+  File "/mnt/c/Users/stephen-krewson/Documents/_app-files/munroe-francis/env/lib/python3.7/site-packages/keras/engine/training.py", line 1456, in predict
+    self._make_predict_function()
+  File "/mnt/c/Users/stephen-krewson/Documents/_app-files/munroe-francis/env/lib/python3.7/site-packages/keras/engine/training.py", line 378, in _make_predict_function
+    **kwargs)
+  File "/mnt/c/Users/stephen-krewson/Documents/_app-files/munroe-francis/env/lib/python3.7/site-packages/keras/backend/tensorflow_backend.py", line 3012, in function
+    **kwargs)
+  File "/mnt/c/Users/stephen-krewson/Documents/_app-files/munroe-francis/env/lib/python3.7/site-packages/tensorflow/python/keras/backend.py", line 3936, in function
+    model = models.Model(inputs=inputs, outputs=outputs)
+  File "/mnt/c/Users/stephen-krewson/Documents/_app-files/munroe-francis/env/lib/python3.7/site-packages/tensorflow/python/keras/engine/training.py", line 242, in __new__
+    return functional.Functional(*args, **kwargs)
+  File "/mnt/c/Users/stephen-krewson/Documents/_app-files/munroe-francis/env/lib/python3.7/site-packages/tensorflow/python/training/tracking/base.py", line 457, in _method_wrapper
+    result = method(self, *args, **kwargs)
+  File "/mnt/c/Users/stephen-krewson/Documents/_app-files/munroe-francis/env/lib/python3.7/site-packages/tensorflow/python/keras/engine/functional.py", line 115, in __init__
+    self._init_graph_network(inputs, outputs)
+  File "/mnt/c/Users/stephen-krewson/Documents/_app-files/munroe-francis/env/lib/python3.7/site-packages/tensorflow/python/training/tracking/base.py", line 457, in _method_wrapper
+    result = method(self, *args, **kwargs)
+  File "/mnt/c/Users/stephen-krewson/Documents/_app-files/munroe-francis/env/lib/python3.7/site-packages/tensorflow/python/keras/engine/functional.py", line 144, in _init_graph_network
+    self._validate_graph_inputs_and_outputs()
+  File "/mnt/c/Users/stephen-krewson/Documents/_app-files/munroe-francis/env/lib/python3.7/site-packages/tensorflow/python/keras/engine/functional.py", line 642, in _validate_graph_inputs_and_outputs
+    layer = x._keras_history.layer
+AttributeError: 'tuple' object has no attribute 'layer'
