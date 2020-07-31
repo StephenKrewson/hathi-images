@@ -29,7 +29,7 @@ Page image labels (from step1):
 
 ## Dataset 
 
-Here is what is on Zenodo:
+Here is what is on Zenodo: https://zenodo.org/record/3940528 (DOI: 10.5281/zenodo.3940528).
 
 | File | Description |
 | ---- | ----------- |
