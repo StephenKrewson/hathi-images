@@ -31,6 +31,8 @@ Page image labels (from step1):
 
 Here is what is on Zenodo: https://zenodo.org/record/3940528 (DOI: 10.5281/zenodo.3940528).
 
+https://wiki.htrc.illinois.edu/display/COM/A+Half-Century+of+Illustrated+Pages%3A+ACS+Lab+Notes
+
 | File | Description |
 | ---- | ----------- |
 |      |             |
