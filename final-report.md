@@ -1,46 +1,22 @@
 ---
 title: "Derived Metadata for Early 19C Illustrations: ACS Grant Final Report"
 author: "Stephen W. Krewson"
-date: "July 15, 2020"
+date: "August 3, 2020"
 ---
-
-## Introduction
-
-https://orcid.org/0000-0002-6086-0649 (Stephen Krewson)
-
-The "Deriving Basic Illustration Metadata" grant has successfully concluded with the creation of a large and novel dataset. This dataset is publicly available through HTRC (via `rsync`) and Zenodo. It consists of roughly 2.5 million illustrated regions as well as vector representations of each region.
-
-In this sense, there are two extracted features: the crop itself and the vector representation.
-
-```
-Total number of volumes: 183,553
-Total number of page image files (scans): 1,922,602
-Total size of above page image files: 685,371,546,511 bytes (685+ GB)
-Total number of crops (generated in step2): 2,584,888
-Total size of above crop files: 553,399,284,753 bytes (553+ GB)
-Total size of text OCR for above pages: 2,407,897,173 bytes (2.4+ GB)
-Page image formats:
-   1,901,456 image/jp2
-      21,269 image/tiff
-Page image labels (from step1):
-   1,077,544 inline_image
-     845,181 plate_image
-```
 
 # Early 19C Illustration Metadata: Final Report
 
-The my ACS project has successfully concluded with the creation of a large and novel dataset of illustration metadata. The dataset was produced in four stages using two specially retrained convolutional neural networks as well as one standard model (InceptionV3).
+The "Deriving Basic Illustration Metadata" project has successfully concluded with the creation of a large and novel dataset of illustration metadata. The dataset was produced in four stages using two retrained convolutional neural networks as well as one standard model (InceptionV3).
 
 The key deliverables of this projects are the following:
 
-- A csv file identifying all illustrated pages from HathiTrust volumes from the early 19C
-- A nearest-neighbors index (and utilities) for finding similar images to a 
+- A CSV file identifying all illustrated regions from HathiTrust volumes published between 1800 and 1850
+- A nearest-neighbors index created from vector representations of these 2.5M regions of interest (ROIs)
+- Sample notebooks for working with the metadata and index files
 
-I will discuss the four stages briefly before turning to a discussion and some examples. All listed files are included in the project's [Zenodo repository](https://zenodo.org/record/3940528#.XyRNSZ5KjIU) unless stated otherwise. 
+The metadata and index files are included in the project's [Zenodo repository](https://zenodo.org/record/3940528#.XyRNSZ5KjIU). The notebooks and project code can be found on [GitHub](https://github.com/htrc/ACS-krewson). For more detailed usage information, consult the README files for these repositories.
 
-
-
-## Classification
+## Stage 1: Classification
 
 We began by identifying all Google-digitized volumes published during the years 1800-1850 (inclusive). These **500,013** volumes are contained in the file `google_ids_1800-1850.txt.gz`, which is a subset of the July 2019 [Hathifile](https://www.hathitrust.org/hathifiles). The Hathifile fields include basic publication information and are listed in `hathi_field_list.txt`.
 
@@ -50,14 +26,14 @@ This model is built with Tensorflow and is located here: `model1`. Code for inte
 
 My midpoint report describes the early steps in greater detail and can be found [here](https://wiki.htrc.illinois.edu/display/COM/A+Half-Century+of+Illustrated+Pages%3A+ACS+Lab+Notes).
 
-## Region of interest (ROI) extraction
+## Stage 2: Region of interest (ROI) extraction
 
 There **2,584,888** total ROIs. 
 
-## Dimensionality reduction
-## Indexing and visualization
+## Stage 3: Dimensionality reduction
+## Stage 4: Indexing and visualization
 
-## Dataset 
+## Project assets
 
 Here is what is on Zenodo: https://zenodo.org/record/3940528 (DOI: 10.5281/zenodo.3940528).
 
@@ -77,45 +53,20 @@ Use of stubbytree vs. pairtree (old).
 
 Deliverable: CSV with vectors attached???
 
-### Code
+### Project statistics
 
-The code used in the project is zipped up on Zenodo. It is also available (for how long?) on Github:
-
-https://github.com/htrc/ACS-krewson
-
-## Processing steps
-
-The process involved three steps. Use Boris's attachments to demonstrate vector + classes.
-
-[Illustration from MHL paper]
-
-### Step 1. Identify illustrated pages
-
-Step 1 is detailed in my [mid-point report](https://wiki.htrc.illinois.edu/display/COM/A+Half-Century+of+Illustrated+Pages%3A+ACS+Lab+Notes). The model is versioned in Zenodo as TITLE. DOI for my publication? The table of Zenodo assets should fully cover this step. Include code to use the Step 1 model.
-
-### Step 2. Extract illustrated regions
-
-Remember to cite Mask-RCNN model. Use MHL content!
-
-### Step 3. Reduce dimensionality
-
-For search. Parameter tuning, etc. Python function to use. Citation for InceptionV3 paper.
-
-## Case study: Peter Parley (or use something new??)
-
-Use 2017 workshop; use the Parley fireside engravings!!!! Fingers crossed they yield good results. ivpy for montage of nearest neighbors. Ooh should I write this as a Jupyter notebook??
-
-**uc1.31822031034416-seq_12** -- will this example find other crutches? other hand colored images?
-
-<img src="img/uc1.31822031034416-seq_12.jpg" style="zoom:50%;" />
-
-https://babel.hathitrust.org/cgi/pt?id=uc1.31822031034416&view=1up&seq=12
-
-Compare with walking image: 
-
-https://babel.hathitrust.org/cgi/pt?id=osu.32435078698222&view=1up&seq=8
-
-If these don't turn out well, use balloon stuff. Or maybe animals.
+Total number of volumes: 183,553
+Total number of page image files (scans): 1,922,602
+Total size of above page image files: 685,371,546,511 bytes (685+ GB)
+Total number of crops (generated in step2): 2,584,888
+Total size of above crop files: 553,399,284,753 bytes (553+ GB)
+Total size of text OCR for above pages: 2,407,897,173 bytes (2.4+ GB)
+Page image formats:
+   1,901,456 image/jp2
+      21,269 image/tiff
+Page image labels (from step1):
+   1,077,544 inline_image
+     845,181 plate_image
 
 ## Discussion
 
@@ -135,5 +86,3 @@ That this project was successfully completed is due to the following individuals
 - Boris Capitanu for his technical abilities and good humor and willingness to 
 - Eleanor Dickson Koehl, for perceptive questions about the project's place in the wider world of DH research
 - Doug Duhaime for use of his vectorization code and generous advice. As well as for bringing this grant to my attention.
-
-## References
