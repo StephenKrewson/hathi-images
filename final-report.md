@@ -27,6 +27,36 @@ Page image labels (from step1):
      845,181 plate_image
 ```
 
+# Early 19C Illustration Metadata: Final Report
+
+The my ACS project has successfully concluded with the creation of a large and novel dataset of illustration metadata. The dataset was produced in four stages using two specially retrained convolutional neural networks as well as one standard model (InceptionV3).
+
+The key deliverables of this projects are the following:
+
+- A csv file identifying all illustrated pages from HathiTrust volumes from the early 19C
+- A nearest-neighbors index (and utilities) for finding similar images to a 
+
+I will discuss the four stages briefly before turning to a discussion and some examples. All listed files are included in the project's [Zenodo repository](https://zenodo.org/record/3940528#.XyRNSZ5KjIU) unless stated otherwise. 
+
+
+
+## Classification
+
+We began by identifying all Google-digitized volumes published during the years 1800-1850 (inclusive). These **500,013** volumes are contained in the file `google_ids_1800-1850.txt.gz`, which is a subset of the July 2019 [Hathifile](https://www.hathitrust.org/hathifiles). The Hathifile fields include basic publication information and are listed in `hathi_field_list.txt`.
+
+From this comprehensive set of early-nineteenth century volumes, we find all potentially illustrated pages using OCR-derived metadata. Apply a retrained CNN model to filter out noisy candidate pages.
+
+This model is built with Tensorflow and is located here: `model1`. Code for interacting with the model is here.
+
+My midpoint report describes the early steps in greater detail and can be found [here](https://wiki.htrc.illinois.edu/display/COM/A+Half-Century+of+Illustrated+Pages%3A+ACS+Lab+Notes).
+
+## Region of interest (ROI) extraction
+
+There **2,584,888** total ROIs. 
+
+## Dimensionality reduction
+## Indexing and visualization
+
 ## Dataset 
 
 Here is what is on Zenodo: https://zenodo.org/record/3940528 (DOI: 10.5281/zenodo.3940528).
