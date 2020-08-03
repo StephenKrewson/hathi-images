@@ -140,26 +140,21 @@
 </div>
 <div id="discussion" class="section level2">
 <h2>Discussion</h2>
-<p>Discussion.</p>
+<p>The project was very successful in meeting its initial goal: a tabular report of all illustrated pages in a 50-year sample of HathiTrust. The next stage, innovative in its use of Mask-RCNN, was also a success. The cropped ROIs are reasonably accurate across a range of illustration types. Further training will only improve this processing pipeline.</p>
+<p>Having a large corpus of illustrations opens up new questions for historians of print media. Consider what can be learned from looking at <em>all</em> illustrations commissioned by a publishing firm over a fifty year period:</p>
 <div class="figure">
 <img src="./munroe-francis_montage_square.png" />
 
 </div>
-<p>There are several applications for this dataset…</p>
-<ul>
-<li>Reverse image search</li>
-</ul>
-<p>Cite Melvers and Smit and some other papers from MHL.</p>
+<p>These illustrations from the Boston firm of Munroe and Francis demonstrate, <em>inter alia</em>, the investment of 19C publishing in <em>series</em> of engravings, many of them relating to natural history. In some cases, access to a set of engravings was the impetus for commissioning the text of a book. Competition with other firms most likely had a decisive effect on illustration decisions.</p>
+<p>I plan to visualize the Munroe and Francis illustrations in comparison with those from other regional publishers. Using both the JPEG and vector representations will reveal how different publishers carved out specialty subjects in their book lists (or perhaps closely tracked popular genres and forms). This research can, of course, be done by analyzing the titles and text of these volumes. But starting with the illustrations defamiliarizes the problem and allows new insights.</p>
+<p>Unfortunately, the image files remain difficult to access and work with. As the project drew to a close, I was able to request small samples (as above) but the size of the images and copyright considerations continue to be barriers. Moreover, the computing resources necessary to derive the metadata for this project are prohibitive for individual researchers.</p>
+<p>For computational work on historical illustrations to progress and sustain a community of researchers, digital libraries like HathiTrust will need to provide IIIF-style APIs for downloading bounding boxes from page scans. Ideally, ROI labels and vector representations will be able to be stored alongside the page assets. This way the quality of illustration estimates can be continually improved. Shared visual metadata would greatly assist a more scientific approach to validating vector representations and nearest-neighbors indexes, which are sensitive to parameterization and difficult to interpret.</p>
+<p>My hope is that illustration locations and representations eventually become first-class objects, just like extracted text features.</p>
 </div>
 <div id="acknowledgements" class="section level2">
 <h2>Acknowledgements</h2>
-<p>That this project was successfully completed is due to the following individuals. Through a year of many changes, and my own lapses in concentration, they stuck with me and are fully responsible for a really nice result.</p>
-<ul>
-<li>Ryan Dubnicek, for his empathetic, and calm project management</li>
-<li>Boris Capitanu for his technical abilities and good humor and willingness to</li>
-<li>Eleanor Dickson Koehl, for perceptive questions about the project’s place in the wider world of DH research</li>
-<li>Doug Duhaime for use of his vectorization code and generous advice. As well as for bringing this grant to my attention.</li>
-</ul>
+<p>I am grateful to Ryan Dubnicek and Boris Capitanu for their patience and expertise as this project stretched across a difficult year. They deserve the credit for this project succeeding in meeting its stretch goals, despite inconsistencies on my part. My thanks to Eleanor Dickson Koehl for perceptive questions about the project’s place in the wider world of DH research. I am thankful to Doug Duhaime for his advice re: vectorization and for bringing this grant to my attention. Damon Crockett’s <code>ivpy</code> <a href="">package</a> was invaluable for creating montages of images.</p>
 <div id="refs" class="references">
 
 </div>
