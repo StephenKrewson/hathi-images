@@ -37,7 +37,6 @@ pandoc\
 	--bibliography="$PROJECT/assets/bib/references.bib"\
 	--column=1000\
 	--csl="$PROJECT/assets/bib/chicago-author-date.csl"\
-	--css="github.css"\
 	--filter pandoc-citeproc\
 	--from markdown+citations+implicit_figures+inline_notes+yaml_metadata_block\
 	--smart\
