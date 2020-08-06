@@ -35,6 +35,12 @@ https://course.fast.ai/start_gcp.html#step-4-access-fastai-materials-and-update-
 
 ### Invoke
 
+Takeaways: deactivate all Conda (including base). Use pip 3.7. Build pixplot assets on the VM and then scp back to local. Works OK for smaller sized datasets. use the -m flag with some of the copy utils for parallel.
+
+scp can be used with intstance name and zone argument supplied:
+
+https://cloud.google.com/compute/docs/instances/transfer-files#transfergcloud
+
 After starting up the VM from the Google Cloud console online, run in WSL (doesn't work in conda shell!):
 
 > gcloud compute ssh --zone=us-west2-b jupyter@my-fastai-instance -- -L 8080:localhost:8080
@@ -55,6 +61,10 @@ Use the browser tool to upload a zipped directory of training images to a Google
 
 > gsutil cp gs://[BUCKET_NAME]/[OBJECT_NAME] [SAVE_TO_LOCATION]
 > gsutil cp gs://19c-book-illustrations/19c-book-illustrations.zip .
+
+See:
+
+https://cloud.google.com/storage/docs/gsutil/commands/cp
 
 Finally, if you zipped the training images on Windows, you will need the [P7 tool](https://anaconda.org/bioconda/p7zip) to unzip them on the Linux Google VM. You need to create a conda environment to get the right permissions!
 
