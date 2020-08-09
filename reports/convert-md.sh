@@ -47,5 +47,8 @@ pandoc\
 	--output "$name.$EXT"\
 	$1
 
+# move the generated file to the output dir
+mv "$name.$EXT" output
+
 # Print status: 0 is success
 echo "Status: $?"
