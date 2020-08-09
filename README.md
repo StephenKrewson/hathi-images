@@ -1,3 +1,19 @@
+Questions/TODOs (August 2020)
+
+- Thank team
+- Ask Boris for carter-hendee data
+- Build charts of images over time (similar to MHL project)
+- Pixplot Questions
+	- Can you add additional data to same viz? (or is new folder created)
+	- How can labels be used IN the browser? (colors? more info on click?)
+	- How does Zoom work?
+- This HAS to be the angle on chapter 3 (but how to integrate with disability)
+- Ask Ryan about image access
+- Buy 2TB external hard drive
+- Ask about volume deduplication (Underwood or Bamman, surely)
+- Alternatively: image comparison as deduplication
+
+
 # HathiTrust Projects
 
 Code and assets from 2016 Data Mining project as well as 2019 HTRC collaborative grant. Contains instructions for accessing HT APIs and using fastai for model training.
