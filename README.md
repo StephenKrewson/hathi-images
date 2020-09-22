@@ -1,53 +1,43 @@
-Questions/TODOs (August 2020)
+# HTRC ACS project
 
-- Thank team
-- Ask Boris for carter-hendee data
-- Build charts of images over time (similar to MHL project)
-- Pixplot Questions
-	- Can you add additional data to same viz? (or is new folder created)
-	- How can labels be used IN the browser? (colors? more info on click?)
-	- How does Zoom work?
-- This HAS to be the angle on chapter 3 (but how to integrate with disability)
-- Ask Ryan about image access
-- Buy 2TB external hard drive
-- Ask about volume deduplication (Underwood or Bamman, surely)
-- Alternatively: image comparison as deduplication
+"Generating basic illustration metadata" (2019-20)
 
+Midyear report
 
-# HathiTrust Projects
+Final report
 
-Code and assets from 2016 Data Mining project as well as 2019 HTRC collaborative grant. Contains instructions for accessing HT APIs and using fastai for model training.
+Zenodo repository
 
+Some assets are located in non-versioned folders:
 
-Conda broke on WSL, need to fully clean up . files in ~
+--- | ---
 
-For ivpy, which is in (underscore) image-labeling, I ran conda (ml-mhl?) from cmd prompt
+ivpy, which is in `_image-labeling`, I ran conda (ml-mhl?) from cmd prompt
 worked fine, though globbing and path names are an abomination. need to use that Path libary from fastai
 crops are stored in ivpy/src/htrc for now.
 
-need to commit the montage from the projects-htrc file.
+## Status
 
-do this on Wed.
+- [x] [Data] Bought 4TB HDD drive
+- [ ] [Data] Waiting full 600GB dataset (in progress); process `carter-hendee` data from this
 
+- [ ] [Viz] Build charts of images over time (similar to MHL project)
+- [ ] [Viz] Pixplot questions for October 2020 demo:
+  - Can you add additional data to same viz? (or is new folder created)
+  - How can labels be used IN the browser? (colors? more info on click?)
+- [Research] This HAS to be the angle on chapter 3 (but how to integrate with disability)
+- [Research] Ask about volume deduplication (Underwood or Bamman, surely)
+  - Q: Can image comparison help with deduplication?
 
-## Todo
-
-- [x] June 11: Project kickoff
-- [x] June 25: Get/upload all 1800-1850 metadata from HathiFiles
-- [ ] July 9: ???
-- [ ] July 23: Sample list?
-- [ ] August 19: eliminate most-wrong. See: https://github.com/fastai/course-v3/blob/master/nbs/dl1/lesson2-download.ipynb (includes REST route)
-	- https://towardsdatascience.com/fastai-image-classification-32d626da20
-- [ ] August 19: Map predictions over list of image URLs (DataBunch)
-- [ ] August 20: Meeting! (nothing on Slack)
-
-## Fast.ai Workflow
+## Fast.ai workflow
 
 Warning! Any tips and guides stored in the notebooks will be UNAVAILABLE if the instance goes down. So make sure to version this stuff in my own repo. Huge headache.
 
 Remember to update library on the VMs:
 
 https://course.fast.ai/start_gcp.html#step-4-access-fastai-materials-and-update-packages
+
+Eliminate most-wrong. See: https://github.com/fastai/course-v3/blob/master/nbs/dl1/lesson2-download.ipynb (includes REST route); also https://towardsdatascience.com/fastai-image-classification-32d626da20.
 
 ### Invoke
 
@@ -92,56 +82,19 @@ Then, noting the weird syntax for the "extract" command:
 
 Difficult!
 
-### Training
 
-We'll use Lesson 2 - Download a Data Set as our guide and throw it in this repo.
+## HathiTrust APIs
 
+UPDATE: I now favor `pip` and `venv` for all dependency management. `conda` is too unpredictable.
 
-## Hathi Search and APIs
-
-Bibliographic metadata can be fetched from HTRC workset [toolkit](https://github.com/htrc/HTRC-WorksetToolkit). Recommended install is with [Anaconda](https://anaconda.org/pypi/htrc).
+Bibliographic metadata can be fetched from HTRC workset [toolkit](https://github.com/htrc/HTRC-WorksetToolkit). 
 
 Hathi's UI for advanced catalog search is [here](https://catalog.hathitrust.org/Search/Advanced). You still cannot add to a collection from catalog search! This is very limiting.
 
 Third-party wrappers: 
 
 - Data, Bib, and Solr (search) APIs: https://github.com/rlmv/hathitrust-api
-	- Now Python3 compatible; actively merging PRs
-	- Install (with local `pip` from within `conda` environment): `pip install hathitrust-api`
-
-Use `conda` environment `htrc`.
-
-
-## Project Steps (2019)
-
-### Generate Volume ID List
-
-For 6/25/19 meeting, I need to present a list of HT volume IDs. "Education" is a decent subject heading--so is "History," which captures the Parley books--but many volumes (especially periodicals) lack any subject keywords.
-
-There are many more comparative research questions (across formats and languages) that can be asked with a full sample. For 1800-1850, there are ~288,766 volumes. Since we are interested in serials and encyclopedias and similar printed formats, we would only want to exclude a few formats such as "Manuscript" and "CDROM." However, a more generalized way to do this is just to ignore volumes that do not contain a page sequence object.
-
-**Warning!**
-
-The 1800-1850 list can be generated ONLY by parsing the HathiFile (~1GB). This is because the Solr search API is completely deprecated--Hathi has made this clear! I wrote code to work with the HathiFile in `classify-image-junk` in the `src/sample.py` file.
-
-Within this directory, run:
-
-`python ids_by_date.py <START_DATE> <END_DATE> [<START-END.csv>]`
-
-N.B. in my notebooks for the Yale DH Lab workshop the recommended way was using online HT search to generate JSON Collection file.
-
-Boris requests (8/23):
-
-Python script (+ requirements.txt) that efficiently does inference on ~100 CSV rows. He will take care of the parallelism on the HPC.
-
-Script should have --input flag (argparse) for CSV input and --output flag for a directory where we can write the list of filtered rows.
-
-
-### Acquire Sample Pages
-
-For 7/23/19 meeting, I sampled and then generated mapping of sample volumes to IMAGE_ON_PAGE candidates.
-
-In
+	- Now Python3 compatible: `pip install hathitrust-api`
 
 ### HTRC Capsule
 
@@ -159,7 +112,7 @@ http://www.loc.gov/standards/mets/
 
 N.B. this is not actively maintained.
 
-file 	| purpose | note
+file | purpose | note
 --- 	| --- 		| ---
 `books.txt` | list of books to download | one unique HT ID per line; generated by `ht_search_volumes.py`
 `config.py` | stores HT API keys | not versioned, you'll need to get your own keys
