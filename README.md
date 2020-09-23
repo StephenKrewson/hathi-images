@@ -13,7 +13,6 @@ Some assets are located in non-versioned folders:
 --- | ---
 
 ivpy, which is in `_image-labeling`, I ran conda (ml-mhl?) from cmd prompt
-worked fine, though globbing and path names are an abomination. need to use that Path libary from fastai
 crops are stored in ivpy/src/htrc for now.
 
 ## Status
