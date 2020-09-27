@@ -19,6 +19,17 @@ crops are stored in ivpy/src/htrc for now.
 
 UPDATE: gsutil rsync does not work well. I'm running plain rsync into the VM. Hopefully the persistent disks are elastic. Otherwise, I'll run out of data.
 
+```
+rsync: write failed on "/home/stephen-krewson/crops/hvd/34398/hvd.32044034897587_00000323_00.jpg": No space left on device (28)
+rsync error: error in file IO (code 11) at receiver.c(374) [receiver=3.1.3]
+client_loop: send disconnect: Broken pipe
+ERROR: (gcloud.beta.compute.ssh) [/usr/bin/ssh] exited with return code [255].
+```
+
+Check disks and find the persistent one with:
+
+https://www.cyberciti.biz/faq/linux-extend-file-system-after-resize-disk-volume/
+
 Lessons: https://course.fast.ai/start_gcp
 
 - Provisioned a persistent disk (PD) of 2TB ahead of time
@@ -26,6 +37,7 @@ Lessons: https://course.fast.ai/start_gcp
 - Quotas apply to projects, so be careful about deleting
 - Buckets are also associated with projects -- ditto
 - Stuck with the fastai19 project
+- Conclusion: make boot disk the 2TB maximum. Mounting and resizing extra disks requires LOTS of extra knowledge of df and lsblk and growpart. Something to study up on, though.
 
 https://wiki.htrc.illinois.edu/display/COM/Downloading+Extracted+Features
 
