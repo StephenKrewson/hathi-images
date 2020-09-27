@@ -19,6 +19,16 @@ crops are stored in ivpy/src/htrc for now.
 
 UPDATE: gsutil rsync does not work well. I'm running plain rsync into the VM. Hopefully the persistent disks are elastic. Otherwise, I'll run out of data.
 
+Lessons: https://course.fast.ai/start_gcp
+
+- Provisioned a persistent disk (PD) of 2TB ahead of time
+- Used most up-to-date fast.ai libraries
+- Quotas apply to projects, so be careful about deleting
+- Buckets are also associated with projects -- ditto
+- Stuck with the fastai19 project
+
+https://wiki.htrc.illinois.edu/display/COM/Downloading+Extracted+Features
+
 Boris (9/21/20): Ok, the crops are available via rsync at `proxy.htrc.indiana.edu::krewson/crops`.
 For example, to rsync everything you could do:
 
