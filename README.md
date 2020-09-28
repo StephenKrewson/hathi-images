@@ -38,6 +38,7 @@ Lessons: https://course.fast.ai/start_gcp
 - Buckets are also associated with projects -- ditto
 - Stuck with the fastai19 project
 - Conclusion: make boot disk the 2TB maximum. Mounting and resizing extra disks requires LOTS of extra knowledge of df and lsblk and growpart. Something to study up on, though.
+- Other breakthrough: run tmux ON the remote server!! Then detach and exit. Job will hum merrily along. Otherwise, as soon as my laptop goes to sleep, the SSH connection is broken and it's all over. And it was too weird to run tmux within tmux. Just like the Zoo c. 2017!
 
 https://wiki.htrc.illinois.edu/display/COM/Downloading+Extracted+Features
 
