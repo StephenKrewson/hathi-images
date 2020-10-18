@@ -6,7 +6,11 @@
 mpirun equivalent for matlab
 
 example:
+
 >> matlabpool open 8   % start 8 parallel matlab instances
 
-# to see what jobs I have in the scheduler, and what compute node its on
+# to see what jobs I have in the scheduler, and what compute node it's on
+
+```
 squeue -l -u swk2
+```

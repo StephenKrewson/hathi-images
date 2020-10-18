@@ -2,150 +2,79 @@
 
 "Generating basic illustration metadata" (2019-20)
 
-Midyear report
+- Midyear report: https://wiki.htrc.illinois.edu/display/COM/A+Half-Century+of+Illustrated+Pages%3A+ACS+Lab+Notes
+- Final report: https://wiki.htrc.illinois.edu/display/COM/Advanced+Collaborative+Support+%28ACS%29+Awards [[pdf](https://wiki.htrc.illinois.edu/download/attachments/31588360/ACS-2019-2020-FinalReport-HathiTrust%2BNames.pdf?version=1&modificationDate=1595948576000&api=v2)]
+- Zenodo repository: https://zenodo.org/record/3940528
 
-Final report
-
-Zenodo repository
-
-Some assets are located in non-versioned folders:
-
---- | ---
-
-ivpy, which is in `_image-labeling`, I ran conda (ml-mhl?) from cmd prompt
-crops are stored in ivpy/src/htrc for now.
-
-## rsync
-
-UPDATE: gsutil rsync does not work well. I'm running plain rsync into the VM. Hopefully the persistent disks are elastic. Otherwise, I'll run out of data.
+Check the `_datasets` and `_image-labeling` folders for additional resources, such as `ivpy` montage tool. My current VM is described on fast.ai's [website](https://course.fast.ai/start_gcp). It can be accessed with:
 
 ```
-rsync: write failed on "/home/stephen-krewson/crops/hvd/34398/hvd.32044034897587_00000323_00.jpg": No space left on device (28)
-rsync error: error in file IO (code 11) at receiver.c(374) [receiver=3.1.3]
-client_loop: send disconnect: Broken pipe
-ERROR: (gcloud.beta.compute.ssh) [/usr/bin/ssh] exited with return code [255].
+gcloud beta compute ssh htrc-images
 ```
 
-Check disks and find the persistent one with:
+In fully-specified form this would be:
 
-https://www.cyberciti.biz/faq/linux-extend-file-system-after-resize-disk-volume/
+```
+gcloud beta compute ssh --zone us-west1-b --project global-matrix-245215 htrc-images
+```
 
-Lessons: https://course.fast.ai/start_gcp
+Run `gcloud config list` to see what default values are being used. The user "jupyter" should be used for accessing fast.ai's Jupyter Notebooks.
 
-- Provisioned a persistent disk (PD) of 2TB ahead of time
-- Used most up-to-date fast.ai libraries
-- Quotas apply to projects, so be careful about deleting
-- Buckets are also associated with projects -- ditto
-- Stuck with the fastai19 project
-- Conclusion: make boot disk the 2TB maximum. Mounting and resizing extra disks requires LOTS of extra knowledge of df and lsblk and growpart. Something to study up on, though.
-- Other breakthrough: run tmux ON the remote server!! Then detach and exit. Job will hum merrily along. Otherwise, as soon as my laptop goes to sleep, the SSH connection is broken and it's all over. And it was too weird to run tmux within tmux. Just like the Zoo c. 2017!
+## Downloading and backing up the full ROI dataset
 
-https://wiki.htrc.illinois.edu/display/COM/Downloading+Extracted+Features
-
-Boris (9/21/20): Ok, the crops are available via rsync at `proxy.htrc.indiana.edu::krewson/crops`.
-For example, to rsync everything you could do:
+Boris provided the crops via a temporary `rsync` endpoint at `proxy.htrc.indiana.edu::krewson/crops`. From within a `tmux` session on a VM with a 2TB boot drive, I ran:
 
 ```
 $ rsync -aP --itemize-changes proxy.htrc.indiana.edu::krewson/crops .
 ```
 
-This will retrieve the entire `crops` folder containing the stubbytree hierarchy to your disk… it’s about 550GB or thereabout.
+This retrieved the entire `crops` folder containing the stubbytree hierarchy to the VM's persistent disk. The size was 553GB. Unfortunately, `gsutil rsync` tool did not work, since the HTRC server was not in Cloud Object format.
 
-The option `-P` means `--partial --progress`. Option `-a` means archive mode, which is recursive with hard-links turned into files and permissions/attributes NOT preserved. 
+Since GPU quotas and buckets are also associated with projects, I stuck with the global-matrix-245215 project.
 
-There is a file called `files.txt` in the crops/ folder that contains all the file paths in the stubby tree.
-You can get this file listing only via:
+From the VM, after renaming the `crops` folder, I ran the following to copy the data to the cheaper bucket storage:
 
 ```
-$ rsync -aP proxy.htrc.indiana.edu::krewson/crops/files.txt .
+$ gsutil -m rsync -r hathitrust-full_1800-50/ gs://hathitrust-full_1800-50
 ```
 
-- [x] Test the server by getting `files.txt` locally to WSL2 (109 MB)
+I first tested with the flag `-n` to see what would happen. Don't select `-d` since this is a one-time transfer, and there is no need to delete extra files from the bucket. A key principle is to keep lots of data in the buckets, where it's cheaper to store. Then, extract subsets and run compute-intensive tasks on them (e.g. PixPlot vectorization).
 
-Let me know if you have questions. Also let me know when you finish downloading all of it so I can remove the data.
+- Conclusion: make boot disk the 2TB maximum. Mounting and resizing extra disks requires LOTS of extra knowledge of df and lsblk and growpart. Something to study up on, though.
+- Other breakthrough: run tmux ON the remote server!! Then detach and exit. Job will hum merrily along. Otherwise, as soon as my laptop goes to sleep, the SSH connection is broken and it's all over. And it was too weird to run tmux within tmux. Just like the Zoo c. 2017!
 
-The Google Cloud Storage version. Run from the VM, using a named tmux connection on my SSH connection, so that data doesn't flow through my local machine! Helpful links:
+- https://wiki.htrc.illinois.edu/display/COM/Downloading+Extracted+Features
 
 - https://cloud.google.com/filestore/docs/copying-data
+
 - https://cloud.google.com/storage/docs/gsutil/commands/rsync
 
-```
-$ gsutil rsync [OPTION] src_url dst_url
-```
+- https://cloud.google.com/storage/docs/gsutil/commands/cp (for pure GCP transfers, I favor `rsync -m`)
 
-Run with test flag `-n` to see what would happen. Don't select `-d` since this is a one-time transfer, and there is no need to delete extra files from the bucket.
+- If you zipped the training images on Windows, you may need the [P7 tool](https://anaconda.org/bioconda/p7zip) to unzip them on the Linux Google VM. You need to create a conda environment to get the right permissions -- difficult!
 
-```
-$ gsutil -m rsync -n -r proxy.htrc.indiana.edu::krewson/crops gs://hathitrust-full_1800-50
-```
+  ```
+  conda install -c bioconda p7zip
+  7za x [.zip]
+  ```
 
-How long does it take? Boris estimates 4-5 days. GCP says storage will cost about $12 per month.
-
-## Status
+## HTRC 10-min presentation
 
 - [x] [Data] Bought 4TB HDD drive
-- [ ] [Data] Waiting full 600GB dataset (in progress); process `carter-hendee` data from this
+- [x] [Data] Waiting full 600GB dataset (in progress); process `carter-hendee` data from this
 
 - [ ] [Viz] Build charts of images over time (similar to MHL project)
 - [ ] [Viz] Pixplot questions for October 2020 demo:
   - Can you add additional data to same viz? (or is new folder created)
   - How can labels be used IN the browser? (colors? more info on click?)
 - [Research] This HAS to be the angle on chapter 3 (but how to integrate with disability)
-- [Research] Ask about volume deduplication (Underwood or Bamman, surely)
-  - Q: Can image comparison help with deduplication?
-
-## Fast.ai workflow
-
-Warning! Any tips and guides stored in the notebooks will be UNAVAILABLE if the instance goes down. So make sure to version this stuff in my own repo. Huge headache.
-
-Remember to update library on the VMs:
+- [Research] Ask about volume deduplication (Underwood or Bamman, surely); can images be used for dedup?
 
 https://course.fast.ai/start_gcp.html#step-4-access-fastai-materials-and-update-packages
 
 Eliminate most-wrong. See: https://github.com/fastai/course-v3/blob/master/nbs/dl1/lesson2-download.ipynb (includes REST route); also https://towardsdatascience.com/fastai-image-classification-32d626da20.
 
-### Invoke
-
-Takeaways: deactivate all Conda (including base). Use pip 3.7. Build pixplot assets on the VM and then scp back to local. Works OK for smaller sized datasets. use the -m flag with some of the copy utils for parallel.
-
-scp can be used with intstance name and zone argument supplied:
-
-https://cloud.google.com/compute/docs/instances/transfer-files#transfergcloud
-
-After starting up the VM from the Google Cloud console online, run in WSL (doesn't work in conda shell!):
-
-> gcloud compute ssh --zone=us-west2-b jupyter@my-fastai-instance -- -L 8080:localhost:8080
-
-Or, since the LA region is often unavailable:
-
-> gcloud compute ssh --zone=us-east4-a jupyter@my-fastai-instance-east -- -L 8080:localhost:8080
-
-The notebooks are [here](http://localhost:8080/tree).
-
-http://www.robots.ox.ac.uk/~vgg/projects/seebibyte/index.html
-
 https://docs.fast.ai/tutorial.inference.html
-
-### Data Transfer
-
-Use the browser tool to upload a zipped directory of training images to a Google Cloud Bucket. This is the easy part. Then [transfer from the bucket to the instance](https://cloud.google.com/storage/docs/downloading-objects), using `gsutil cp`. I needed to do this twice, since the West region VM is not usable anymore. Very frustrating.
-
-> gsutil cp gs://[BUCKET_NAME]/[OBJECT_NAME] [SAVE_TO_LOCATION]
-> gsutil cp gs://19c-book-illustrations/19c-book-illustrations.zip .
-
-See:
-
-https://cloud.google.com/storage/docs/gsutil/commands/cp
-
-Finally, if you zipped the training images on Windows, you will need the [P7 tool](https://anaconda.org/bioconda/p7zip) to unzip them on the Linux Google VM. You need to create a conda environment to get the right permissions!
-
-> conda install -c bioconda p7zip
-
-Then, noting the weird syntax for the "extract" command:
-
-> 7za x [.zip]
-
-Difficult!
 
 
 ## HathiTrust APIs
@@ -158,33 +87,22 @@ Hathi's UI for advanced catalog search is [here](https://catalog.hathitrust.org/
 
 Third-party wrappers: 
 
-- Data, Bib, and Solr (search) APIs: https://github.com/rlmv/hathitrust-api
-	- Now Python3 compatible: `pip install hathitrust-api`
+- Data, Bib, and Solr (search) APIs: https://github.com/rlmv/hathitrust-api (now Python3 compatible: `pip install hathitrust-api`)
 
 ### HTRC Capsule
 
 Login: `stephenkrewson` (password saved with Chrome)
 Email: `stephen.krewson@yale.edu`
 
-http://www.loc.gov/standards/mets/
 
+# Deprecated project structure (c. 2016)
 
-
-
-# Deprecated
-
-## Project Structure (2016)
-
-N.B. this is not actively maintained. Q: how to make a table in Typora?
-
-file | purpose | note
-
---- | --- | ---
-
-`books.txt` | list of books to download | one unique HT ID per line; generated by `ht_search_volumes.py`
-`config.py` | stores HT API keys | not versioned, you'll need to get your own keys
-`ht_download_images.py` | downloads all image pages for each book in `books.txt` | if a folder already exists with the name of an ID it is skipped; IDs that contain colons are skipped
-`ht_search_volumes.py` | concatenates IDs returned from a bibliographic search onto `books.txt` | syntax for providing search fields (author, date, etc.) is given in a usage comment in the code
-`ht_run_extraction.sh` | creates the `extracted` subfolder within all volume directories | skips volume if `extracted` already exists
-`ht_classify_score.py` | from `extracted` subfolder, generates a corresponding Numpy array for each image in `vectors` sibling folder | adaptation of Inception model (2015)
+| File                    | Purpose                                                      | Note                                                         |
+| ----------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| `books.txt`             | list of books to download                                    | one unique HT ID per line; generated by `ht_search_volumes.py` |
+| `config.py`             | stores HT API keys                                           | not versioned, you'll need to get your own keys              |
+| `ht_download_images.py` | downloads all image pages for each book in `books.txt`       | if a folder already exists with the name of an ID it is skipped; IDs that contain colons are skipped |
+| `ht_search_volumes.py`  | concatenates IDs returned from a bibliographic search onto `books.txt` | syntax for providing search fields (author, date, etc.) is given in a usage comment in the code |
+| `ht_run_extraction.sh`  | creates the `extracted` subfolder within all volume directories | skips volume if `extracted` already exists                   |
+| `ht_classify_score.py`  | from `extracted` subfolder, generates a corresponding Numpy array for each image in `vectors` sibling folder | adaptation of Inception model (2015)                         |
 
