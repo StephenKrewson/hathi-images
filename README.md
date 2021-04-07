@@ -5,7 +5,7 @@ My project "Generating Basic Illustration Metadata" ran from May 2019 to August 
 Deliverables:
 
 - ACS [mid-year report](https://wiki.htrc.illinois.edu/display/COM/A+Half-Century+of+Illustrated+Pages%3A+ACS+Lab+Notes)
-- ACS [final report](https://wiki.htrc.illinois.edu/display/COM/Advanced+Collaborative+Support+%28ACS%29+Awards) [[pdf](https://wiki.htrc.illinois.edu/download/attachments/31588360/ACS-2019-2020-FinalReport-HathiTrust%2BNames.pdf?version=1&modificationDate=1595948576000&api=v2)]
+- ACS [final reports](https://wiki.htrc.illinois.edu/display/COM/Advanced+Collaborative+Support+%29ACS%29+Awards); my [pdf](https://wiki.htrc.illinois.edu/download/attachments/31588360/ACS-2019-2020-FinalReport-HathiTrust%2BNames.pdf?version=1&modificationDate=1595948576000&api=v2)
 - Project [Zenodo repository](https://zenodo.org/record/3940528)
 - Community Week slides: `reports-presentations/ACS_2020-HT-Community-Week`
 - Complete 1800-1850 [image dataset](https://console.cloud.google.com/storage/browser/hathitrust-full_1800-50) on Google Cloud Storage
@@ -32,6 +32,21 @@ The location of the data is:
 ```
 https://console.cloud.google.com/storage/browser/hathitrust-full_1800-50
 ```
+
+## Python recipes
+
+I am using Python 3.8 with pip 20.0.2 (April 2021). Like `pip`, the `venv` module is [installed already](https://packaging.python.org/guides/installing-using-pip-and-virtual-environments/) with Python 3. Just use the conventional name `env` since, unlike conda, the virtual environment is located in your project's directory.
+
+```
+python3 -m venv env
+source env/bin/activate
+which python3
+python3 -m pip install <libraries>
+deactivate
+```
+
+Remember to add env/* to .gitignore.
+
 
 ## Dissertation goals (2021)
 

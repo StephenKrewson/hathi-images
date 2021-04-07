@@ -22,7 +22,7 @@ __pycache__/
 
 # Distribution / packaging
 .Python
-env/
+env/				# conventional location for virtual environment created with venv!
 build/
 develop-eggs/
 dist/
