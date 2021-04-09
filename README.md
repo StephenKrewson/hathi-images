@@ -33,9 +33,18 @@ The location of the data is:
 https://console.cloud.google.com/storage/browser/hathitrust-full_1800-50
 ```
 
-## Python recipes
+Here's a basic checklist for spinning up a new VM:
 
-I am using Python 3.8 with pip 20.0.2 (April 2021). Like `pip`, the `venv` module is [installed already](https://packaging.python.org/guides/installing-using-pip-and-virtual-environments/) with Python 3. Just use the conventional name `env` since, unlike conda, the virtual environment is located in your project's directory.
+- Make sure the gcloud SDK is up to date: https://cloud.google.com/sdk/docs/quickstart. I had some trouble with expired keys. Make sure `apt-get update` runs fine.
+- Follow the fastai steps to create a GPU-enabled VM: https://course.fast.ai/start_gcp. This worked for me in the past, so why mess with it.
+
+
+
+## Python setup
+
+As of April 2021, I am using Python 3.8 with pip 20.0.2 on WSL2, Ubuntu 20.0.4. This gives me the closest match with my Linux VM and is extremely fast. The dependencies are simple: I need jupyter and pandas for working in the query notebook. I install these packages within a virtual environment.
+
+Like `pip`, the `venv` module is [installed already](https://packaging.python.org/guides/installing-using-pip-and-virtual-environments/) with Python 3. Just use the conventional name `env` since, unlike conda, the virtual environment is located in your project's directory.
 
 ```
 python3 -m venv env
@@ -45,7 +54,7 @@ python3 -m pip install <libraries>
 deactivate
 ```
 
-Remember to add env/* to .gitignore.
+Make sure env/* is in the .gitignore.
 
 
 ## Dissertation goals (2021)
