@@ -21,8 +21,10 @@ gcloud config list
 Once I provision the project with a VM, I can login in with either long or short form:
 
 ```
-gcloud beta compute ssh --zone us-west1b --project global-matrix-245215 fastai20
-gcloud beta compute ssh fastai20
+gcloud beta compute ssh --zone "us-east1-b" "pytorch-1-8-hathi-images"  --project "global-matrix-242515"
+
+# short version (need to update defaults in config)
+gcloud beta compute ssh pytorch-1-8-hathi-images
 ```
 
 The user "jupyter" should be used for accessing fast.ai's Jupyter Notebooks.
@@ -37,8 +39,10 @@ Here's a basic checklist for spinning up a new VM:
 
 - Make sure the gcloud SDK is up to date: https://cloud.google.com/sdk/docs/quickstart. I had some trouble with expired keys. Make sure `apt-get update` runs fine.
 - Follow the fastai steps to create a GPU-enabled VM: https://course.fast.ai/start_gcp. This worked for me in the past, so why mess with it.
-
-
+- Follow the instructions to install PixPlot, which is currently recommending Anaconda. This is another good reason to use fastai's steps: https://github.com/YaleDHLab/pix-plot. Use `conda activate pixplot` to enter the environment I created.
+- Once I have the images and the metadata file (using some kind of rsync or scp command), this should just work. The pixplot create syntax is incredibly simple.
+- Q: Can the PixPlot server be viewed from my local machine? Is some kind of tunneling needed? As I recall, I just rsynced the processed PixPlot directory to my own machine.
+- Make sure to shut down the instance! 
 
 ## Python setup
 
