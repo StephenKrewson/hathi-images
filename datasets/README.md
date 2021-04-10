@@ -2,6 +2,10 @@
 
 Keep the sub-folder relatively clean. Take notes here. The searches are recorded in the JSON file queries.json in this same directory.
 
+Comment: it's useful to have all files in a flat directory, for looking through them on my local machine. That's a powerful way to discover common or interesting themes. Say something methodological about this...
+
+Also: should really use my Crusoe material from the talk. Does Parley say much about Crusoe? Would be a nice connection. Is Crusoe ever disabled?
+
 
 ## Munroe-Francis
 
