@@ -1,0 +1,25 @@
+{
+   "queries":[
+      {
+         "query_label": "carter-hendee",
+         "query_column": "imprint",
+         "query_expr": "r'\bCarter(?:,| and| &) Hendee\b'",
+         "volume_count": 250,
+         "roi_count": 2478,
+      },
+      {
+         "query_label": "munroe-francis",
+         "query_column": "imprint",
+         "query_expr": "r'\bMunroe(?:,| and| &) Francis\b'",
+         "volume_count": 360,
+         "roi_count": 1478,
+      },
+      {
+         "query_label": "peter-parley",
+         "query_column": "title",
+         "query_expr": "r'peter.*parley'",
+         "volume_count": 179,
+         "roi_count": 8250,
+      },
+   ]
+}

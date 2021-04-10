@@ -1,6 +1,5 @@
-#  My additions
+#  Version control query .csv files, but not large compressed metadata files
 *.gz
-*.csv
 *.ann
 
 # jsonl summary file is 228 Mb
@@ -21,6 +20,7 @@ __pycache__/
 *.so
 
 # Distribution / packaging
+# includes virtual environment files in env/
 .Python
 env/
 build/
