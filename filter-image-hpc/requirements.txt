@@ -1,5 +1,0 @@
-# Requires Python 3.6, fastai prompts install of pandas, torch, etc.
-# Model built with version 1.0.52
-# See: https://github.com/fastai/fastai/blob/master/README.md#installation
-fastai==1.0.52
-imageio
