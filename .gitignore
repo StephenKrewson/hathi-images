@@ -5,8 +5,9 @@
 # jsonl summary file is 228 Mb
 *.jsonl
 
-# Don't version keys!
+# Don't version keys or Google Cloud credentials
 keys.py
+global-matrix-242515-49432d870e22.json
 
 # or zipped files shared on Slack
 *.zip

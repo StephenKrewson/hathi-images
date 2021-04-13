@@ -16,15 +16,20 @@ After my HT talk, I deleted by VM to save money on billing. The cloud storage co
 
 ```
 gcloud config list
+gcloud compute instances list
 ```
 
 Once I provision the project with a VM, I can login in with either long or short form:
 
 ```
-gcloud beta compute ssh --zone "us-east1-b" "pytorch-1-8-hathi-images"  --project "global-matrix-242515"
+gcloud beta compute ssh --zone "us-east1-c" "hathi-images-us-east1-c" --project "global-matrix-242515"
+```
 
+
+
+```
 # short version (need to update defaults in config)
-gcloud beta compute ssh pytorch-1-8-hathi-images
+gcloud beta compute ssh <instance>
 ```
 
 The user "jupyter" should be used for accessing fast.ai's Jupyter Notebooks.
@@ -37,12 +42,13 @@ https://console.cloud.google.com/storage/browser/hathitrust-full_1800-50
 
 Here's a basic checklist for spinning up a new VM:
 
-- Make sure the gcloud SDK is up to date: https://cloud.google.com/sdk/docs/quickstart. I had some trouble with expired keys. Make sure `apt-get update` runs fine.
-- Follow the fastai steps to create a GPU-enabled VM: https://course.fast.ai/start_gcp. This worked for me in the past, so why mess with it.
-- Follow the instructions to install PixPlot, which is currently recommending Anaconda. This is another good reason to use fastai's steps: https://github.com/YaleDHLab/pix-plot. Use `conda activate pixplot` to enter the environment I created.
+- [x] Make sure the gcloud SDK is up to date: https://cloud.google.com/sdk/docs/quickstart. I had some trouble with expired keys. Make sure `apt-get update` runs with no errors.
+
+- [ ] Follow the fastai steps to create a GPU-enabled VM: https://course.fast.ai/start_gcp. This worked for me in the past, so why mess with it. Pick a zone such as us-west1-b with more GPUs and GPU options. For preemptible instances, it is becoming harder to find resources: https://cloud.google.com/compute/docs/gpus/gpu-regions-zones.
+
+- [ ] Follow the instructions to install PixPlot, which is currently recommending Anaconda. This is another good reason to use fastai's steps: https://github.com/YaleDHLab/pix-plot. Use `conda activate pixplot` to enter the environment I created. You DO NOT need PixPlot locally, just the python web server and a browser!
+
 - Once I have the images and the metadata file (using some kind of rsync or scp command), this should just work. The pixplot create syntax is incredibly simple.
-- Q: Can the PixPlot server be viewed from my local machine? Is some kind of tunneling needed? As I recall, I just rsynced the processed PixPlot directory to my own machine.
-- Make sure to shut down the instance! 
 
 ## Python setup
 
