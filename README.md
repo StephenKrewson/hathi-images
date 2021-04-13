@@ -12,6 +12,22 @@ Deliverables:
 
 ## Google Cloud VM and cloud storage
 
+For credentials to Cloud storage:
+
+```
+# Within the virtual environment
+pip install --upgrade google-cloud-storage
+```
+
+Then export the key created under "Service Accounts" in the Console:
+
+```
+# Before running a notebook that uses the google.cloud package
+export GOOGLE_APPLICATION_CREDENTIALS="global-matrix-242515-49432d870e22.json"
+```
+
+https://cloud.google.com/storage/docs/reference/libraries
+
 After my HT talk, I deleted by VM to save money on billing. The cloud storage costs about $6 per month, which is very reasonable. To view my current Google Cloud projects, run:
 
 ```
