@@ -41,7 +41,21 @@ Once I provision the project with a VM, I can login in with either long or short
 gcloud beta compute ssh --zone "us-east1-c" "hathi-images-us-east1-c" --project "global-matrix-242515"
 ```
 
+To get metadata files from local machine to VM, use
 
+```
+gcloud compute scp <source> <destination>
+```
+
+You may need to specify the zone, if it does not match in your config.
+
+To download from bucket to VM, use the script to make a CSV of blob names:
+
+```
+cat peter-parley_gcloud.csv | gsutil -m cp -I ./peter-parley/images/
+```
+
+It goes pretty fast! Make sure to do it in tmux. For downloads of more than 10k, maybe use rsync.
 
 ```
 # short version (need to update defaults in config)
