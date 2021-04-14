@@ -36,7 +36,15 @@ Download the necessary project metadata files from Zenodo. There are three:
 
 ### 2. Search for a subset of volumes and merge all ROI metadata
 
-Identify a subset of volumes by filtering the Hathifile. Merge with the master ROI file to get an augmented set of fields for all illustrated regions corresponding to those volumes. For example, the search query might be on the `imprint` field in the Hathifile for a certain publisher. This process is done with the `query_to_pixplot.ipynb` notebook.
+This process is done with the `query_to_pixplot.ipynb` notebook.
+
+```
+# TODO: Save a separate CSV of the bucket URLs; drop the 'filename' column
+gs_urls = df['filename'].map(lambda x: "gs://hathitrust-full_1800-50/" + x)
+gs_urls.to_csv("{}_gs-urls.csv".format(search_label), index=None, header=None)
+```
+
+Identify a subset of volumes by filtering the Hathifile. Merge with the master ROI file to get an augmented set of fields for all illustrated regions corresponding to those volumes. For example, the search query might be on the `imprint` field in the Hathifile for a certain publisher.
 
 - The output is a CSV file that PixPlot can accept. Since PixPlot can smartly ignore extra fields, I also add a column to this CSV with the full `gs://hathitrust-full_1800-50` bucket prefix (TODO!). I version these CSVs in the repo.
 - Output the CSV peter-parley_gs-urls.csv, for use in downloading images from GCS to VM.
@@ -59,6 +67,27 @@ To download from bucket to VM, run the [`gsutil cp`](https://cloud.google.com/st
 cat ./metadata/peter-parley_gs-urls.csv | gsutil -m cp -I ./images/
 ```
 
+A good convention for staying organized is the following:
+
+```
+peter-parley/
+├── images
+│   ├── [...]
+│   └── wu.89097026173_00000703_00.jpg
+├── metadata
+│   ├── peter-parley_gs-urls.csv
+│   └── peter-parley_pixplot.csv
+└── output
+    ├── assets
+    ├── data
+    ├── favicon.ico
+    └── index.html
+
+3 directories, 0 files
+```
+
+Each search query should be kept in its own directory. In some cases, I will want to merge them (for instance, with the publishers) before running PixPlot.
+
 ### 4. Run PixPlot analysis and check results
 
 From the same `tmux` session, analyze the downloaded JPEGs with PixPlot, using the full metadata file. If the PixPlot job stalls, you can restart and PixPlot knows enough to skip image assets that already exist:
@@ -70,18 +99,41 @@ pixplot --images ./images/*.jpg --metadata ./metadata/peter-parley_pixplot.csv
 PixPlot will produce a folder structure like this:
 
 ```
-tree
+output/
+├── assets
+│   ├── css
+│   ├── images
+│   ├── js
+│   ├── json
+│   └── vendor
+├── data
+│   ├── atlases
+│   ├── heightmaps
+│   ├── hotspots
+│   ├── image-vectors
+│   ├── imagelists
+│   ├── layouts
+│   ├── manifest.json
+│   ├── manifests
+│   ├── metadata
+│   ├── originals
+│   └── thumbs
+├── favicon.ico
+└── index.html
+
+17 directories, 3 files
 ```
 
 ### 5. Download output directory for local viewing
 
-Now we want to [`gsutil rsync`](https://cloud.google.com/storage/docs/gsutil/commands/rsync) this to the local machine: (test first with a dry run!!)
+To transfer from the VM to my local machine, we must again use `gcloud compute scp` (with the recursive option for transferring an entire directory) since the VM is protected:
 
 ```
-gsutil -m rsync -r hathi-images-us-east1-c:~/peter-parley/output/ /mnt/c/Users/stephen-krewson/Documents/_datasets/peter-parley/
+# Transfer to C: drive for most space, run from a tmux session
+gcloud compute scp --recurse hathi-images-us-east1-c:~/peter-parley/output /mnt/c/Users/stephen-krewson/Documents/_datasets/peter-parley/output
 ```
 
-What does the -m do? Definitely put the images and assets on the C: drive. WSL2 won't have enough space after a while. The advantage of `gsutil rsync` is that it nicely checks for progress and can be restarted. It doesn't accept a list of URLs, so that's why we can't use it in Step 3. 
+If this job fails and needs to be rerun, I need to research how to to skip existing files.
 
 ## Appendix: Google configuration and credentials
 
@@ -101,23 +153,26 @@ export GOOGLE_APPLICATION_CREDENTIALS="global-matrix-242515-49432d870e22.json"
 
 The API docs can be found at https://cloud.google.com/storage/docs/reference/libraries.
 
-After my HT talk, I deleted by VM to save money on billing. The cloud storage costs about $6 per month, which is very reasonable. To view my current Google Cloud projects, run:
+To view my current projects, I use the [`gcloud config`](https://cloud.google.com/sdk/gcloud/reference/config/set) command:
 
 ```
-gcloud config list
+# Find out zone and other info for currently provisioned VMs
 gcloud compute instances list
+
+# See settings for 'compute' and 'core' groups
+gcloud config list
+
+# Set zone in default config to match the VM
+gcloud config set compute/zone us-east1-c
+
+# Now it's simple to log in (from a tmux session):
+gcloud compute ssh hathi-images-us-east1-c
 ```
 
-```
-# short version (need to update defaults in config)
-gcloud beta compute ssh <instance>
-```
-
-- [ ] Follow the fastai steps to create a GPU-enabled VM: https://course.fast.ai/start_gcp. This worked for me in the past, so why mess with it. Pick a zone such as us-west1-b with more GPUs and GPU options. For preemptible instances, it is becoming harder to find resources: https://cloud.google.com/compute/docs/gpus/gpu-regions-zones.
+Follow the fastai steps to create a GPU-enabled VM: https://course.fast.ai/start_gcp. This worked for me in the past, so why mess with it. Pick a zone such as us-west1-b with more GPUs and GPU options. For preemptible instances, it is becoming harder to find resources: https://cloud.google.com/compute/docs/gpus/gpu-regions-zones.
 
 - [ ] Follow the instructions to install PixPlot, which is currently recommending Anaconda. This is another good reason to use fastai's steps: https://github.com/YaleDHLab/pix-plot. Use `conda activate pixplot` to enter the environment I created. You DO NOT need PixPlot locally, just the python web server and a browser!
 
-- Once I have the images and the metadata file (using some kind of rsync or scp command), this should just work. The pixplot create syntax is incredibly simple.
 
 As of April 2021, I am using Python 3.8 with pip 20.0.2 on WSL2, Ubuntu 20.0.4. This gives me the closest match with my Linux VM and is extremely fast. The dependencies are simple: I need jupyter and pandas for working in the query notebook. I install these packages within a virtual environment.
 
@@ -143,23 +198,24 @@ $ rsync -aP --itemize-changes proxy.htrc.indiana.edu::krewson/crops .
 
 This retrieved the entire `crops` folder containing the stubbytree hierarchy to the VM's persistent disk. The size was 553GB. Unfortunately, `gsutil rsync` tool did not work, since the HTRC server was not in Cloud Object format.
 
-Since GPU quotas and buckets are also associated with projects, I stuck with the `global-matrix-245215` project.
-
-From the VM, after renaming the `crops` folder, I ran the following to copy the data to the cheaper bucket storage:
+Since GPU quotas and buckets are also associated with projects, I stuck with the `global-matrix-245215` project. From the VM, after renaming the `crops` folder, I ran the  [`gsutil rsync`](https://cloud.google.com/storage/docs/gsutil/commands/rsync) command to copy the data to the cheaper bucket storage:
 
 ```
-$ gsutil -m rsync -r hathitrust-full_1800-50/ gs://hathitrust-full_1800-50
+# Note that gsutil commands only work with cloud buckets! Not VMs
+# The -m flag optimizes/parallelizes jobs involving cloud buckets
+gsutil -m rsync -r hathitrust-full_1800-50/ gs://hathitrust-full_1800-50
 ```
 
-I first tested with the flag `-n` to see what would happen. Don't select `-d` since this is a one-time transfer, and there is no need to delete extra files from the bucket. A key principle is to keep lots of data in the buckets, where it's cheaper to store. Then, extract subsets and run compute-intensive tasks on them (e.g. PixPlot vectorization).
+I first tested with the flag `-n` to see what would happen. Don't select `-d` since this is a one-time transfer, and there is no need to delete extra files from the bucket.
+
+A key principle is to keep lots of data in the buckets, where it's cheaper to store (about $6 per month for the 600 GB ACS dataset). Then, extract subsets and run compute-intensive tasks on them (for example, PixPlot vectorization).
 
 - Conclusion: make boot disk the 2TB maximum. Mounting and resizing extra disks requires LOTS of extra knowledge of df and lsblk and growpart. Something to study up on, though.
 - Other breakthrough: run tmux ON the remote server!! Then detach and exit. Job will hum merrily along. Otherwise, as soon as my laptop goes to sleep, the SSH connection is broken and it's all over. And it was too weird to run tmux within tmux. Just like the Zoo c. 2017!
 
-- For pure GCP transfers, I favor `rsync -m`)
 
 
-If you zipped the training images on Windows, you may need the [P7 tool](https://anaconda.org/bioconda/p7zip) to unzip them on the Linux Google VM. You need to create a conda environment to get the right permissions -- difficult!
+On once occasion, because I had zipped training images on Windows, I needed the [P7 tool](https://anaconda.org/bioconda/p7zip) to unzip them on the Linux Google VM. You need to create a conda environment to get the right permissions -- difficult!
 
 ```
 conda install -c bioconda p7zip
