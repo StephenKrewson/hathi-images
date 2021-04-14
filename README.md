@@ -7,26 +7,99 @@ Deliverables:
 - ACS [mid-year report](https://wiki.htrc.illinois.edu/display/COM/A+Half-Century+of+Illustrated+Pages%3A+ACS+Lab+Notes)
 - ACS [final reports](https://wiki.htrc.illinois.edu/display/COM/Advanced+Collaborative+Support+%29ACS%29+Awards); my [pdf](https://wiki.htrc.illinois.edu/download/attachments/31588360/ACS-2019-2020-FinalReport-HathiTrust%2BNames.pdf?version=1&modificationDate=1595948576000&api=v2)
 - Project [Zenodo repository](https://zenodo.org/record/3940528)
-- Community Week slides: `reports-presentations/ACS_2020-HT-Community-Week`
+- Community Week slides: `presentations/ACS_2020-HT-Community-Week`
 - Complete 1800-1850 [image dataset](https://console.cloud.google.com/storage/browser/hathitrust-full_1800-50) on Google Cloud Storage
 
-## Google Cloud VM and cloud storage
+## Local and VM environments
 
-For credentials to Cloud storage:
+N.B. Check the `_datasets` and `_image-labeling` folders on my computer for additional resources, such as `ivpy` montage tool.
+
+Locally, I run Ubuntu 20.04 in WSL2 and use Python 3.8. I make sure to have an updated Google SDK.
+
+On the VM, I use `conda` and Python 3.7, to match PixPlot's dependencies. To log onto the VM:
+
+```gcloud beta compute ssh --zone "us-east1-c" "hathi-images-us-east1-c" --project "global-matrix-242515"```
+
+One nice trick is to `grep` for this command in this README and then paste into the terminal. 
+
+## How to create a PixPlot visualization from the ACS data
+
+The basic steps used for my HathiTrust presentation and dissertation case studies are outlined below:
+
+### 1. Acquire project metadata files
+
+Download the necessary project metadata files from Zenodo. There are three:
+
+- hathi (TODO: rename/reupload them all)
+- hathicols
+- rois
+
+### 2. Search for a subset of volumes and merge all ROI metadata
+
+Identify a subset of volumes by filtering the Hathifile. Merge with the master ROI file to get an augmented set of fields for all illustrated regions corresponding to those volumes. For example, the search query might be on the `imprint` field in the Hathifile for a certain publisher. This process is done with the `query_to_pixplot.ipynb` notebook.
+
+- The output is a CSV file that PixPlot can accept. Since PixPlot can smartly ignore extra fields, I also add a column to this CSV with the full `gs://hathitrust-full_1800-50` bucket prefix (TODO!). I version these CSVs in the repo.
+- Output the CSV peter-parley_gs-urls.csv, for use in downloading images from GCS to VM.
+- I also record the queries and number of results in the JSON file `metadata/pixplot_queries.json`.
+
+### 3. Transfer query metadata to VM and download all needed JPEGs
+
+To transfer a pair of query CSVs to the VM, use [`gcloud compute scp`](https://cloud.google.com/sdk/gcloud/reference/compute/scp):
+
+```
+gcloud compute scp peter-parley_pixplot.csv hathi-images-us-east1-c:~/peter-parley/metadata
+gcloud compute scp peter-parley_gs-urls.csv hathi-images-us-east1-c:~/peter-parley/metadata
+```
+
+Make sure your default zone is the same as the zone of your default project instance. There's no point in keeping the repo on the VM, which should be considered an ephemeral resource for running neural network inference.
+
+To download from bucket to VM, run the [`gsutil cp`](https://cloud.google.com/storage/docs/gsutil/commands/cp) command on the list of paths prefixed with the GCS bucket. I suspect that `gsutil` is preferred for jobs that stay entirely within the Google network. Make sure to do this from the `peter-parley` directory within a `tmux` session:
+
+```
+cat ./metadata/peter-parley_gs-urls.csv | gsutil -m cp -I ./images/
+```
+
+### 4. Run PixPlot analysis and check results
+
+From the same `tmux` session, analyze the downloaded JPEGs with PixPlot, using the full metadata file. If the PixPlot job stalls, you can restart and PixPlot knows enough to skip image assets that already exist:
+
+```python
+pixplot --images ./images/*.jpg --metadata ./metadata/peter-parley_pixplot.csv
+```
+
+PixPlot will produce a folder structure like this:
+
+```
+tree
+```
+
+### 5. Download output directory for local viewing
+
+Now we want to [`gsutil rsync`](https://cloud.google.com/storage/docs/gsutil/commands/rsync) this to the local machine: (test first with a dry run!!)
+
+```
+gsutil -m rsync -r hathi-images-us-east1-c:~/peter-parley/output/ /mnt/c/Users/stephen-krewson/Documents/_datasets/peter-parley/
+```
+
+What does the -m do? Definitely put the images and assets on the C: drive. WSL2 won't have enough space after a while. The advantage of `gsutil rsync` is that it nicely checks for progress and can be restarted. It doesn't accept a list of URLs, so that's why we can't use it in Step 3. 
+
+## Appendix: Google configuration and credentials
+
+So far, I have not needed to use Python to access the Google Cloud APIs. Here's how to install:
 
 ```
 # Within the virtual environment
 pip install --upgrade google-cloud-storage
 ```
 
-Then export the key created under "Service Accounts" in the Console:
+Create a key under "Service Accounts" in the Console. Then export it to the environment:
 
 ```
 # Before running a notebook that uses the google.cloud package
 export GOOGLE_APPLICATION_CREDENTIALS="global-matrix-242515-49432d870e22.json"
 ```
 
-https://cloud.google.com/storage/docs/reference/libraries
+The API docs can be found at https://cloud.google.com/storage/docs/reference/libraries.
 
 After my HT talk, I deleted by VM to save money on billing. The cloud storage costs about $6 per month, which is very reasonable. To view my current Google Cloud projects, run:
 
@@ -35,52 +108,16 @@ gcloud config list
 gcloud compute instances list
 ```
 
-Once I provision the project with a VM, I can login in with either long or short form:
-
-```
-gcloud beta compute ssh --zone "us-east1-c" "hathi-images-us-east1-c" --project "global-matrix-242515"
-```
-
-To get metadata files from local machine to VM, use
-
-```
-gcloud compute scp <source> <destination>
-```
-
-You may need to specify the zone, if it does not match in your config.
-
-To download from bucket to VM, use the script to make a CSV of blob names:
-
-```
-cat peter-parley_gcloud.csv | gsutil -m cp -I ./peter-parley/images/
-```
-
-It goes pretty fast! Make sure to do it in tmux. For downloads of more than 10k, maybe use rsync.
-
 ```
 # short version (need to update defaults in config)
 gcloud beta compute ssh <instance>
 ```
-
-The user "jupyter" should be used for accessing fast.ai's Jupyter Notebooks.
-
-The location of the data is:
-
-```
-https://console.cloud.google.com/storage/browser/hathitrust-full_1800-50
-```
-
-Here's a basic checklist for spinning up a new VM:
-
-- [x] Make sure the gcloud SDK is up to date: https://cloud.google.com/sdk/docs/quickstart. I had some trouble with expired keys. Make sure `apt-get update` runs with no errors.
 
 - [ ] Follow the fastai steps to create a GPU-enabled VM: https://course.fast.ai/start_gcp. This worked for me in the past, so why mess with it. Pick a zone such as us-west1-b with more GPUs and GPU options. For preemptible instances, it is becoming harder to find resources: https://cloud.google.com/compute/docs/gpus/gpu-regions-zones.
 
 - [ ] Follow the instructions to install PixPlot, which is currently recommending Anaconda. This is another good reason to use fastai's steps: https://github.com/YaleDHLab/pix-plot. Use `conda activate pixplot` to enter the environment I created. You DO NOT need PixPlot locally, just the python web server and a browser!
 
 - Once I have the images and the metadata file (using some kind of rsync or scp command), this should just work. The pixplot create syntax is incredibly simple.
-
-## Python setup
 
 As of April 2021, I am using Python 3.8 with pip 20.0.2 on WSL2, Ubuntu 20.0.4. This gives me the closest match with my Linux VM and is extremely fast. The dependencies are simple: I need jupyter and pandas for working in the query notebook. I install these packages within a virtual environment.
 
@@ -96,17 +133,7 @@ deactivate
 
 Make sure env/* is in the .gitignore.
 
-
-## Dissertation goals (2021)
-
-- [ ] Identify case study involving Peter Parley. This might involve illustration reuse or data on how the Parley character was visually represented. Don't proceed until you have a good sense of the goal.
-- [ ] Decide on query and collect volumes. It's likely easier to get the data from within a Google VM. Move to VM before running the [PixPlot](https://github.com/YaleDHLab/pix-plot) analysis job. Note that the searching can be done on a flat file using a Jupyter notebook locally. (right??) Take notes on how to do this and put them in this README.
-- [ ] Create VM with standard GPU and generate PixPlot. Use pip and follow PixPlot dependencies exactly. Take notes so that I remember what I've done.
-- [ ] Analyze PixPlot graph (should be less than 5k images) and create one or two montages as well as a selection of detailed figures. Add to dissertation project.
-- [ ] Write a quick DH methods section and figure out the progression of evidence and ideas in the chapter.
-- [ ] Get feedback and revise or submit, depending on the time.
-
-## Downloading and backing up the full ROI dataset
+## Appendix: Getting ACS data from HTRC to GCS
 
 Boris provided the crops via a temporary `rsync` endpoint at `proxy.htrc.indiana.edu::krewson/crops`. From within a `tmux` session on a VM with a 2TB boot drive, I ran:
 
@@ -116,7 +143,7 @@ $ rsync -aP --itemize-changes proxy.htrc.indiana.edu::krewson/crops .
 
 This retrieved the entire `crops` folder containing the stubbytree hierarchy to the VM's persistent disk. The size was 553GB. Unfortunately, `gsutil rsync` tool did not work, since the HTRC server was not in Cloud Object format.
 
-Since GPU quotas and buckets are also associated with projects, I stuck with the global-matrix-245215 project.
+Since GPU quotas and buckets are also associated with projects, I stuck with the `global-matrix-245215` project.
 
 From the VM, after renaming the `crops` folder, I ran the following to copy the data to the cheaper bucket storage:
 
@@ -129,57 +156,24 @@ I first tested with the flag `-n` to see what would happen. Don't select `-d` si
 - Conclusion: make boot disk the 2TB maximum. Mounting and resizing extra disks requires LOTS of extra knowledge of df and lsblk and growpart. Something to study up on, though.
 - Other breakthrough: run tmux ON the remote server!! Then detach and exit. Job will hum merrily along. Otherwise, as soon as my laptop goes to sleep, the SSH connection is broken and it's all over. And it was too weird to run tmux within tmux. Just like the Zoo c. 2017!
 
-- https://wiki.htrc.illinois.edu/display/COM/Downloading+Extracted+Features
+- For pure GCP transfers, I favor `rsync -m`)
 
-- https://cloud.google.com/filestore/docs/copying-data
 
-- https://cloud.google.com/storage/docs/gsutil/commands/rsync
+If you zipped the training images on Windows, you may need the [P7 tool](https://anaconda.org/bioconda/p7zip) to unzip them on the Linux Google VM. You need to create a conda environment to get the right permissions -- difficult!
 
-- https://cloud.google.com/storage/docs/gsutil/commands/cp (for pure GCP transfers, I favor `rsync -m`)
-
-- If you zipped the training images on Windows, you may need the [P7 tool](https://anaconda.org/bioconda/p7zip) to unzip them on the Linux Google VM. You need to create a conda environment to get the right permissions -- difficult!
-
-  ```
-  conda install -c bioconda p7zip
-  7za x [.zip]
-  ```
-
-## HTRC 10-min presentation
-
-- [x] [Data] Bought 4TB HDD drive
-- [x] [Data] Waiting full 600GB dataset (in progress); process `carter-hendee` data from this
-
-- [ ] [Viz] Build charts of images over time (similar to MHL project)
-- [ ] [Viz] Pixplot questions for October 2020 demo:
-  - Can you add additional data to same viz? (or is new folder created)
-  - How can labels be used IN the browser? (colors? more info on click?)
-- [Research] This HAS to be the angle on chapter 3 (but how to integrate with disability)
-- [Research] Ask about volume deduplication (Underwood or Bamman, surely); can images be used for dedup?
-
-https://course.fast.ai/start_gcp.html#step-4-access-fastai-materials-and-update-packages
-
-Eliminate most-wrong. See: https://github.com/fastai/course-v3/blob/master/nbs/dl1/lesson2-download.ipynb (includes REST route); also https://towardsdatascience.com/fastai-image-classification-32d626da20.
-
-https://docs.fast.ai/tutorial.inference.html
+```
+conda install -c bioconda p7zip
+7za x [.zip]
+```
 
 
 ## HathiTrust APIs
 
-UPDATE: I now favor `pip` and `venv` for all dependency management. `conda` is too unpredictable.
+UPDATE: I now favor `pip` and `venv` for all dependency management. `conda` is too unpredictable. Bibliographic metadata can be fetched from HTRC workset [toolkit](https://github.com/htrc/HTRC-WorksetToolkit). Hathi's UI for advanced catalog search is [here](https://catalog.hathitrust.org/Search/Advanced). You still cannot add to a collection from catalog search! This is very limiting.
 
-Bibliographic metadata can be fetched from HTRC workset [toolkit](https://github.com/htrc/HTRC-WorksetToolkit). 
+I have used and contributed a minor version update to the [hathitrust-api](https://github.com/rlmv/hathitrust-api) library. It provides access to Hathi's Data, Bib, and Solr (search) APIs. Install with `pip install hathitrust-api`.
 
-Hathi's UI for advanced catalog search is [here](https://catalog.hathitrust.org/Search/Advanced). You still cannot add to a collection from catalog search! This is very limiting.
-
-Third-party wrappers: 
-
-- Data, Bib, and Solr (search) APIs: https://github.com/rlmv/hathitrust-api (now Python3 compatible: `pip install hathitrust-api`)
-
-### HTRC Capsule
+My HTRC capsule credentials are as follows:
 
 Login: `stephenkrewson` (password saved with Chrome)
 Email: `stephen.krewson@yale.edu`
-
-## Additional image processing resources
-
-Check the `_datasets` and `_image-labeling` folders on my computer for additional resources, such as `ivpy` montage tool.
