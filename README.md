@@ -10,6 +10,16 @@ Deliverables:
 - Community Week slides: `presentations/ACS_2020-HT-Community-Week`
 - Complete 1800-1850 [image dataset](https://console.cloud.google.com/storage/browser/hathitrust-full_1800-50) on Google Cloud Storage
 
+Once the dissertation is submitted, I would like to update the Zenodo:
+
+- Include Jupyter notebooks for working with PixPlot
+- Standardize the image names
+
+However, this is a low priority. The update really only makes sense if I'm able to move to a PixPlot-based workflow where the data can be shared. This is a legal question and one I can take up once I have my PhD.
+
+The important task for now is to write an engaging synthesis in the diss. of how these methods can motivate new research questions from the educational/ephemeral print archive.
+
+
 ## Local and VM environments
 
 N.B. Check the `_datasets` and `_image-labeling` folders on my computer for additional resources, such as `ivpy` montage tool.
